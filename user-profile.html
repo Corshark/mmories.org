@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Profile</title>
+  <link rel="stylesheet" href="profile.css">
+</head>
+<body>
+  <div class="starfield"></div>
+  <div class="profile-background"></div>
+  <h1 id="char-name" class="shimmer-name"></h1>
+  <p id="char-guild" class="shimmer-guild"></p>
+  <div class="mmo-box">
+    <p id="char-mmo"></p>
+  </div>
+  <div class="screenshot-box">
+    <div class="screenshot-wrapper">
+      <img id="char-screenshot" src="" alt="Character Screenshot">
+    </div>
+  </div>
+  <p id="memory-counter" class="shimmer-text" data-tooltip="As your profile ages, it grows in legacy"></p>
+  <p id="visit-counter" class="shimmer-text" data-tooltip="The number of times this profile has been visited"></p>
+  <div class="mystic-panel">
+    <div class="shimmer-text">
+      mmories.com preserves your character in the eternal cosmos.
+    </div>
+  </div>
+  <script>
+  window.addEventListener("DOMContentLoaded", () => {
+    console.log("DOM loaded, initializing user profile page");
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const profileKey = urlParams.get('profile');
+    if (!profileKey) {
+      console.error("No profile key found, redirecting to archives.html");
+      window.location.href = "archives.html";
+      return;
+    }
+
+    let profileData = localStorage.getItem(profileKey);
+    if (!profileData) {
+      console.error("No profile data found for key:", profileKey, "redirecting to archives.html");
+      window.location.href = "archives.html";
+      return;
+    }
+
+    let profile;
+    try {
+      profile = JSON.parse(profileData);
+      console.log("Profile Data:", profile);
+    } catch (error) {
+      console.error("Failed to parse profile data:", error);
+      alert("Invalid profile data.");
+      window.location.href = "archives.html";
+      return;
+    }
+
+    if (!profile.registeredAt) {
+      profile.registeredAt = new Date().toLocaleString();
+      localStorage.setItem(profileKey, JSON.stringify(profile));
+      console.log("Set default registeredAt:", profile.registeredAt);
+    }
+
+    let visitCount = parseInt(localStorage.getItem(`${profileKey}_visitCount`) || "0");
+    visitCount++;
+    localStorage.setItem(`${profileKey}_visitCount`, visitCount);
+    console.log("Visit count updated to:", visitCount);
+
+    const nameEl = document.getElementById("char-name");
+    const guildEl = document.getElementById("char-guild");
+    const mmoEl = document.getElementById("char-mmo");
+    const screenshotEl = document.getElementById("char-screenshot");
+    const counterEl = document.getElementById("memory-counter");
+    const visitCounterEl = document.getElementById("visit-counter");
+
+    if (nameEl) {
+      nameEl.textContent = profile.name || "Unknown Character";
+      console.log("Name set to:", nameEl.textContent);
+    }
+    if (guildEl) {
+      guildEl.textContent = profile.guild || "No Guild";
+      console.log("Guild set to:", guildEl.textContent);
+    }
+    if (mmoEl) {
+      mmoEl.textContent = `From: ${profile.mmo || "Unknown MMO"}`;
+      console.log("MMO set to:", mmoEl.textContent);
+    }
+    if (screenshotEl) {
+      if (profile.screenshots && profile.screenshots.length > 0) {
+        screenshotEl.src = profile.screenshots[0].src || "default-screenshot.png";
+        screenshotEl.alt = `Screenshot of ${profile.name || "Unknown Character"}`;
+        screenshotEl.style.transform = `translate(${profile.screenshots[0].positionX || 0}px, ${profile.screenshots[0].positionY || 0}px) scale(${profile.screenshots[0].scale || 1})`;
+        console.log("Screenshot set:", screenshotEl.src);
+      } else if (profile.screenshot) {
+        screenshotEl.src = profile.screenshot || "default-screenshot.png";
+        screenshotEl.alt = `Screenshot of ${profile.name || "Unknown Character"}`;
+        screenshotEl.style.transform = `translate(${profile.positionX || 0}px, ${profile.positionY || 0}px) scale(${profile.scale || 1})`;
+        console.log("Fallback screenshot set:", screenshotEl.src);
+      } else {
+        screenshotEl.src = "default-screenshot.png";
+        screenshotEl.alt = "No Screenshot Available";
+        console.error("No screenshots found in profile data");
+      }
+    }
+    if (counterEl && profile.registeredAt) {
+      try {
+        const registered = new Date(profile.registeredAt);
+        const now = new Date();
+        if (isNaN(registered.getTime())) {
+          console.error("Invalid registeredAt date:", profile.registeredAt);
+          counterEl.textContent = "Memory Age: Invalid Date";
+        } else {
+          const days = Math.floor((now - registered) / (1000 * 60 * 60 * 24));
+          counterEl.textContent = `Memory Age: ${days} days`;
+          console.log("Memory Age set to:", days, "days, registeredAt:", profile.registeredAt);
+        }
+      } catch (error) {
+        console.error("Error calculating memory age:", error);
+        counterEl.textContent = "Memory Age: Error";
+      }
+    }
+    if (visitCounterEl) {
+      visitCounterEl.textContent = `Profile Visits: ${visitCount}`;
+      console.log("Visit counter set to:", visitCount);
+    }
+
+    const counters = [counterEl, visitCounterEl];
+    counters.forEach(counter => {
+      if (counter) {
+        counter.addEventListener("mouseenter", (e) => {
+          console.log(`Hover on ${counter.id}: showing tooltip`);
+          const tooltip = document.createElement("div");
+          tooltip.classList.add("tooltip");
+          tooltip.textContent = counter.getAttribute("data-tooltip");
+          document.body.appendChild(tooltip);
+
+          const rect = counter.getBoundingClientRect();
+          tooltip.style.left = `${rect.right + 10}px`;
+          tooltip.style.top = `${rect.top + rect.height / 2}px`;
+          tooltip.style.transform = "translateY(-50%)";
+          tooltip.style.display = "block";
+
+          console.log(`Tooltip for ${counter.id} positioned at left: ${tooltip.style.left}, top: ${tooltip.style.top}`);
+
+          counter._tooltip = tooltip;
+        });
+
+        counter.addEventListener("mouseleave", () => {
+          console.log(`Mouse leave on ${counter.id}: hiding tooltip`);
+          if (counter._tooltip) {
+            counter._tooltip.remove();
+            counter._tooltip = null;
+          }
+        });
+      }
+    });
+  });
+  </script>
+</body>
+</html>

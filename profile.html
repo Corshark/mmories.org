@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profile</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/web3/1.7.4-rc.1/web3.min.js"></script>
+  <link rel="stylesheet" href="profile.css">
+  <script src="profile.js" defer></script>
+</head>
+<body>
+  <video autoplay muted loop id="bgVideo" disablePictureInPicture controlsList="nodownload nofullscreen noremoteplayback">
+    <source src="videos/profile.mp4" type="video/mp4">
+  </video>
+  <div class="starfield"></div>
+  <div class="celestial-panel">
+    <div class="created-date">
+      Immortalized on: <span id="created-date-text"></span>
+    </div>
+    <button id="change-background-btn"><span>Change Background</span></button>
+    <button id="change-border-btn"><span>Change Border</span></button>
+    <button id="change-box-bg-btn"><span>Change Box Background</span></button>
+    <button id="reset-customizations-btn"><span>Reset Customizations</span></button>
+    <button id="edit-profile-btn"><span>Edit Profile</span></button>
+    <button id="donate-btn"><span>Donate</span></button>
+  </div>
+  <p id="memory-counter" class="shimmer-text" data-tooltip="As your profile ages, your profile will change with it and evolve"></p>
+  <p id="visit-counter" class="shimmer-text" data-tooltip="The number of times your profile has been visited by others!"></p>
+  <p id="mmorie-points" class="shimmer-text" data-tooltip="Points you earn for profile interactions, redeemable for special features!"></p>
+  <div class="profile-background"></div>
+  <h1 id="char-name" class="shimmer-name"></h1>
+  <p id="char-guild" class="shimmer-guild"></p>
+  <div class="screenshot-box">
+    <div class="screenshot-wrapper">
+      <img id="char-screenshot" src="" alt="Character Screenshot">
+    </div>
+    <button id="prev-screenshot" class="arrow-btn" style="z-index: 6;"><</button>
+    <button id="next-screenshot" class="arrow-btn" style="z-index: 6;">></button>
+  </div>
+  <div class="mmo-box">
+    <p id="char-mmo"></p>
+  </div>
+  <div id="achievements"></div>
+  <div class="mystic-panel">
+    <div class="shimmer-text">
+      mmories.com will keep your character safe here, preserved in the eternal glow of the cosmos.
+    </div>
+  </div>
+  <div id="donation-modal" class="modal">
+    <div class="modal-content">
+      <h2>Donation Options</h2>
+      <div class="donation-options">
+        <div class="donation-option">
+          <input type="radio" id="steam-trade" name="donation-type" value="steam-trade" checked>
+          <label for="steam-trade">Steam Trade</label>
+        </div>
+        <div class="donation-option">
+          <input type="radio" id="metamask" name="donation-type" value="metamask">
+          <label for="metamask">MetaMask (ETH)</label>
+        </div>
+        <input type="number" id="donation-input" min="0.01" step="0.01" placeholder="Amount (ETH)">
+      </div>
+      <p id="donation-note"></p>
+      <div class="modal-buttons">
+        <button id="cancel-donation-btn" class="modal-btn"><span>Cancel</span></button>
+        <button id="confirm-donation-btn" class="modal-btn"><span>Donate</span></button>
+      </div>
+    </div>
+  </div>
+  <audio id="click-sound" src="audio/click-sound.mp3" preload="auto"></audio>
+  <audio id="flip-sound" src="audio/flip-sound.mp3" preload="auto"></audio>
+  <audio id="bg-change-sound" src="audio/bg-change-sound.mp3" preload="auto"></audio>
+  <audio id="border-change-sound" src="audio/border-change-sound.mp3" preload="auto"></audio>
+  <audio id="box-bg-change-sound" src="audio/box-bg-change-sound.mp3" preload="auto"></audio>
+  <audio id="donate-sound" src="audio/donate-sound.mp3" preload="auto"></audio>
+</body>
+</html>

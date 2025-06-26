@@ -1,0 +1,205 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow: hidden;
+  font-family: 'Times New Roman', serif;
+}
+
+.archives-background {
+  background: url('archives-background.jpg') no-repeat center center / cover;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* Hall of Fame Box */
+.hall-of-fame {
+  background-image: url('hall-box-bg.png');
+  background-size: cover;
+  background-position: center;
+  border: 4px solid #FFD700;
+  border-radius: 15px;
+  height: 50vh;
+  width: 450px;
+  overflow-y: auto;
+  padding: 20px;
+  margin: 40px auto 0;
+  box-shadow: 0 0 25px rgba(255, 215, 0, 0.6), 0 0 50px rgba(255, 215, 0, 0.3);
+  animation: borderPulse 3s infinite;
+  font-family: 'Georgia', serif;
+}
+
+/* Profile name */
+.hall-of-fame a {
+  display: block;
+  color: #FFD700;
+  text-decoration: none;
+  padding: 12px;
+  font-size: 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease;
+}
+
+.hall-of-fame a:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  text-shadow: 0 0 8px #FFD700;
+  transform: scale(1.03);
+}
+
+/* VIP shimmering names */
+.hall-of-fame a.vip {
+  font-weight: bold;
+  position: relative;
+  color: #b26be8;
+  overflow: hidden;
+  text-shadow: 0 0 6px #dda0dd, 0 0 10px #b26be8;
+}
+
+.hall-of-fame a.vip::before {
+  content: '';
+  position: absolute;
+  top: -100%;
+  left: -100%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(135deg, transparent 45%, rgba(255,255,255,0.6) 50%, transparent 55%);
+  transform: rotate(45deg);
+  animation: shineSweep 6s infinite linear;
+  pointer-events: none;
+}
+
+/* Guild tag */
+.hall-of-fame .guild {
+  color: #07A5AD;
+  font-style: italic;
+  font-size: 16px;
+  margin-left: 8px;
+}
+
+/* Sparkles */
+.vip-sparkles {
+  position: relative;
+  display: inline-block;
+}
+
+.vip-sparkles::before,
+.vip-sparkles::after {
+  content: "";
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  background: radial-gradient(circle, #fff 40%, transparent 70%);
+  border-radius: 50%;
+  opacity: 0.7;
+  animation: sparkleFloat 2s infinite ease-in-out;
+  pointer-events: none;
+}
+
+.vip-sparkles::after {
+  width: 4px;
+  height: 4px;
+  top: auto;
+  left: auto;
+  right: 0;
+  bottom: 0;
+  animation-delay: 2s;
+}
+
+/* Scrollbar */
+.hall-of-fame::-webkit-scrollbar {
+  width: 12px;
+}
+
+.hall-of-fame::-webkit-scrollbar-thumb {
+  background-color: #FFD700;
+  border-radius: 6px;
+}
+
+.hall-of-fame::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* For Firefox */
+.hall-of-fame {
+  scrollbar-width: thin;
+  scrollbar-color: #FFD700 rgba(255, 255, 255, 0.2);
+}
+
+/* Back button */
+.back-button {
+  margin-top: 20px;
+  font-size: 18px;
+  color: #07A5AD;
+  text-decoration: none;
+  padding: 10px 20px;
+  border: 5px solid #07A5AD;
+  border-radius: 6px;
+  transition: background 0.3s, color 0.3s;
+}
+
+.back-button:hover {
+  background: #07A5AD;
+  color: #000;
+}
+
+/* Animations */
+@keyframes borderPulse {
+  0% { box-shadow: 0 0 25px rgba(255, 215, 0, 0.6), 0 0 50px rgba(255, 215, 0, 0.3); }
+  50% { box-shadow: 0 0 35px rgba(255, 215, 0, 0.9), 0 0 60px rgba(255, 215, 0, 0.5); }
+  100% { box-shadow: 0 0 25px rgba(255, 215, 0, 0.6), 0 0 50px rgba(255, 215, 0, 0.3); }
+}
+
+@keyframes sparkleFloat {
+  0% { transform: translate(0, 0) scale(1); opacity: 0.8; }
+  50% { transform: translate(-10px, -15px) scale(1.4); opacity: 1; }
+  100% { transform: translate(0, 0) scale(1); opacity: 0.6; }
+}
+
+@keyframes shineSweep {
+  0% { transform: translate(-100%, -100%) rotate(45deg); opacity: 0; }
+  50% { opacity: 1; }
+  100% { transform: translate(100%, 100%) rotate(45deg); opacity: 0; }
+}
+
+/* Responsive styles for mobile devices */
+@media screen and (max-width: 768px) {
+  .hall-of-fame {
+    width: 90%;
+    padding: 15px;
+  }
+
+  .hall-of-fame a {
+    font-size: 16px;
+  }
+
+  .back-button {
+    font-size: 16px;
+    padding: 8px 16px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .hall-of-fame {
+    width: 100%;
+    padding: 10px;
+  }
+
+  .hall-of-fame a {
+    font-size: 14px;
+  }
+
+  .back-button {
+    font-size: 14px;
+    padding: 6px 12px;
+  }
+}
+.hall-of-fame a.vip {
+  background-color: rgba(0, 0, 0, 0.5); /* darker background for better readability */
+  border-radius: 8px;
+  padding: 12px;
+  margin-bottom: 8px;
+}

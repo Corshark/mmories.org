@@ -1,0 +1,125 @@
+@import url('https://fonts.googleapis.com/css2?family=EB+Garamond&display=swap?cachebust=2025060302');
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  background: black;
+  font-family: 'EB Garamond', serif;
+  overflow: hidden;
+}
+
+video#bgVideo {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+  object-position: center;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.header-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  padding: 50px 20px;
+  color: #FFD700;
+  text-shadow: 0 0 10px #FFD70088;
+}
+
+.header-content h1 {
+  font-size: 3em;
+  margin: 0;
+}
+
+.header-content p {
+  font-size: 1.2em;
+  margin: 10px 0;
+}
+
+.top-nav {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  padding: 10px;
+}
+
+.archives-button {
+  padding: 10px 20px;
+  font-size: 1.2em;
+  background-color: #1C0237;
+  color: #FFD700;
+  border: 2px solid #FFD700;
+  border-radius: 12px;
+  text-decoration: none;
+  transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.archives-button:hover {
+  transform: scale(1.1);
+  background-color: #FFD700;
+  color: #1C0237;
+}
+
+.g_id_signin {
+  display: block;
+  margin: 20px auto;
+  position: relative;
+  z-index: 2;
+  max-width: 300px; /* Optional: limits button width */
+}
+
+.audio-controls {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  padding: 10px;
+}
+
+#volumeSlider {
+  display: none;
+  width: 100px;
+  margin-top: 5px;
+}
+
+.founders {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  padding: 20px;
+  color: #DDD;
+  font-size: 1.1em;
+}
+
+.founders-title {
+  font-size: 1.5em;
+  color: #FFD700;
+  text-shadow: 0 0 10px #FFD70088;
+  margin-bottom: 10px;
+}
+
+.founder-item {
+  margin: 5px 0;
+  font-family: 'EB Garamond', serif;
+  color: #FFD700;
+  text-shadow: 0 0 5px #FFD70066;
+  transition: transform 0.3s ease;
+}
+
+.founder-item:hover {
+  transform: scale(1.05);
+}
+
+.shimmer-name {
+  animation: shimmer 2s infinite alternate;
+  color: #FFD700;
+  text-shadow: 0 0 15px #FFD700, 0 0 30px #FFD70088;
+}
+
+@keyframes shimmer {
+  0% { text-shadow: 0 0 10px #FFD700, 0 0 20px #FFD70066; }
+  100% { text-shadow: 0 0 20px #FFD700, 0 0 40px #FFD70088; }
+}

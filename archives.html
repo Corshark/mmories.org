@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Archives of Eternals</title>
+  <link rel="stylesheet" href="archives-style.css"> <!-- External CSS link -->
+</head>
+<body class="archives-background">
+
+  <!-- UI: Loading, Counter, Search -->
+  <div id="loading" style="color:white;text-align:center;padding:20px;">Loading Hall of Fame...</div>
+
+  <!-- Profile Counter -->
+  <div id="profile-counter" style="color: #FFD700; margin-bottom: 10px; font-size: 18px; font-family: Georgia, serif;">
+    Registered Profiles: <span id="profile-count">5</span> / 10,000
+  </div>
+
+  <!-- Search Input -->
+  <input type="text" id="search" placeholder="Search profiles..." style="padding: 8px; width: 80%; max-width: 400px; margin-bottom: 10px; border-radius: 6px; border: 1px solid #FFD700; font-size: 16px; font-family: 'Georgia', serif;">
+
+  <!-- Immortalize Button -->
+  <button onclick="window.location.href='create-profile.html'" style="margin: 10px; padding: 14px 28px; font-size: 20px; font-family: 'Georgia', serif; background-color: #1C0237; color: #FFD700; border: 2px solid #FFD700; border-radius: 12px; cursor: pointer; transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;">
+    immortalize
+  </button>
+
+  <style>
+    /* Button hover and active effects */
+    button:hover {
+      transform: scale(1.1);
+      background-color: #FFD700;
+      color: #1C0237;
+      box-shadow: 0 4px 20px rgba(255, 215, 0, 0.6);
+    }
+
+    button:active {
+      transform: scale(1.05);
+      background-color: #FFD700;
+      color: #1C0237;
+      box-shadow: 0 4px 20px rgba(255, 215, 0, 0.6);
+    }
+  
+    /* Animation for button */
+    button {
+      animation: pulse 1.5s infinite alternate;
+    }
+
+    @keyframes pulse {
+      0% {
+        transform: scale(1);
+        box-shadow: 0 4px 10px rgba(255, 215, 0, 0.3);
+      }
+      100% {
+        transform: scale(1.1);
+        box-shadow: 0 4px 20px rgba(255, 215, 0, 0.6);
+      }
+    }
+  </style>
+
+  <!-- Hall of Fame Container -->
+  <main class="hall-of-fame" id="hall-of-fame">
+    <!-- Dynamic profiles will be inserted here -->
+  </main>
+
+  <!-- Return Button -->
+  <a href="index.html" class="back-button">← Return</a>
+
+  <!-- Click Sound -->
+  <audio id="clickSound" src="audio/click-sound.mp3" preload="auto"></audio>
+
+  <script>
+    let userLoggedIn = true;
+
+    function loadProfiles() {
+      const hallOfFame = document.getElementById("hall-of-fame");
+      const profiles = [
+        { name: "Falconer", guild: "[Roofer]", screenshot: "falconer.jpg" },
+        { name: "Ozorah", guild: "[Roofer]", screenshot: "ozorah.jpg" },
+        { name: "Shinners13", guild: "[Roofer]", screenshot: "shinners13.jpg" },
+        { name: "Sirencore", guild: "[Roofer]", screenshot: "sirencore.jpg" },
+        { name: "Hizaki420", guild: "[Roofer]", screenshot: "hizaki420.jpg" }
+      ];
+
+      const savedProfile = JSON.parse(localStorage.getItem("mmoriesProfile"));
+      if (savedProfile && !profiles.some(p => p.name === savedProfile.name)) {
+        profiles.push(savedProfile);
+        document.getElementById("profile-count").textContent = profiles.length;
+      }
+
+      profiles.forEach(profile => {
+        const link = document.createElement("a");
+        link.href = "#";
+        link.className = "vip";
+        link.innerHTML = `<span class="vip-sparkles">${profile.name}</span> <span class="guild">${profile.guild}</span>`;
+
+        if (savedProfile && profile.name === savedProfile.name) {
+          link.href = "profile.html";
+          link.onclick = (e) => {
+            e.preventDefault();
+            localStorage.setItem("currentProfile", JSON.stringify(profile));
+            window.location.href = "profile.html";
+          };
+        }
+
+        hallOfFame.appendChild(link);
+      });
+
+      document.getElementById("loading").style.display = "none";
+    }
+
+    document.getElementById("search").addEventListener("input", function() {
+      const searchTerm = this.value.toLowerCase();
+      const links = document.querySelectorAll(".vip");
+      links.forEach(link => {
+        const text = link.textContent.toLowerCase();
+        link.style.display = text.includes(searchTerm) ? "block" : "none";
+      });
+    });
+
+    window.onload = loadProfiles;
+
+    // Click sound for all interactive elements
+    const clickSound = document.getElementById('clickSound');
+    if (clickSound) {
+      console.log('Click sound element found, src:', clickSound.src);
+      clickSound.volume = 1.0; // Ensure volume is at max
+      clickSound.muted = false; // Explicitly unmute
+      clickSound.load(); // Ensure the audio is loaded
+    } else {
+      console.error('Click sound element not found!');
+    }
+
+    const clickableElements = document.querySelectorAll('button, a');
+    clickableElements.forEach(element => {
+      element.addEventListener('click', (event) => {
+        if (clickSound) {
+          console.log('Attempting to play click sound... Volume:', clickSound.volume, 'Muted:', clickSound.muted);
+          clickSound.currentTime = 0; // Reset to start
+          clickSound.play().catch(error => console.error('Click sound play failed:', error));
+        } else {
+          console.error('No click sound element available!');
+        }
+      });
+    });
+  </script>
+</body>
+</html>
