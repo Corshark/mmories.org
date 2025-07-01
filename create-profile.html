@@ -1,154 +1,857 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Save Profile - Mmories.org</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Create Your Immortal Profile</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      font-family: Georgia, serif;
+      color: #FFD700;
+      background: #2F2544;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      box-sizing: border-box;
+      position: relative;
+    }
+
+    body::-webkit-scrollbar {
+      width: 12px;
+    }
+
+    body::-webkit-scrollbar-track {
+      background: #1C0237;
+    }
+
+    body::-webkit-scrollbar-thumb {
+      background: linear-gradient(90deg, #FFD700, #b8860b);
+      border-radius: 6px;
+      border: 2px solid #01d9f5;
+    }
+
+    body::-webkit-scrollbar-thumb:hover {
+      background: linear-gradient(90deg, #b8860b, #FFD700);
+    }
+
+    #particles-container {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 0;
+    }
+
+    .particle {
+      position: absolute;
+      background: radial-gradient(circle, #FFD700CC, #b8860b88);
+      border-radius: 50%;
+      opacity: 0.8;
+      filter: drop-shadow(0 0 6px #FFD700AA);
+      animation-name: fall;
+      animation-timing-function: linear;
+      animation-iteration-count: infinite;
+    }
+
+    @keyframes fall {
+      0% { transform: translateY(-10px); opacity: 0.8; }
+      90% { opacity: 0.6; }
+      100% { transform: translateY(100vh); opacity: 0; }
+    }
+
+    body > .container {
+      display: flex;
+      gap: 40px;
+      width: 90%;
+      max-width: 1100px;
+      z-index: 1;
+      padding: 20px;
+      flex-wrap: wrap;
+      margin-top: 20px;
+    }
+
+    .intro-box,
+    .form-container {
+      flex: 1;
+      max-width: 600px;
+      background: #40281e;
+      border: 2px solid #01d9f5;
+      border-radius: 18px;
+      padding: 36px 42px;
+      color: #FFD700;
+      font-size: 1.15rem;
+      line-height: 1.6;
+      box-shadow: 0 0 25px #FFD70088, 0 0 16px #01d9f5AA;
+      animation: fadeFloat 4s ease forwards;
+      user-select: none;
+      text-shadow: 0 0 6px #ffec8b88;
+      display: flex;
+      flex-direction: column;
+      min-width: 300px;
+    }
+
+    .form-container {
+      padding: 50px 60px;
+      max-height: 80vh;
+      overflow-y: auto;
+    }
+
+    .form-container::-webkit-scrollbar {
+      width: 10px;
+    }
+
+    .form-container::-webkit-scrollbar-track {
+      background: #1C0237;
+    }
+
+    .form-container::-webkit-scrollbar-thumb {
+      background: linear-gradient(90deg, #FFD700, #b8860b);
+      border-radius: 5px;
+      border: 1px solid #01d9f5;
+    }
+
+    .form-container::-webkit-scrollbar-thumb:hover {
+      background: linear-gradient(90deg, #b8860b, #FFD700);
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 3.6rem;
+      margin-bottom: 30px;
+      letter-spacing: 0.1em;
+      font-weight: 800;
+      background: linear-gradient(90deg, #b8860b, #ffd700, #b8860b);
+      background-size: 300%;
+      color: transparent;
+      background-clip: text;
+      -webkit-background-clip: text;
+      animation: shimmer 3s infinite ease-in-out, glow-pulse 4s infinite ease-in-out;
+      text-shadow: 0 0 20px rgba(255, 215, 0, 0.4), 0 0 8px #ffec8b;
+      user-select: none;
+    }
+
+    @keyframes glow-pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.03); }
+    }
+
+    @keyframes fadeFloat {
+      0% { opacity: 0; transform: translateY(15px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes shimmer {
+      0% { background-position: 200% center; }
+      50% { background-position: 0% center; }
+      100% { background-position: 200% center; }
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+    }
+
+    input[type="text"], input[type="file"] {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 25px;
+      font-size: 1rem;
+      border-radius: 8px;
+      border: 1.5px solid #01d9f5;
+      background-color: #1C0237;
+      color: #FFD700;
+    }
+
+    input[type="text"]::placeholder {
+      color: #01d9f588;
+    }
+
+    button {
+      padding: 10px 24px;
+      font-size: 1.1rem;
+      border-radius: 10px;
+      border: 2px solid #FFD700;
+      background-color: #1C0237;
+      color: #FFD700;
+      cursor: pointer;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      margin: 20px auto 0;
+      display: block;
+      width: fit-content;
+    }
+
+    button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 25px #FFD700AA;
+    }
+
+    button:active {
+      transform: scale(0.97);
+      box-shadow: 0 0 10px #FFD700CC inset;
+    }
+
+    .about-box {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      max-width: 320px;
+      background: #40281e;
+      border: 2px solid #01d9f5;
+      border-radius: 18px;
+      padding: 24px 30px;
+      color: #fff;
+      font-size: 1.15rem;
+      box-shadow: 0 0 25px #FFFFFF88, 0 0 16px #01d9f5AA;
+      text-shadow: 0 0 6px #FFFFFF88;
+      z-index: 10;
+    }
+
+    .about-box h2 {
+      margin-top: 0;
+      font-size: 1.8rem;
+    }
+
+    #bg-video {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
+      z-index: -1;
+      opacity: 0.35;
+      pointer-events: none;
+    }
+
+    #loading-section {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 30px;
+    }
+
+    #loading-bar-container {
+      width: 100%;
+      height: 20px;
+      background-color: #1c0237;
+      border: 2px solid #FFD700;
+      border-radius: 10px;
+      overflow: hidden;
+      margin-bottom: 16px;
+      box-shadow: 0 0 12px #FFD70066;
+    }
+
+    #loading-bar {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #FFD700, #b8860b);
+      animation: load-progress 3s forwards;
+    }
+
+    @keyframes load-progress {
+      0% { width: 0%; }
+      100% { width: 100%; }
+    }
+
+    #ad-placeholder {
+      width: 100%;
+      padding: 12px;
+      text-align: center;
+      color: #aaa;
+      font-size: 0.95rem;
+      font-style: italic;
+      border: 1px dashed #555;
+      border-radius: 10px;
+      background-color: rgba(0, 0, 0, 0.2);
+    }
+
+    .tooltip {
+      display: inline-block;
+      position: relative;
+      cursor: help;
+      margin-left: 6px;
+      color: #01d9f5;
+      font-size: 1rem;
+      vertical-align: middle;
+    }
+
+    .tooltip::after {
+      content: attr(data-tooltip);
+      position: absolute;
+      bottom: 130%;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: #1c0237;
+      color: #FFD700;
+      border: 1px solid #FFD70088;
+      border-radius: 6px;
+      padding: 8px 12px;
+      font-size: 0.95rem;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s ease;
+      box-shadow: 0 0 8px #FFD70066;
+      z-index: 99;
+    }
+
+    .tooltip:hover::after {
+      opacity: 1;
+    }
+
+    .preview-container {
+      margin-top: 20px;
+      position: relative;
+      width: 200px;
+      height: 200px;
+      background: #40281e;
+      border: 2px solid #01d9f5;
+      border-radius: 10px;
+      overflow: hidden;
+      display: none;
+    }
+
+    .preview-image {
+      position: absolute;
+      max-width: 100%;
+      max-height: 100%;
+      cursor: move;
+      user-select: none;
+    }
+
+    .screenshot-group {
+      margin-bottom: 20px;
+    }
+
+    .add-screenshot-btn {
+      margin-top: 10px;
+    }
+  </style>
 </head>
 <body>
-  <section class="container" style="margin-top: 50px; width: 50%;">
-    <h1 class="text-primary">Save Profile</h1>
-    <div class="card">
-      <div class="card-body">
-        <h2>About mmories</h2>
-        <p>Immortalize your MMO characters forever. Upload a screenshot, enter their name and guild, and create a cosmic legacy.</p>
-      </div>
+  <video autoplay muted loop playsinline id="bg-video">
+    <source src="create-profile-background.mp4" type="video/mp4" />
+  </video>
+
+  <div id="particles-container"></div>
+
+  <div class="about-box">
+    <h2>About mmories</h2>
+    <p>Immortalize your MMO characters forever. Upload a screenshot, enter their name and guild, and create a cosmic legacy.</p>
+  </div>
+
+  <div class="container">
+    <div class="intro-box">
+      <p>Hello, traveler.<br>
+      I’m <strong>Corshark</strong> — a fellow adventurer, and the creator of <strong>mmories.com</strong>.</p>
+
+      <p>We live in an age where MMORPGs are vanishing — fading into silence as their servers go dark.<br>
+      The worlds we once explored, the names we chose, the guilds we called home... they deserve more than deletion.</p>
+
+      <p>That’s why I created <strong>mmories.com</strong>:<br>
+      a space where your characters can live on, even after the games are gone.</p>
+
+      <p>This is that place.</p>
+
+      <p><strong>Here, your legacy won’t vanish. It will be immortalized.</strong></p>
     </div>
-    <div class="card mt-3">
-      <div class="card-body">
-        <p>Hello, traveler.</p>
-        <p>I’m Corshark — a fellow adventurer, and the creator of mmories.com.</p>
-        <p>We live in an age where MMORPGs are vanishing — fading into silence as their servers go dark.</p>
-        <p>The worlds we once explored, the names we chose, the guilds we called home... they deserve more than deletion.</p>
-        <p>That’s why I created mmories.com:</p>
-        <p>a space where your characters can live on, even after the games are gone.</p>
-        <p>This is that place.</p>
-        <p>Here, your legacy won’t vanish. It will be immortalized.</p>
-      </div>
-    </div>
-    <div class="card mt-3">
-      <div class="card-body">
-        <h2>Immortalize Your Character</h2>
-        <form id="profileForm">
-          <div class="form-group">
-            <label for="characterName">Character Name <span class="text-info">ℹ️</span></label>
-            <input type="text" class="form-control" id="characterName" placeholder="Enter character name">
+
+    <div class="form-container">
+      <form id="profileForm">
+        <h1>Immortalize Your Character</h1>
+
+        <label for="name">
+          Character Name
+          <span class="tooltip" data-tooltip="The name your character used in the game.">ℹ️</span>
+        </label>
+        <input type="text" id="name" name="name" placeholder="e.g., Arthanos the Brave" required />
+
+        <label for="guild">
+          Guild
+          <span class="tooltip" data-tooltip="The group or clan your character belonged to.">ℹ️</span>
+        </label>
+        <input type="text" id="guild" name="guild" placeholder="e.g., Knights of Dawn" />
+
+        <label for="mmo">
+          MMO Game
+          <span class="tooltip" data-tooltip="The MMORPG your character originates from.">ℹ️</span>
+        </label>
+        <input type="text" id="mmo" name="mmo" placeholder="e.g., World of Warcraft" required />
+
+        <div class="screenshot-group">
+          <label for="screenshot0">
+            Character Screenshot 1
+            <span class="tooltip" data-tooltip="Upload an in-game image of your character (max 2MB).">ℹ️</span>
+          </label>
+          <input type="file" id="screenshot0" name="screenshot0" accept="image/*" required />
+          <div id="preview-container0" class="preview-container">
+            <img id="preview-image0" src="" alt="Preview Screenshot 1" class="preview-image">
           </div>
-          <div class="form-group">
-            <label for="guildName">Guild <span class="text-info">ℹ️</span></label>
-            <input type="text" class="form-control" id="guildName" placeholder="Enter guild name">
-          </div>
-          <div class="form-group">
-            <label for="mmoGame">MMO Game <span class="text-info">ℹ️</span></label>
-            <input type="text" class="form-control" id="mmoGame" placeholder="Enter MMO game">
-          </div>
-          <div class="form-group">
-            <label for="screenshot1">Character Screenshot 1 <span class="text-info">ℹ️</span></label>
-            <input type="file" class="form-control" id="screenshot1" accept="image/*">
-          </div>
-          <div id="extraScreenshots"></div>
-          <button type="button" class="btn btn-secondary mt-2" id="addScreenshot">Add Another Screenshot</button>
-          <button type="submit" class="btn btn-primary mt-2">Immortalize</button>
-        </form>
-        <div class="mt-3">
-          <p>Advertisement</p>
         </div>
-      </div>
+
+        <button type="button" class="add-screenshot-btn" id="addScreenshot">Add Another Screenshot</button>
+
+        <button type="submit">Immortalize</button>
+
+        <div id="loading-section">
+          <div id="loading-bar-container">
+            <div id="loading-bar"></div>
+          </div>
+          <div id="ad-placeholder">
+            <p>Advertisement</p>
+          </div>
+        </div>
+      </form>
     </div>
-  </section>
+  </div>
 
-  <script type="module">
-    // Import Firebase SDKs
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js";
-    import { getDatabase, ref, push, set } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-database.js";
-    import { getStorage, ref as storageRef, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-storage.js";
+<script>
+  const container = document.getElementById('particles-container');
+  let previewContainers = [document.getElementById('preview-container0')];
+  let previewImages = [document.getElementById('preview-image0')];
+  let initialStates = [{ initialX: 0, initialY: 0, scale: 1 }];
 
-    // Firebase configuration
-    const firebaseConfig = {
-      apiKey: "AIzaSyBbQkQ2Sy9pMyKx68z3p_PLwTON70BS1PQ",
-      authDomain: "mmories-org-live.firebaseapp.com",
-      projectId: "mmories-org-live",
-      storageBucket: "mmories-org-live.firebasestorage.app",
-      messagingSenderId: "978660559442",
-      appId: "1:978660559442:web:b874b822f391a765a4ed8b"
+  function createParticle() {
+    const particle = document.createElement('div');
+    particle.classList.add('particle');
+    const size = Math.random() * 6 + 2;
+    particle.style.width = size + 'px';
+    particle.style.height = size + 'px';
+    particle.style.left = Math.random() * 100 + 'vw';
+    particle.style.animationDuration = (Math.random() * 8 + 6) + 's';
+    const isGold = Math.random() < 0.8;
+    particle.style.background = isGold ? 'radial-gradient(circle, #FFD700CC, #b8860b88)' : 'radial-gradient(circle, #00e7f9cc, #01d9f588)';
+    particle.style.filter = isGold ? 'drop-shadow(0 0 6px #FFD700AA)' : 'drop-shadow(0 0 8px #00e7f9bb)';
+    container.appendChild(particle);
+    particle.addEventListener('animationend', () => particle.remove());
+  }
+
+  setInterval(createParticle, 200);
+
+  // Function to compress image
+  function compressImage(file, callback) {
+    const maxSizeMB = 2; // Max file size in MB
+    if (file.size > maxSizeMB * 1024 * 1024) {
+      alert(`File ${file.name} is too large. Please upload an image smaller than ${maxSizeMB}MB.`);
+      callback(null);
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = function(event) {
+      const img = new Image();
+      img.onload = function() {
+        const canvas = document.createElement('canvas');
+        const maxDimension = 800; // Max width or height
+        let width = img.width;
+        let height = img.height;
+
+        // Resize image while maintaining aspect ratio
+        if (width > height) {
+          if (width > maxDimension) {
+            height *= maxDimension / width;
+            width = maxDimension;
+          }
+        } else {
+          if (height > maxDimension) {
+            width *= maxDimension / height;
+            height = maxDimension;
+          }
+        }
+
+        canvas.width = width;
+        canvas.height = height;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, 0, width, height);
+        // Convert to JPEG with 70% quality
+        const dataUrl = canvas.toDataURL('image/jpeg', 0.7);
+        callback(dataUrl);
+      };
+      img.src = event.target.result;
+    };
+    reader.readAsDataURL(file);
+  }
+
+  // Initial setup for the first screenshot
+  document.getElementById('screenshot0').addEventListener('change', function(e) {
+    const file = e.target.files[0];
+    if (file) {
+      compressImage(file, function(dataUrl) {
+        if (dataUrl) {
+          previewImages[0].src = dataUrl;
+          previewContainers[0].style.display = 'block';
+          previewImages[0].style.transform = 'translate(0, 0) scale(1)';
+          initialStates[0] = { initialX: 0, initialY: 0, scale: 1 };
+        }
+      });
+    }
+  });
+
+  previewImages[0].addEventListener('mousedown', startDragging(0));
+  previewImages[0].addEventListener('wheel', handleZoom(0));
+
+  document.getElementById('addScreenshot').addEventListener('click', function() {
+    if (previewContainers.length >= 5) {
+      alert("You can only add up to 5 screenshots!");
+      return;
+    }
+
+    const index = previewContainers.length;
+    const screenshotGroup = document.createElement('div');
+    screenshotGroup.className = 'screenshot-group';
+    screenshotGroup.innerHTML = `
+      <label for="screenshot${index}">
+        Character Screenshot ${index + 1}
+        <span class="tooltip" data-tooltip="Upload an in-game image of your character (max 2MB).">ℹ️</span>
+      </label>
+      <input type="file" id="screenshot${index}" name="screenshot${index}" accept="image/*" />
+      <div id="preview-container${index}" class="preview-container">
+        <img id="preview-image${index}" src="" alt="Preview Screenshot ${index + 1}" class="preview-image">
+      </div>
+    `;
+    const addButton = document.getElementById('addScreenshot');
+    addButton.parentNode.insertBefore(screenshotGroup, addButton);
+
+    const newPreviewContainer = document.getElementById(`preview-container${index}`);
+    const newPreviewImage = document.getElementById(`preview-image${index}`);
+    previewContainers.push(newPreviewContainer);
+    previewImages.push(newPreviewImage);
+    initialStates.push({ initialX: 0, initialY: 0, scale: 1 });
+
+    document.getElementById(`screenshot${index}`).addEventListener('change', function(e) {
+      const file = e.target.files[0];
+      if (file) {
+        compressImage(file, function(dataUrl) {
+          if (dataUrl) {
+            newPreviewImage.src = dataUrl;
+            newPreviewContainer.style.display = 'block';
+            newPreviewImage.style.transform = `translate(0, 0) scale(1)`;
+            initialStates[index] = { initialX: 0, initialY: 0, scale: 1 };
+          }
+        });
+      }
+    });
+
+    newPreviewImage.addEventListener('mousedown', startDragging(index));
+    newPreviewImage.addEventListener('wheel', handleZoom(index));
+  });
+
+  function startDragging(index) {
+    return function(e) {
+      let isDragging = false;
+      let startX, startY;
+
+      isDragging = true;
+      startX = e.clientX - initialStates[index].initialX;
+      startY = e.clientY - initialStates[index].initialY;
+      previewImages[index].style.transition = 'none';
+
+      const handleMove = (e) => {
+        if (isDragging) {
+          e.preventDefault();
+          initialStates[index].initialX = e.clientX - startX;
+          initialStates[index].initialY = e.clientY - startY;
+          previewImages[index].style.transform = `translate(${initialStates[index].initialX}px, ${initialStates[index].initialY}px) scale(${initialStates[index].scale})`;
+        }
+      };
+
+      const handleUp = () => {
+        if (isDragging) {
+          isDragging = false;
+          previewImages[index].style.transition = 'transform 0.3s ease';
+          document.removeEventListener('mousemove', handleMove);
+          document.removeEventListener('mouseup', handleUp);
+        }
+      };
+
+      document.addEventListener('mousemove', handleMove);
+      document.addEventListener('mouseup', handleUp);
+    };
+  }
+
+  function handleZoom(index) {
+    return function(e) {
+      e.preventDefault();
+      const delta = e.deltaY * -0.001;
+      initialStates[index].scale = Math.min(Math.max(0.5, initialStates[index].scale + delta), 2);
+      previewImages[index].style.transform = `translate(${initialStates[index].initialX}px, ${initialStates[index].initialY}px) scale(${initialStates[index].scale})`;
+    };
+  }
+
+  document.getElementById('profileForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    const name = document.getElementById('name').value.trim();
+    const guild = document.getElementById('guild').value.trim();
+    const mmo = document.getElementById('mmo').value.trim();
+    const screenshots = [];
+
+    let filesProcessed = 0;
+    const totalFiles = previewContainers.length;
+
+    previewContainers.forEach((container, index) => {
+      const input = document.getElementById(`screenshot${index}`);
+      if (input.files && input.files.length > 0) {
+        const file = input.files[0];
+        compressImage(file, function(dataUrl) {
+          if (dataUrl) {
+            screenshots.push({
+              src: dataUrl,
+              positionX: initialStates[index].initialX,
+              positionY: initialStates[index].initialY,
+              scale: initialStates[index].scale
+            });
+          }
+          filesProcessed++;
+          if (filesProcessed === totalFiles) {
+            if (screenshots.length === 0) {
+              alert("Please upload at least one screenshot image!");
+              return;
+            }
+            saveProfile(name, guild, mmo, screenshots);
+          }
+        });
+      } else {
+        filesProcessed++;
+        if (filesProcessed === totalFiles) {
+          if (screenshots.length === 0) {
+            alert("Please upload at least one screenshot image!");
+            return;
+          }
+          saveProfile(name, guild, mmo, screenshots);
+        }
+      }
+    });
+  });
+
+  function saveProfile(name, guild, mmo, screenshots) {
+    document.getElementById("loading-section").style.display = "flex";
+
+    const profileKey = "mmoriesProfile_" + Date.now();
+
+    const profile = {
+      name: name || "Unknown Hero",
+      guild: guild || "[Wanderer]",
+      mmo: mmo || "Unknown Realm",
+      screenshots: screenshots,
+      registeredAt: new Date().toLocaleString()
     };
 
-    // Initialize Firebase
-    const app = initializeApp(firebaseConfig);
-    const database = getDatabase(app);
-    const storage = getStorage(app);
+    try {
+      // Clear old profiles to free up space
+      for (let key in localStorage) {
+        if (key.startsWith('mmoriesProfile_') && key !== profileKey) {
+          localStorage.removeItem(key);
+          localStorage.removeItem(key + '_visitCount');
+          localStorage.removeItem(key + '_mmoriePoints');
+          localStorage.removeItem(key + '_achievements');
+        }
+      }
 
-    // Handle adding extra screenshot fields
-    let screenshotCount = 1;
-    document.getElementById('addScreenshot').addEventListener('click', () => {
-      screenshotCount++;
-      const extraScreenshotsDiv = document.getElementById('extraScreenshots');
-      const newInput = document.createElement('div');
-      newInput.className = 'form-group';
-      newInput.innerHTML = `
-        <label for="screenshot${screenshotCount}">Character Screenshot ${screenshotCount} <span class="text-info">ℹ️</span></label>
-        <input type="file" class="form-control" id="screenshot${screenshotCount}" accept="image/*">
-      `;
-      extraScreenshotsDiv.appendChild(newInput);
-    });
+      localStorage.setItem("hasProfile", "true");
+      localStorage.setItem(profileKey, JSON.stringify(profile));
+      localStorage.setItem("lastProfileKey", profileKey);
+      localStorage.setItem(profileKey + "_visitCount", "0");
+      localStorage.setItem(profileKey + "_mmoriePoints", "1000");
+      localStorage.setItem(profileKey + "_achievements", JSON.stringify([]));
+      alert("Profile saved! Redirecting in 3 seconds...");
+      setTimeout(() => {
+        window.location.href = "profile.html?profile=" + profileKey;
+      }, 3000);
+    } catch (e) {
+      alert("Error saving profile: " + e.message + ". Try uploading smaller images or fewer screenshots.");
+      document.getElementById("loading-section").style.display = "none";
+    }
+  }
+<script>
+  // Prevent default drag behavior to avoid unwanted side effects
+  function preventDefaultDrag(event) {
+    event.preventDefault();
+  }
 
-    // Handle form submission
-    document.getElementById('profileForm').addEventListener('submit', async (event) => {
+  let dragState = {
+    dragging: false,
+    index: null,
+    startX: 0,
+    startY: 0,
+    currentX: 0,
+    currentY: 0,
+    translateX: 0,
+    translateY: 0,
+    scale: 1
+  };
+
+  function startDragging(index) {
+    return function(event) {
       event.preventDefault();
+      dragState.dragging = true;
+      dragState.index = index;
+      dragState.startX = event.clientX;
+      dragState.startY = event.clientY;
+      const img = previewImages[index];
+      const style = window.getComputedStyle(img);
+      const matrix = new DOMMatrixReadOnly(style.transform);
+      dragState.translateX = matrix.m41;
+      dragState.translateY = matrix.m42;
+      dragState.scale = matrix.a;
+    }
+  }
 
-      const characterName = document.getElementById('characterName').value.trim();
-      const guildName = document.getElementById('guildName').value.trim();
-      const mmoGame = document.getElementById('mmoGame').value.trim();
-      const screenshots = Array.from({ length: screenshotCount }, (_, i) => 
-        document.getElementById(`screenshot${i + 1}`)?.files[0]
-      ).filter(file => file); // Only include selected files
+  function duringDragging(event) {
+    if (!dragState.dragging) return;
+    event.preventDefault();
+    const dx = event.clientX - dragState.startX;
+    const dy = event.clientY - dragState.startY;
+    dragState.currentX = dragState.translateX + dx;
+    dragState.currentY = dragState.translateY + dy;
+    const img = previewImages[dragState.index];
+    img.style.transform = `translate(${dragState.currentX}px, ${dragState.currentY}px) scale(${dragState.scale})`;
+  }
 
-      // Validate guild name
-      if (guildName.toLowerCase() === 'roofer') {
-        alert('Error: The guild name "Roofer" is reserved for founders only.');
-        return;
-      }
+  function endDragging(event) {
+    if (!dragState.dragging) return;
+    dragState.dragging = false;
+    const img = previewImages[dragState.index];
+    const style = window.getComputedStyle(img);
+    const matrix = new DOMMatrixReadOnly(style.transform);
+    dragState.translateX = matrix.m41;
+    dragState.translateY = matrix.m42;
+    dragState.scale = matrix.a;
+  }
 
-      // Validate required fields
-      if (!characterName || !guildName || !mmoGame || screenshots.length === 0) {
-        alert('Error: All fields are required, including at least one screenshot.');
-        return;
-      }
+  function handleZoom(index) {
+    return function(event) {
+      event.preventDefault();
+      let img = previewImages[index];
+      const style = window.getComputedStyle(img);
+      const matrix = new DOMMatrixReadOnly(style.transform);
+      let currentScale = matrix.a;
 
-      try {
-        // Create a new profile reference
-        const profilesRef = ref(database, 'profiles');
-        const newProfileRef = push(profilesRef);
+      const delta = -event.deltaY || event.wheelDelta || -event.detail;
+      const zoomStep = 0.1;
+      let newScale = currentScale + (delta > 0 ? zoomStep : -zoomStep);
+      newScale = Math.max(0.5, Math.min(3, newScale));
 
-        // Upload screenshots to Firebase Storage
-        const screenshotURLs = await Promise.all(
-          screenshots.map(async (file, index) => {
-            const screenshotRef = storageRef(storage, `screenshots/${newProfileRef.key}/screenshot${index + 1}_${file.name}`);
-            await uploadBytes(screenshotRef, file);
-            return getDownloadURL(screenshotRef);
-          })
-        );
+      const translateX = matrix.m41;
+      const translateY = matrix.m42;
 
-        // Save profile data to Realtime Database
-        await set(newProfileRef, {
-          characterName,
-          guildName,
-          mmoGame,
-          screenshotURLs,
-          timestamp: Date.now()
+      img.style.transform = `translate(${translateX}px, ${translateY}px) scale(${newScale})`;
+    }
+  }
+
+  document.addEventListener('mousemove', duringDragging);
+  document.addEventListener('mouseup', endDragging);
+
+  // Add event listeners to initial preview image
+  previewImages[0].addEventListener('mousedown', startDragging(0));
+  previewImages[0].addEventListener('wheel', handleZoom(0));
+  previewImages[0].addEventListener('dragstart', preventDefaultDrag);
+
+  document.getElementById('addScreenshot').addEventListener('click', function() {
+    if (previewContainers.length >= 5) {
+      alert("You can only add up to 5 screenshots!");
+      return;
+    }
+
+    const index = previewContainers.length;
+    const group = document.createElement('div');
+    group.classList.add('screenshot-group');
+
+    const label = document.createElement('label');
+    label.setAttribute('for', `screenshot${index}`);
+    label.innerHTML = `Character Screenshot ${index + 1} <span class="tooltip" data-tooltip="Upload an in-game image of your character (max 2MB).">ℹ️</span>`;
+    group.appendChild(label);
+
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.id = `screenshot${index}`;
+    input.name = `screenshot${index}`;
+    input.accept = 'image/*';
+    input.required = true;
+    group.appendChild(input);
+
+    const previewCont = document.createElement('div');
+    previewCont.id = `preview-container${index}`;
+    previewCont.classList.add('preview-container');
+    group.appendChild(previewCont);
+
+    const previewImg = document.createElement('img');
+    previewImg.id = `preview-image${index}`;
+    previewImg.alt = `Preview Screenshot ${index + 1}`;
+    previewImg.classList.add('preview-image');
+    previewCont.appendChild(previewImg);
+
+    const addBtn = document.getElementById('addScreenshot');
+    addBtn.parentNode.insertBefore(group, addBtn);
+
+    previewContainers.push(previewCont);
+    previewImages.push(previewImg);
+    initialStates.push({ initialX: 0, initialY: 0, scale: 1 });
+
+    input.addEventListener('change', function(e) {
+      const file = e.target.files[0];
+      if (file) {
+        compressImage(file, function(dataUrl) {
+          if (dataUrl) {
+            previewImg.src = dataUrl;
+            previewCont.style.display = 'block';
+            previewImg.style.transform = 'translate(0, 0) scale(1)';
+            initialStates[index] = { initialX: 0, initialY: 0, scale: 1 };
+          }
         });
-
-        alert('Profile immortalized successfully!');
-        window.location.href = `profile.html?profile=${newProfileRef.key}`;
-        document.getElementById('profileForm').reset();
-        document.getElementById('extraScreenshots').innerHTML = ''; // Clear extra screenshot fields
-        screenshotCount = 1; // Reset screenshot count
-      } catch (error) {
-        console.error('Error saving profile:', error);
-        alert('Error immortalizing profile. Please try again.');
       }
     });
-  </script>
+
+    previewImg.addEventListener('mousedown', startDragging(index));
+    previewImg.addEventListener('wheel', handleZoom(index));
+    previewImg.addEventListener('dragstart', preventDefaultDrag);
+  });
+
+  // Handle form submission with loading bar and real profile save
+  document.getElementById('profileForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    document.getElementById('loading-section').style.display = 'flex';
+    document.getElementById('loading-bar').style.width = '0%';
+
+    const loadingBar = document.getElementById('loading-bar');
+    loadingBar.style.animation = 'load-progress 3s forwards';
+
+    // After animation complete, actually save profile
+    setTimeout(() => {
+      saveProfile(); // Save and redirect
+    }, 3100);
+  });
+
+  // The actual saveProfile function
+  function saveProfile() {
+    try {
+      const profile = gatherProfileData(); // Assume this collects the form input + image data
+      const profileKey = generateProfileKey(); // Assume this generates a unique ID
+
+      localStorage.setItem("hasProfile", "true");
+      localStorage.setItem(profileKey, JSON.stringify(profile));
+      localStorage.setItem("lastProfileKey", profileKey);
+      localStorage.setItem(profileKey + "_visitCount", "0");
+      localStorage.setItem(profileKey + "_mmoriePoints", "1000");
+      localStorage.setItem(profileKey + "_achievements", JSON.stringify([]));
+
+      alert("Profile saved! Redirecting in 3 seconds...");
+      setTimeout(() => {
+        window.location.href = "profile.html?profile=" + profileKey;
+      }, 3000);
+    } catch (e) {
+      alert("Error saving profile: " + e.message + ". Try uploading smaller images or fewer screenshots.");
+      document.getElementById("loading-section").style.display = "none";
+    }
+  }
+</script>
 </body>
 </html>
