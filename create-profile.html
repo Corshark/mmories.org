@@ -412,446 +412,272 @@
     </div>
   </div>
 
-<script>
-  const container = document.getElementById('particles-container');
-  let previewContainers = [document.getElementById('preview-container0')];
-  let previewImages = [document.getElementById('preview-image0')];
-  let initialStates = [{ initialX: 0, initialY: 0, scale: 1 }];
+  <script type="module">
+    // Import Firebase SDKs
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js";
+    import { getDatabase, ref, push, set } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-database.js";
+    import { getStorage, ref as storageRef, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-storage.js";
 
-  function createParticle() {
-    const particle = document.createElement('div');
-    particle.classList.add('particle');
-    const size = Math.random() * 6 + 2;
-    particle.style.width = size + 'px';
-    particle.style.height = size + 'px';
-    particle.style.left = Math.random() * 100 + 'vw';
-    particle.style.animationDuration = (Math.random() * 8 + 6) + 's';
-    const isGold = Math.random() < 0.8;
-    particle.style.background = isGold ? 'radial-gradient(circle, #FFD700CC, #b8860b88)' : 'radial-gradient(circle, #00e7f9cc, #01d9f588)';
-    particle.style.filter = isGold ? 'drop-shadow(0 0 6px #FFD700AA)' : 'drop-shadow(0 0 8px #00e7f9bb)';
-    container.appendChild(particle);
-    particle.addEventListener('animationend', () => particle.remove());
-  }
-
-  setInterval(createParticle, 200);
-
-  // Function to compress image
-  function compressImage(file, callback) {
-    const maxSizeMB = 2; // Max file size in MB
-    if (file.size > maxSizeMB * 1024 * 1024) {
-      alert(`File ${file.name} is too large. Please upload an image smaller than ${maxSizeMB}MB.`);
-      callback(null);
-      return;
-    }
-
-    const reader = new FileReader();
-    reader.onload = function(event) {
-      const img = new Image();
-      img.onload = function() {
-        const canvas = document.createElement('canvas');
-        const maxDimension = 800; // Max width or height
-        let width = img.width;
-        let height = img.height;
-
-        // Resize image while maintaining aspect ratio
-        if (width > height) {
-          if (width > maxDimension) {
-            height *= maxDimension / width;
-            width = maxDimension;
-          }
-        } else {
-          if (height > maxDimension) {
-            width *= maxDimension / height;
-            height = maxDimension;
-          }
-        }
-
-        canvas.width = width;
-        canvas.height = height;
-        const ctx = canvas.getContext('2d');
-        ctx.drawImage(img, 0, 0, width, height);
-        // Convert to JPEG with 70% quality
-        const dataUrl = canvas.toDataURL('image/jpeg', 0.7);
-        callback(dataUrl);
-      };
-      img.src = event.target.result;
+    // Firebase configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyBbQkQ2Sy9pMyKx68z3p_PLwTON70BS1PQ",
+      authDomain: "mmories-org-live.firebaseapp.com",
+      projectId: "mmories-org-live",
+      storageBucket: "mmories-org-live.firebasestorage.app",
+      messagingSenderId: "978660559442",
+      appId: "1:978660559442:web:b874b822f391a765a4ed8b"
     };
-    reader.readAsDataURL(file);
-  }
 
-  // Initial setup for the first screenshot
-  document.getElementById('screenshot0').addEventListener('change', function(e) {
-    const file = e.target.files[0];
-    if (file) {
-      compressImage(file, function(dataUrl) {
-        if (dataUrl) {
-          previewImages[0].src = dataUrl;
-          previewContainers[0].style.display = 'block';
-          previewImages[0].style.transform = 'translate(0, 0) scale(1)';
-          initialStates[0] = { initialX: 0, initialY: 0, scale: 1 };
-        }
-      });
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const database = getDatabase(app);
+    const storage = getStorage(app);
+
+    // Particle animation
+    const container = document.getElementById('particles-container');
+    function createParticle() {
+      const particle = document.createElement('div');
+      particle.classList.add('particle');
+      const size = Math.random() * 6 + 2;
+      particle.style.width = size + 'px';
+      particle.style.height = size + 'px';
+      particle.style.left = Math.random() * 100 + 'vw';
+      particle.style.animationDuration = (Math.random() * 8 + 6) + 's';
+      const isGold = Math.random() < 0.8;
+      particle.style.background = isGold ? 'radial-gradient(circle, #FFD700CC, #b8860b88)' : 'radial-gradient(circle, #00e7f9cc, #01d9f588)';
+      particle.style.filter = isGold ? 'drop-shadow(0 0 6px #FFD700AA)' : 'drop-shadow(0 0 8px #00e7f9bb)';
+      container.appendChild(particle);
+      particle.addEventListener('animationend', () => particle.remove());
     }
-  });
+    setInterval(createParticle, 200);
 
-  previewImages[0].addEventListener('mousedown', startDragging(0));
-  previewImages[0].addEventListener('wheel', handleZoom(0));
-
-  document.getElementById('addScreenshot').addEventListener('click', function() {
-    if (previewContainers.length >= 5) {
-      alert("You can only add up to 5 screenshots!");
-      return;
-    }
-
-    const index = previewContainers.length;
-    const screenshotGroup = document.createElement('div');
-    screenshotGroup.className = 'screenshot-group';
-    screenshotGroup.innerHTML = `
-      <label for="screenshot${index}">
-        Character Screenshot ${index + 1}
-        <span class="tooltip" data-tooltip="Upload an in-game image of your character (max 2MB).">ℹ️</span>
-      </label>
-      <input type="file" id="screenshot${index}" name="screenshot${index}" accept="image/*" />
-      <div id="preview-container${index}" class="preview-container">
-        <img id="preview-image${index}" src="" alt="Preview Screenshot ${index + 1}" class="preview-image">
-      </div>
-    `;
-    const addButton = document.getElementById('addScreenshot');
-    addButton.parentNode.insertBefore(screenshotGroup, addButton);
-
-    const newPreviewContainer = document.getElementById(`preview-container${index}`);
-    const newPreviewImage = document.getElementById(`preview-image${index}`);
-    previewContainers.push(newPreviewContainer);
-    previewImages.push(newPreviewImage);
-    initialStates.push({ initialX: 0, initialY: 0, scale: 1 });
-
-    document.getElementById(`screenshot${index}`).addEventListener('change', function(e) {
-      const file = e.target.files[0];
-      if (file) {
-        compressImage(file, function(dataUrl) {
-          if (dataUrl) {
-            newPreviewImage.src = dataUrl;
-            newPreviewContainer.style.display = 'block';
-            newPreviewImage.style.transform = `translate(0, 0) scale(1)`;
-            initialStates[index] = { initialX: 0, initialY: 0, scale: 1 };
-          }
-        });
+    // Image compression
+    function compressImage(file, callback) {
+      const maxSizeMB = 2;
+      if (file.size > maxSizeMB * 1024 * 1024) {
+        alert(`File ${file.name} is too large. Please upload an image smaller than ${maxSizeMB}MB.`);
+        callback(null);
+        return;
       }
-    });
 
-    newPreviewImage.addEventListener('mousedown', startDragging(index));
-    newPreviewImage.addEventListener('wheel', handleZoom(index));
-  });
+      const reader = new FileReader();
+      reader.onload = function(event) {
+        const img = new Image();
+        img.onload = function() {
+          const canvas = document.createElement('canvas');
+          const maxDimension = 800;
+          let width = img.width;
+          let height = img.height;
 
-  function startDragging(index) {
-    return function(e) {
-      let isDragging = false;
-      let startX, startY;
+          if (width > height) {
+            if (width > maxDimension) {
+              height *= maxDimension / width;
+              width = maxDimension;
+            }
+          } else {
+            if (height > maxDimension) {
+              width *= maxDimension / height;
+              height = maxDimension;
+            }
+          }
 
-      isDragging = true;
-      startX = e.clientX - initialStates[index].initialX;
-      startY = e.clientY - initialStates[index].initialY;
-      previewImages[index].style.transition = 'none';
-
-      const handleMove = (e) => {
-        if (isDragging) {
-          e.preventDefault();
-          initialStates[index].initialX = e.clientX - startX;
-          initialStates[index].initialY = e.clientY - startY;
-          previewImages[index].style.transform = `translate(${initialStates[index].initialX}px, ${initialStates[index].initialY}px) scale(${initialStates[index].scale})`;
-        }
+          canvas.width = width;
+          canvas.height = height;
+          const ctx = canvas.getContext('2d');
+          ctx.drawImage(img, 0, 0, width, height);
+          canvas.toBlob((blob) => {
+            callback(blob);
+          }, 'image/jpeg', 0.7);
+        };
+        img.src = event.target.result;
       };
+      reader.readAsDataURL(file);
+    }
 
-      const handleUp = () => {
-        if (isDragging) {
+    // Drag and zoom state management
+    const previewContainers = [document.getElementById('preview-container0')];
+    const previewImages = [document.getElementById('preview-image0')];
+    const initialStates = [{ initialX: 0, initialY: 0, scale: 1 }];
+
+    function startDragging(index) {
+      return function(event) {
+        event.preventDefault();
+        const img = previewImages[index];
+        let isDragging = true;
+        let startX = event.clientX - initialStates[index].initialX;
+        let startY = event.clientY - initialStates[index].initialY;
+        img.style.transition = 'none';
+
+        function handleMove(e) {
+          if (isDragging) {
+            e.preventDefault();
+            initialStates[index].initialX = e.clientX - startX;
+            initialStates[index].initialY = e.clientY - startY;
+            img.style.transform = `translate(${initialStates[index].initialX}px, ${initialStates[index].initialY}px) scale(${initialStates[index].scale})`;
+          }
+        }
+
+        function handleUp() {
           isDragging = false;
-          previewImages[index].style.transition = 'transform 0.3s ease';
+          img.style.transition = 'transform 0.3s ease';
           document.removeEventListener('mousemove', handleMove);
           document.removeEventListener('mouseup', handleUp);
         }
+
+        document.addEventListener('mousemove', handleMove);
+        document.addEventListener('mouseup', handleUp);
       };
-
-      document.addEventListener('mousemove', handleMove);
-      document.addEventListener('mouseup', handleUp);
-    };
-  }
-
-  function handleZoom(index) {
-    return function(e) {
-      e.preventDefault();
-      const delta = e.deltaY * -0.001;
-      initialStates[index].scale = Math.min(Math.max(0.5, initialStates[index].scale + delta), 2);
-      previewImages[index].style.transform = `translate(${initialStates[index].initialX}px, ${initialStates[index].initialY}px) scale(${initialStates[index].scale})`;
-    };
-  }
-
-  document.getElementById('profileForm').addEventListener('submit', function(e) {
-    e.preventDefault();
-
-    const name = document.getElementById('name').value.trim();
-    const guild = document.getElementById('guild').value.trim();
-    const mmo = document.getElementById('mmo').value.trim();
-    const screenshots = [];
-
-    let filesProcessed = 0;
-    const totalFiles = previewContainers.length;
-
-    previewContainers.forEach((container, index) => {
-      const input = document.getElementById(`screenshot${index}`);
-      if (input.files && input.files.length > 0) {
-        const file = input.files[0];
-        compressImage(file, function(dataUrl) {
-          if (dataUrl) {
-            screenshots.push({
-              src: dataUrl,
-              positionX: initialStates[index].initialX,
-              positionY: initialStates[index].initialY,
-              scale: initialStates[index].scale
-            });
-          }
-          filesProcessed++;
-          if (filesProcessed === totalFiles) {
-            if (screenshots.length === 0) {
-              alert("Please upload at least one screenshot image!");
-              return;
-            }
-            saveProfile(name, guild, mmo, screenshots);
-          }
-        });
-      } else {
-        filesProcessed++;
-        if (filesProcessed === totalFiles) {
-          if (screenshots.length === 0) {
-            alert("Please upload at least one screenshot image!");
-            return;
-          }
-          saveProfile(name, guild, mmo, screenshots);
-        }
-      }
-    });
-  });
-
-  function saveProfile(name, guild, mmo, screenshots) {
-    document.getElementById("loading-section").style.display = "flex";
-
-    const profileKey = "mmoriesProfile_" + Date.now();
-
-    const profile = {
-      name: name || "Unknown Hero",
-      guild: guild || "[Wanderer]",
-      mmo: mmo || "Unknown Realm",
-      screenshots: screenshots,
-      registeredAt: new Date().toLocaleString()
-    };
-
-    try {
-      // Clear old profiles to free up space
-      for (let key in localStorage) {
-        if (key.startsWith('mmoriesProfile_') && key !== profileKey) {
-          localStorage.removeItem(key);
-          localStorage.removeItem(key + '_visitCount');
-          localStorage.removeItem(key + '_mmoriePoints');
-          localStorage.removeItem(key + '_achievements');
-        }
-      }
-
-      localStorage.setItem("hasProfile", "true");
-      localStorage.setItem(profileKey, JSON.stringify(profile));
-      localStorage.setItem("lastProfileKey", profileKey);
-      localStorage.setItem(profileKey + "_visitCount", "0");
-      localStorage.setItem(profileKey + "_mmoriePoints", "1000");
-      localStorage.setItem(profileKey + "_achievements", JSON.stringify([]));
-      alert("Profile saved! Redirecting in 3 seconds...");
-      setTimeout(() => {
-        window.location.href = "profile.html?profile=" + profileKey;
-      }, 3000);
-    } catch (e) {
-      alert("Error saving profile: " + e.message + ". Try uploading smaller images or fewer screenshots.");
-      document.getElementById("loading-section").style.display = "none";
-    }
-  }
-<script>
-  // Prevent default drag behavior to avoid unwanted side effects
-  function preventDefaultDrag(event) {
-    event.preventDefault();
-  }
-
-  let dragState = {
-    dragging: false,
-    index: null,
-    startX: 0,
-    startY: 0,
-    currentX: 0,
-    currentY: 0,
-    translateX: 0,
-    translateY: 0,
-    scale: 1
-  };
-
-  function startDragging(index) {
-    return function(event) {
-      event.preventDefault();
-      dragState.dragging = true;
-      dragState.index = index;
-      dragState.startX = event.clientX;
-      dragState.startY = event.clientY;
-      const img = previewImages[index];
-      const style = window.getComputedStyle(img);
-      const matrix = new DOMMatrixReadOnly(style.transform);
-      dragState.translateX = matrix.m41;
-      dragState.translateY = matrix.m42;
-      dragState.scale = matrix.a;
-    }
-  }
-
-  function duringDragging(event) {
-    if (!dragState.dragging) return;
-    event.preventDefault();
-    const dx = event.clientX - dragState.startX;
-    const dy = event.clientY - dragState.startY;
-    dragState.currentX = dragState.translateX + dx;
-    dragState.currentY = dragState.translateY + dy;
-    const img = previewImages[dragState.index];
-    img.style.transform = `translate(${dragState.currentX}px, ${dragState.currentY}px) scale(${dragState.scale})`;
-  }
-
-  function endDragging(event) {
-    if (!dragState.dragging) return;
-    dragState.dragging = false;
-    const img = previewImages[dragState.index];
-    const style = window.getComputedStyle(img);
-    const matrix = new DOMMatrixReadOnly(style.transform);
-    dragState.translateX = matrix.m41;
-    dragState.translateY = matrix.m42;
-    dragState.scale = matrix.a;
-  }
-
-  function handleZoom(index) {
-    return function(event) {
-      event.preventDefault();
-      let img = previewImages[index];
-      const style = window.getComputedStyle(img);
-      const matrix = new DOMMatrixReadOnly(style.transform);
-      let currentScale = matrix.a;
-
-      const delta = -event.deltaY || event.wheelDelta || -event.detail;
-      const zoomStep = 0.1;
-      let newScale = currentScale + (delta > 0 ? zoomStep : -zoomStep);
-      newScale = Math.max(0.5, Math.min(3, newScale));
-
-      const translateX = matrix.m41;
-      const translateY = matrix.m42;
-
-      img.style.transform = `translate(${translateX}px, ${translateY}px) scale(${newScale})`;
-    }
-  }
-
-  document.addEventListener('mousemove', duringDragging);
-  document.addEventListener('mouseup', endDragging);
-
-  // Add event listeners to initial preview image
-  previewImages[0].addEventListener('mousedown', startDragging(0));
-  previewImages[0].addEventListener('wheel', handleZoom(0));
-  previewImages[0].addEventListener('dragstart', preventDefaultDrag);
-
-  document.getElementById('addScreenshot').addEventListener('click', function() {
-    if (previewContainers.length >= 5) {
-      alert("You can only add up to 5 screenshots!");
-      return;
     }
 
-    const index = previewContainers.length;
-    const group = document.createElement('div');
-    group.classList.add('screenshot-group');
+    function handleZoom(index) {
+      return function(event) {
+        event.preventDefault();
+        const img = previewImages[index];
+        const delta = event.deltaY * -0.001;
+        initialStates[index].scale = Math.min(Math.max(0.5, initialStates[index].scale + delta), 2);
+        img.style.transform = `translate(${initialStates[index].initialX}px, ${initialStates[index].initialY}px) scale(${initialStates[index].scale})`;
+      };
+    }
 
-    const label = document.createElement('label');
-    label.setAttribute('for', `screenshot${index}`);
-    label.innerHTML = `Character Screenshot ${index + 1} <span class="tooltip" data-tooltip="Upload an in-game image of your character (max 2MB).">ℹ️</span>`;
-    group.appendChild(label);
-
-    const input = document.createElement('input');
-    input.type = 'file';
-    input.id = `screenshot${index}`;
-    input.name = `screenshot${index}`;
-    input.accept = 'image/*';
-    input.required = true;
-    group.appendChild(input);
-
-    const previewCont = document.createElement('div');
-    previewCont.id = `preview-container${index}`;
-    previewCont.classList.add('preview-container');
-    group.appendChild(previewCont);
-
-    const previewImg = document.createElement('img');
-    previewImg.id = `preview-image${index}`;
-    previewImg.alt = `Preview Screenshot ${index + 1}`;
-    previewImg.classList.add('preview-image');
-    previewCont.appendChild(previewImg);
-
-    const addBtn = document.getElementById('addScreenshot');
-    addBtn.parentNode.insertBefore(group, addBtn);
-
-    previewContainers.push(previewCont);
-    previewImages.push(previewImg);
-    initialStates.push({ initialX: 0, initialY: 0, scale: 1 });
-
-    input.addEventListener('change', function(e) {
+    // Initial screenshot setup
+    document.getElementById('screenshot0').addEventListener('change', function(e) {
       const file = e.target.files[0];
       if (file) {
-        compressImage(file, function(dataUrl) {
-          if (dataUrl) {
-            previewImg.src = dataUrl;
-            previewCont.style.display = 'block';
-            previewImg.style.transform = 'translate(0, 0) scale(1)';
-            initialStates[index] = { initialX: 0, initialY: 0, scale: 1 };
+        compressImage(file, function(blob) {
+          if (blob) {
+            previewImages[0].src = URL.createObjectURL(blob);
+            previewContainers[0].style.display = 'block';
+            previewImages[0].style.transform = 'translate(0, 0) scale(1)';
+            initialStates[0] = { initialX: 0, initialY: 0, scale: 1 };
           }
         });
       }
     });
 
-    previewImg.addEventListener('mousedown', startDragging(index));
-    previewImg.addEventListener('wheel', handleZoom(index));
-    previewImg.addEventListener('dragstart', preventDefaultDrag);
-  });
+    previewImages[0].addEventListener('mousedown', startDragging(0));
+    previewImages[0].addEventListener('wheel', handleZoom(0));
+    previewImages[0].addEventListener('dragstart', (e) => e.preventDefault());
 
-  // Handle form submission with loading bar and real profile save
-  document.getElementById('profileForm').addEventListener('submit', function(e) {
-    e.preventDefault();
+    // Add screenshot button
+    document.getElementById('addScreenshot').addEventListener('click', function() {
+      if (previewContainers.length >= 5) {
+        alert("You can only add up to 5 screenshots!");
+        return;
+      }
 
-    document.getElementById('loading-section').style.display = 'flex';
-    document.getElementById('loading-bar').style.width = '0%';
+      const index = previewContainers.length;
+      const screenshotGroup = document.createElement('div');
+      screenshotGroup.className = 'screenshot-group';
+      screenshotGroup.innerHTML = `
+        <label for="screenshot${index}">
+          Character Screenshot ${index + 1}
+          <span class="tooltip" data-tooltip="Upload. an in-game image of your character (max 2MB).">ℹ️</span>
+        </label>
+        <input type="file" id="screenshot${index}" name="screenshot${index}" accept="image/*" />
+        <div id="preview-container${index}" class="preview-container">
+          <img id="preview-image${index}" src="" alt="Preview Screenshot ${index + 1}" class="preview-image">
+        </div>
+      `;
+      const addButton = document.getElementById('addScreenshot');
+      addButton.parentNode.insertBefore(screenshotGroup, addButton);
 
-    const loadingBar = document.getElementById('loading-bar');
-    loadingBar.style.animation = 'load-progress 3s forwards';
+      const newPreviewContainer = document.getElementById(`preview-container${index}`);
+      const newPreviewImage = document.getElementById(`preview-image${index}`);
+      previewContainers.push(newPreviewContainer);
+      previewImages.push(newPreviewImage);
+      initialStates.push({ initialX: 0, initialY: 0, scale: 1 });
 
-    // After animation complete, actually save profile
-    setTimeout(() => {
-      saveProfile(); // Save and redirect
-    }, 3100);
-  });
+      document.getElementById(`screenshot${index}`).addEventListener('change', function(e) {
+        const file = e.target.files[0];
+        if (file) {
+          compressImage(file, function(blob) {
+            if (blob) {
+              newPreviewImage.src = URL.createObjectURL(blob);
+              newPreviewContainer.style.display = 'block';
+              newPreviewImage.style.transform = `translate(0, 0) scale(1)`;
+              initialStates[index] = { initialX: 0, initialY: 0, scale: 1 };
+            }
+          });
+        }
+      });
 
-  // The actual saveProfile function
-  function saveProfile() {
-    try {
-      const profile = gatherProfileData(); // Assume this collects the form input + image data
-      const profileKey = generateProfileKey(); // Assume this generates a unique ID
+      newPreviewImage.addEventListener('mousedown', startDragging(index));
+      newPreviewImage.addEventListener('wheel', handleZoom(index));
+      newPreviewImage.addEventListener('dragstart', (e) => e.preventDefault());
+    });
 
-      localStorage.setItem("hasProfile", "true");
-      localStorage.setItem(profileKey, JSON.stringify(profile));
-      localStorage.setItem("lastProfileKey", profileKey);
-      localStorage.setItem(profileKey + "_visitCount", "0");
-      localStorage.setItem(profileKey + "_mmoriePoints", "1000");
-      localStorage.setItem(profileKey + "_achievements", JSON.stringify([]));
+    // Form submission
+    document.getElementById('profileForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
 
-      alert("Profile saved! Redirecting in 3 seconds...");
-      setTimeout(() => {
-        window.location.href = "profile.html?profile=" + profileKey;
-      }, 3000);
-    } catch (e) {
-      alert("Error saving profile: " + e.message + ". Try uploading smaller images or fewer screenshots.");
-      document.getElementById("loading-section").style.display = "none";
-    }
-  }
-</script>
+      const name = document.getElementById('name').value.trim();
+      const guild = document.getElementById('guild').value.trim();
+      const mmo = document.getElementById('mmo').value.trim();
+      const screenshots = Array.from({ length: previewContainers.length }, (_, i) => 
+        document.getElementById(`screenshot${i}`)?.files[0]
+      ).filter(file => file);
+
+      // Validate guild name
+      if (guild.toLowerCase() === 'roofer') {
+        alert('Error: The guild name "Roofer" is reserved for founders only.');
+        document.getElementById('loading-section').style.display = 'none';
+        return;
+      }
+
+      // Validate required fields
+      if (!name || !mmo || screenshots.length === 0) {
+        alert('Error: Character Name, MMO Game, and at least one screenshot are required.');
+        document.getElementById('loading-section').style.display = 'none';
+        return;
+      }
+
+      // Show loading bar
+      document.getElementById('loading-section').style.display = 'flex';
+      document.getElementById('loading-bar').style.width = '0%';
+      document.getElementById('loading-bar').style.animation = 'load-progress 3s forwards';
+
+      try {
+        // Create a new profile reference
+        const profilesRef = ref(database, 'profiles');
+        const newProfileRef = push(profilesRef);
+
+        // Upload screenshots to Firebase Storage
+        const screenshotURLs = await Promise.all(
+          screenshots.map(async (file, index) => {
+            const screenshotRef = storageRef(storage, `screenshots/${newProfileRef.key}/screenshot${index + 1}_${file.name}`);
+            await uploadBytes(screenshotRef, file);
+            return getDownloadURL(screenshotRef);
+          })
+        );
+
+        // Save profile data to Realtime Database
+        await set(newProfileRef, {
+          characterName: name,
+          guild: guild || '[Wanderer]',
+          mmoGame: mmo,
+          screenshotURLs,
+          timestamp: Date.now()
+        });
+
+        alert('Profile immortalized successfully! Redirecting in 3 seconds...');
+        setTimeout(() => {
+          window.location.href = `profile.html?profile=${newProfileRef.key}`;
+          document.getElementById('profileForm').reset();
+          document.getElementById('loading-section').style.display = 'none';
+          document.getElementById('loading-bar').style.animation = 'none';
+          previewContainers.length = 1;
+          previewImages.length = 1;
+          initialStates.length = 1;
+          previewContainers[0].style.display = 'none';
+          document.querySelectorAll('.screenshot-group:not(:first-child)').forEach(group => group.remove());
+        }, 3000);
+      } catch (error) {
+        console.error('Error saving profile:', error);
+        alert('Error immortalizing profile: ' + error.message);
+        document.getElementById('loading-section'). enquiry.style.display = 'none';
+        document.getElementById('loading-bar').style.animation = 'none';
+      }
+    });
+  </script>
 </body>
 </html>
