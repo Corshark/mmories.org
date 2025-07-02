@@ -8,75 +8,46 @@
   <!-- Web3 -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/web3/1.7.4-rc.1/web3.min.js"></script>
 
-  <!-- Firebase SDKs -->
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js";
-    import { getDatabase } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-database.js";
-    const firebaseConfig = {
-      apiKey: "AIzaSyBbQkQ2Sy9pMyKx68z3p_PLwTON70BS1PQ",
-      authDomain: "mmories-org-live.firebaseapp.com",
-      projectId: "mmories-org-live",
-      storageBucket: "mmories-org-live.firebasestorage.app",
-      messagingSenderId: "978660559442",
-      appId: "1:978660559442:web:b874b822f391a765a4ed8b"
-    };
-    const app = initializeApp(firebaseConfig);
-    const database = getDatabase(app);
-  </script>
+  <!-- ✅ Firebase SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
 
   <!-- Styles and Scripts -->
   <link rel="stylesheet" href="profile.css">
   <script src="profile.js" defer></script>
-  <style>
-    .loading-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.9);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 999;
-      color: #d3dbff;
-      font-family: 'EB Garamond', serif;
-      font-size: 1.5rem;
-    }
-  </style>
 </head>
 <body>
-  <div class="loading-overlay" id="loading-overlay">Loading your cosmic profile...</div>
   <video autoplay muted loop id="bgVideo" disablePictureInPicture controlsList="nodownload nofullscreen noremoteplayback">
     <source src="videos/profile.mp4" type="video/mp4">
   </video>
   <div class="starfield"></div>
   <div class="celestial-panel">
+    <div class="created-date">
+      Immortalized on: <span id="created-date-text"></span>
+    </div>
     <button id="change-background-btn"><span>Change Background</span></button>
     <button id="change-border-btn"><span>Change Border</span></button>
     <button id="change-box-bg-btn"><span>Change Box Background</span></button>
     <button id="reset-customizations-btn"><span>Reset Customizations</span></button>
     <button id="edit-profile-btn"><span>Edit Profile</span></button>
     <button id="donate-btn"><span>Donate</span></button>
-    <div class="created-date">
-      Immortalized on: <span id="created-date-text">Loading...</span>
-    </div>
   </div>
-  <p id="memory-counter" class="shimmer-text" data-tooltip="As your profile ages, your profile will change with it and evolve">Memory Age: Loading...</p>
-  <p id="visit-counter" class="shimmer-text" data-tooltip="The number of times your profile has been visited by others!">Profile Visits: 0</p>
-  <p id="mmorie-points" class="shimmer-text" data-tooltip="Points you earn for profile interactions, redeemable for special features!">mmPoints: 1000</p>
+  <p id="memory-counter" class="shimmer-text" data-tooltip="As your profile ages, your profile will change with it and evolve"></p>
+  <p id="visit-counter" class="shimmer-text" data-tooltip="The number of times your profile has been visited by others!"></p>
+  <p id="mmorie-points" class="shimmer-text" data-tooltip="Points you earn for profile interactions, redeemable for special features!"></p>
   <div class="profile-background"></div>
-  <h1 id="char-name" class="shimmer-name">Loading...</h1>
-  <p id="char-guild" class="shimmer-guild">[Wanderer]</p>
+  <h1 id="char-name" class="shimmer-name"></h1>
+  <p id="char-guild" class="shimmer-guild"></p>
   <div class="screenshot-box">
     <div class="screenshot-wrapper">
-      <img id="char-screenshot" src="default-screenshot.png" alt="Character Screenshot">
+      <img id="char-screenshot" src="" alt="Character Screenshot">
     </div>
-    <button id="prev-screenshot" class="arrow-btn">&lt;</button>
-    <button id="next-screenshot" class="arrow-btn">&gt;</button>
+    <button id="prev-screenshot" class="arrow-btn" style="z-index: 6;"><</button>
+    <button id="next-screenshot" class="arrow-btn" style="z-index: 6;">></button>
   </div>
   <div class="mmo-box">
-    <p id="char-mmo">From: Unknown MMO</p>
+    <p id="char-mmo"></p>
   </div>
   <div id="achievements"></div>
   <div class="mystic-panel">
