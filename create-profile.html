@@ -324,6 +324,7 @@
       max-height: 100%;
       cursor: move;
       user-select: none;
+      transition: transform 0.2s ease; /* Added for smoother zoom */
     }
 
     .screenshot-group {
@@ -435,9 +436,8 @@
 
   setInterval(createParticle, 200);
 
-  // Function to compress image
   function compressImage(file, callback) {
-    const maxSizeMB = 2; // Max file size in MB
+    const maxSizeMB = 2;
     if (file.size > maxSizeMB * 1024 * 1024) {
       alert(`File ${file.name} is too large. Please upload an image smaller than ${maxSizeMB}MB.`);
       callback(null);
@@ -449,11 +449,10 @@
       const img = new Image();
       img.onload = function() {
         const canvas = document.createElement('canvas');
-        const maxDimension = 800; // Max width or height
+        const maxDimension = 800;
         let width = img.width;
         let height = img.height;
 
-        // Resize image while maintaining aspect ratio
         if (width > height) {
           if (width > maxDimension) {
             height *= maxDimension / width;
@@ -470,7 +469,6 @@
         canvas.height = height;
         const ctx = canvas.getContext('2d');
         ctx.drawImage(img, 0, 0, width, height);
-        // Convert to JPEG with 70% quality
         const dataUrl = canvas.toDataURL('image/jpeg', 0.7);
         callback(dataUrl);
       };
@@ -479,7 +477,15 @@
     reader.readAsDataURL(file);
   }
 
-  // Initial setup for the first screenshot
+  function setupImageListeners(index) {
+    const img = previewImages[index];
+    const container = previewContainers[index];
+
+    img.addEventListener('mousedown', (e) => startDragging(e, index));
+    img.addEventListener('wheel', (e) => handleZoom(e, index));
+    img.addEventListener('dragstart', (e) => e.preventDefault());
+  }
+
   document.getElementById('screenshot0').addEventListener('change', function(e) {
     const file = e.target.files[0];
     if (file) {
@@ -489,13 +495,11 @@
           previewContainers[0].style.display = 'block';
           previewImages[0].style.transform = 'translate(0, 0) scale(1)';
           initialStates[0] = { initialX: 0, initialY: 0, scale: 1 };
+          setupImageListeners(0);
         }
       });
     }
   });
-
-  previewImages[0].addEventListener('mousedown', startDragging(0));
-  previewImages[0].addEventListener('wheel', handleZoom(0));
 
   document.getElementById('addScreenshot').addEventListener('click', function() {
     if (previewContainers.length >= 5) {
@@ -534,67 +538,92 @@
             newPreviewContainer.style.display = 'block';
             newPreviewImage.style.transform = `translate(0, 0) scale(1)`;
             initialStates[index] = { initialX: 0, initialY: 0, scale: 1 };
+            setupImageListeners(index);
           }
         });
       }
     });
-
-    newPreviewImage.addEventListener('mousedown', startDragging(index));
-    newPreviewImage.addEventListener('wheel', handleZoom(index));
   });
 
-  function startDragging(index) {
-    return function(e) {
-      let isDragging = false;
-      let startX, startY;
-
-      isDragging = true;
-      startX = e.clientX - initialStates[index].initialX;
-      startY = e.clientY - initialStates[index].initialY;
-      previewImages[index].style.transition = 'none';
-
-      const handleMove = (e) => {
-        if (isDragging) {
-          e.preventDefault();
-          initialStates[index].initialX = e.clientX - startX;
-          initialStates[index].initialY = e.clientY - startY;
-          previewImages[index].style.transform = `translate(${initialStates[index].initialX}px, ${initialStates[index].initialY}px) scale(${initialStates[index].scale})`;
-        }
-      };
-
-      const handleUp = () => {
-        if (isDragging) {
-          isDragging = false;
-          previewImages[index].style.transition = 'transform 0.3s ease';
-          document.removeEventListener('mousemove', handleMove);
-          document.removeEventListener('mouseup', handleUp);
-        }
-      };
-
-      document.addEventListener('mousemove', handleMove);
-      document.addEventListener('mouseup', handleUp);
-    };
-  }
-
-  function handleZoom(index) {
-    return function(e) {
-      e.preventDefault();
-      const delta = e.deltaY * -0.001;
-      initialStates[index].scale = Math.min(Math.max(0.5, initialStates[index].scale + delta), 2);
-      previewImages[index].style.transform = `translate(${initialStates[index].initialX}px, ${initialStates[index].initialY}px) scale(${initialStates[index].scale})`;
-    };
-  }
-
-  document.getElementById('profileForm').addEventListener('submit', function(e) {
+  function startDragging(e, index) {
     e.preventDefault();
+    const img = previewImages[index];
+    const container = previewContainers[index];
+    const containerRect = container.getBoundingClientRect();
+    let isDragging = true;
+    let startX = e.clientX;
+    let startY = e.clientY;
+    let translateX = initialStates[index].initialX;
+    let translateY = initialStates[index].initialY;
 
+    img.style.transition = 'none';
+
+    const handleMove = (e) => {
+      if (isDragging) {
+        e.preventDefault();
+        const dx = e.clientX - startX;
+        const dy = e.clientY - startY;
+        translateX = initialStates[index].initialX + dx;
+        translateY = initialStates[index].initialY + dy;
+        const imgRect = img.getBoundingClientRect();
+        const imgWidth = imgRect.width * initialStates[index].scale;
+        const imgHeight = imgRect.height * initialStates[index].scale;
+        const offsetX = (containerRect.width - imgWidth) / 2;
+        const offsetY = (containerRect.height - imgHeight) / 2;
+        img.style.transform = `translate(${translateX + offsetX}px, ${translateY + offsetY}px) scale(${initialStates[index].scale})`;
+      }
+    };
+
+    const handleUp = () => {
+      if (isDragging) {
+        isDragging = false;
+        initialStates[index].initialX = translateX;
+        initialStates[index].initialY = translateY;
+        img.style.transition = 'transform 0.3s ease';
+        document.removeEventListener('mousemove', handleMove);
+        document.removeEventListener('mouseup', handleUp);
+      }
+    };
+
+    document.addEventListener('mousemove', handleMove);
+    document.addEventListener('mouseup', handleUp);
+  }
+
+  function handleZoom(e, index) {
+    e.preventDefault();
+    const img = previewImages[index];
+    const container = previewContainers[index];
+    const containerRect = container.getBoundingClientRect();
+    const imgRect = img.getBoundingClientRect();
+
+    // Get current scale and image center relative to container
+    const oldScale = initialStates[index].scale;
+    const imgCenterX = initialStates[index].initialX + (imgRect.width * oldScale) / 2;
+    const imgCenterY = initialStates[index].initialY + (imgRect.height * oldScale) / 2;
+
+    // Update scale (less aggressive)
+    const delta = e.deltaY * -0.0002; // Reduced sensitivity
+    const newScale = Math.min(Math.max(0.5, oldScale + delta), 2);
+    initialStates[index].scale = newScale;
+
+    // Adjust position to keep center fixed
+    const scaleRatio = newScale / oldScale;
+    initialStates[index].initialX = imgCenterX - (imgCenterX - initialStates[index].initialX) * scaleRatio;
+    initialStates[index].initialY = imgCenterY - (imgCenterY - initialStates[index].initialY) * scaleRatio;
+
+    // Apply transform with centering offsets
+    const imgWidth = imgRect.width * newScale;
+    const imgHeight = imgRect.height * newScale;
+    const offsetX = (containerRect.width - imgWidth) / 2;
+    const offsetY = (containerRect.height - imgHeight) / 2;
+    img.style.transform = `translate(${initialStates[index].initialX + offsetX}px, ${initialStates[index].initialY + offsetY}px) scale(${newScale})`;
+  }
+
+  function gatherProfileData() {
     const name = document.getElementById('name').value.trim();
     const guild = document.getElementById('guild').value.trim();
     const mmo = document.getElementById('mmo').value.trim();
     const screenshots = [];
-
-    let filesProcessed = 0;
-    const totalFiles = previewContainers.length;
 
     previewContainers.forEach((container, index) => {
       const input = document.getElementById(`screenshot${index}`);
@@ -602,10 +631,73 @@
         const file = input.files[0];
         compressImage(file, function(dataUrl) {
           if (dataUrl) {
+            const containerRect = container.getBoundingClientRect();
+            const img = previewImages[index];
+            const imgRect = img.getBoundingClientRect();
+            const imgWidth = imgRect.width * initialStates[index].scale;
+            const imgHeight = imgRect.height * initialStates[index].scale;
+            const offsetX = (containerRect.width - imgWidth) / 2;
+            const offsetY = (containerRect.height - imgHeight) / 2;
             screenshots.push({
               src: dataUrl,
-              positionX: initialStates[index].initialX,
-              positionY: initialStates[index].initialY,
+              positionX: initialStates[index].initialX + offsetX,
+              positionY: initialStates[index].initialY + offsetY,
+              scale: initialStates[index].scale
+            });
+          }
+        });
+      }
+    });
+
+    return {
+      name: name || "Unknown Hero",
+      guild: guild || "[Wanderer]",
+      mmo: mmo || "Unknown Realm",
+      screenshots: screenshots,
+      registeredAt: new Date().toLocaleString()
+    };
+  }
+
+  function generateProfileKey() {
+    return "mmoriesProfile_" + Date.now();
+  }
+
+  document.getElementById('profileForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    const name = document.getElementById('name').value.trim();
+    const mmo = document.getElementById('mmo').value.trim();
+    if (!name || !mmo) {
+      alert("Please fill out Character Name and MMO Game.");
+      document.getElementById('loading-section').style.display = 'none';
+      return;
+    }
+
+    let filesProcessed = 0;
+    const totalFiles = previewContainers.length;
+    const screenshots = [];
+
+    document.getElementById('loading-section').style.display = 'flex';
+    document.getElementById('loading-bar').style.width = '0%';
+    document.getElementById('loading-bar').style.animation = 'load-progress 3s forwards';
+
+    previewContainers.forEach((container, index) => {
+      const input = document.getElementById(`screenshot${index}`);
+      if (input.files && input.files.length > 0) {
+        const file = input.files[0];
+        compressImage(file, function(dataUrl) {
+          if (dataUrl) {
+            const containerRect = container.getBoundingClientRect();
+            const img = previewImages[index];
+            const imgRect = img.getBoundingClientRect();
+            const imgWidth = imgRect.width * initialStates[index].scale;
+            const imgHeight = imgRect.height * initialStates[index].scale;
+            const offsetX = (containerRect.width - imgWidth) / 2;
+            const offsetY = (containerRect.height - imgHeight) / 2;
+            screenshots.push({
+              src: dataUrl,
+              positionX: initialStates[index].initialX + offsetX,
+              positionY: initialStates[index].initialY + offsetY,
               scale: initialStates[index].scale
             });
           }
@@ -613,9 +705,10 @@
           if (filesProcessed === totalFiles) {
             if (screenshots.length === 0) {
               alert("Please upload at least one screenshot image!");
+              document.getElementById('loading-section').style.display = 'none';
               return;
             }
-            saveProfile(name, guild, mmo, screenshots);
+            saveProfile(name, document.getElementById('guild').value.trim(), mmo, screenshots);
           }
         });
       } else {
@@ -623,29 +716,26 @@
         if (filesProcessed === totalFiles) {
           if (screenshots.length === 0) {
             alert("Please upload at least one screenshot image!");
+            document.getElementById('loading-section').style.display = 'none';
             return;
           }
-          saveProfile(name, guild, mmo, screenshots);
+          saveProfile(name, document.getElementById('guild').value.trim(), mmo, screenshots);
         }
       }
     });
   });
 
   function saveProfile(name, guild, mmo, screenshots) {
-    document.getElementById("loading-section").style.display = "flex";
-
-    const profileKey = "mmoriesProfile_" + Date.now();
-
-    const profile = {
-      name: name || "Unknown Hero",
-      guild: guild || "[Wanderer]",
-      mmo: mmo || "Unknown Realm",
-      screenshots: screenshots,
-      registeredAt: new Date().toLocaleString()
-    };
-
     try {
-      // Clear old profiles to free up space
+      const profileKey = generateProfileKey();
+      const profile = {
+        name: name || "Unknown Hero",
+        guild: guild || "[Wanderer]",
+        mmo: mmo || "Unknown Realm",
+        screenshots: screenshots,
+        registeredAt: new Date().toLocaleString()
+      };
+
       for (let key in localStorage) {
         if (key.startsWith('mmoriesProfile_') && key !== profileKey) {
           localStorage.removeItem(key);
@@ -661,187 +751,6 @@
       localStorage.setItem(profileKey + "_visitCount", "0");
       localStorage.setItem(profileKey + "_mmoriePoints", "1000");
       localStorage.setItem(profileKey + "_achievements", JSON.stringify([]));
-      alert("Profile saved! Redirecting in 3 seconds...");
-      setTimeout(() => {
-        window.location.href = "profile.html?profile=" + profileKey;
-      }, 3000);
-    } catch (e) {
-      alert("Error saving profile: " + e.message + ". Try uploading smaller images or fewer screenshots.");
-      document.getElementById("loading-section").style.display = "none";
-    }
-  }
-<script>
-  // Prevent default drag behavior to avoid unwanted side effects
-  function preventDefaultDrag(event) {
-    event.preventDefault();
-  }
-
-  let dragState = {
-    dragging: false,
-    index: null,
-    startX: 0,
-    startY: 0,
-    currentX: 0,
-    currentY: 0,
-    translateX: 0,
-    translateY: 0,
-    scale: 1
-  };
-
-  function startDragging(index) {
-    return function(event) {
-      event.preventDefault();
-      dragState.dragging = true;
-      dragState.index = index;
-      dragState.startX = event.clientX;
-      dragState.startY = event.clientY;
-      const img = previewImages[index];
-      const style = window.getComputedStyle(img);
-      const matrix = new DOMMatrixReadOnly(style.transform);
-      dragState.translateX = matrix.m41;
-      dragState.translateY = matrix.m42;
-      dragState.scale = matrix.a;
-    }
-  }
-
-  function duringDragging(event) {
-    if (!dragState.dragging) return;
-    event.preventDefault();
-    const dx = event.clientX - dragState.startX;
-    const dy = event.clientY - dragState.startY;
-    dragState.currentX = dragState.translateX + dx;
-    dragState.currentY = dragState.translateY + dy;
-    const img = previewImages[dragState.index];
-    img.style.transform = `translate(${dragState.currentX}px, ${dragState.currentY}px) scale(${dragState.scale})`;
-  }
-
-  function endDragging(event) {
-    if (!dragState.dragging) return;
-    dragState.dragging = false;
-    const img = previewImages[dragState.index];
-    const style = window.getComputedStyle(img);
-    const matrix = new DOMMatrixReadOnly(style.transform);
-    dragState.translateX = matrix.m41;
-    dragState.translateY = matrix.m42;
-    dragState.scale = matrix.a;
-  }
-
-  function handleZoom(index) {
-    return function(event) {
-      event.preventDefault();
-      let img = previewImages[index];
-      const style = window.getComputedStyle(img);
-      const matrix = new DOMMatrixReadOnly(style.transform);
-      let currentScale = matrix.a;
-
-      const delta = -event.deltaY || event.wheelDelta || -event.detail;
-      const zoomStep = 0.1;
-      let newScale = currentScale + (delta > 0 ? zoomStep : -zoomStep);
-      newScale = Math.max(0.5, Math.min(3, newScale));
-
-      const translateX = matrix.m41;
-      const translateY = matrix.m42;
-
-      img.style.transform = `translate(${translateX}px, ${translateY}px) scale(${newScale})`;
-    }
-  }
-
-  document.addEventListener('mousemove', duringDragging);
-  document.addEventListener('mouseup', endDragging);
-
-  // Add event listeners to initial preview image
-  previewImages[0].addEventListener('mousedown', startDragging(0));
-  previewImages[0].addEventListener('wheel', handleZoom(0));
-  previewImages[0].addEventListener('dragstart', preventDefaultDrag);
-
-  document.getElementById('addScreenshot').addEventListener('click', function() {
-    if (previewContainers.length >= 5) {
-      alert("You can only add up to 5 screenshots!");
-      return;
-    }
-
-    const index = previewContainers.length;
-    const group = document.createElement('div');
-    group.classList.add('screenshot-group');
-
-    const label = document.createElement('label');
-    label.setAttribute('for', `screenshot${index}`);
-    label.innerHTML = `Character Screenshot ${index + 1} <span class="tooltip" data-tooltip="Upload an in-game image of your character (max 2MB).">ℹ️</span>`;
-    group.appendChild(label);
-
-    const input = document.createElement('input');
-    input.type = 'file';
-    input.id = `screenshot${index}`;
-    input.name = `screenshot${index}`;
-    input.accept = 'image/*';
-    input.required = true;
-    group.appendChild(input);
-
-    const previewCont = document.createElement('div');
-    previewCont.id = `preview-container${index}`;
-    previewCont.classList.add('preview-container');
-    group.appendChild(previewCont);
-
-    const previewImg = document.createElement('img');
-    previewImg.id = `preview-image${index}`;
-    previewImg.alt = `Preview Screenshot ${index + 1}`;
-    previewImg.classList.add('preview-image');
-    previewCont.appendChild(previewImg);
-
-    const addBtn = document.getElementById('addScreenshot');
-    addBtn.parentNode.insertBefore(group, addBtn);
-
-    previewContainers.push(previewCont);
-    previewImages.push(previewImg);
-    initialStates.push({ initialX: 0, initialY: 0, scale: 1 });
-
-    input.addEventListener('change', function(e) {
-      const file = e.target.files[0];
-      if (file) {
-        compressImage(file, function(dataUrl) {
-          if (dataUrl) {
-            previewImg.src = dataUrl;
-            previewCont.style.display = 'block';
-            previewImg.style.transform = 'translate(0, 0) scale(1)';
-            initialStates[index] = { initialX: 0, initialY: 0, scale: 1 };
-          }
-        });
-      }
-    });
-
-    previewImg.addEventListener('mousedown', startDragging(index));
-    previewImg.addEventListener('wheel', handleZoom(index));
-    previewImg.addEventListener('dragstart', preventDefaultDrag);
-  });
-
-  // Handle form submission with loading bar and real profile save
-  document.getElementById('profileForm').addEventListener('submit', function(e) {
-    e.preventDefault();
-
-    document.getElementById('loading-section').style.display = 'flex';
-    document.getElementById('loading-bar').style.width = '0%';
-
-    const loadingBar = document.getElementById('loading-bar');
-    loadingBar.style.animation = 'load-progress 3s forwards';
-
-    // After animation complete, actually save profile
-    setTimeout(() => {
-      saveProfile(); // Save and redirect
-    }, 3100);
-  });
-
-  // The actual saveProfile function
-  function saveProfile() {
-    try {
-      const profile = gatherProfileData(); // Assume this collects the form input + image data
-      const profileKey = generateProfileKey(); // Assume this generates a unique ID
-
-      localStorage.setItem("hasProfile", "true");
-      localStorage.setItem(profileKey, JSON.stringify(profile));
-      localStorage.setItem("lastProfileKey", profileKey);
-      localStorage.setItem(profileKey + "_visitCount", "0");
-      localStorage.setItem(profileKey + "_mmoriePoints", "1000");
-      localStorage.setItem(profileKey + "_achievements", JSON.stringify([]));
 
       alert("Profile saved! Redirecting in 3 seconds...");
       setTimeout(() => {
@@ -849,9 +758,12 @@
       }, 3000);
     } catch (e) {
       alert("Error saving profile: " + e.message + ". Try uploading smaller images or fewer screenshots.");
-      document.getElementById("loading-section").style.display = "none";
+      document.getElementById('loading-section').style.display = "none";
     }
   }
+
+  // Initialize listeners for first screenshot
+  setupImageListeners(0);
 </script>
 </body>
 </html>
