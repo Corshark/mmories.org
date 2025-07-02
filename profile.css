@@ -26,7 +26,8 @@ video#bgVideo {
   top: 0;
   left: 50%;
   transform: translateX(-50%);
-  width: 900px;
+  width: 90vw;
+  max-width: 900px;
   height: 100vh;
   background: linear-gradient(to bottom, #7633a7, #0E1C33 70%, #7633a7 100%);
   border: 10px solid #01d9f5;
@@ -37,11 +38,11 @@ video#bgVideo {
 
 .shimmer-name {
   position: absolute;
-  top: 15%;
+  top: 10%;
   left: 50%;
   transform: translateX(-50%);
   margin: 0;
-  font-size: 8rem;
+  font-size: clamp(4rem, 8vw, 6rem);
   color: #ffd700;
   text-shadow: 0 0 10px #ffd70088;
   background: linear-gradient(90deg, #ffd700, #ffffff, #ffd700);
@@ -50,15 +51,16 @@ video#bgVideo {
   -webkit-text-fill-color: transparent;
   animation: shimmer 4s linear infinite;
   z-index: 4;
+  text-align: center;
 }
 
 .shimmer-guild {
   position: absolute;
-  top: 25%;
+  top: 20%;
   left: 50%;
   transform: translateX(-50%);
   margin: 0;
-  font-size: 3.15rem;
+  font-size: clamp(2rem, 4vw, 2.5rem);
   color: #b0c4ff;
   text-shadow: 0 0 10px #b0c4ff88;
   background: linear-gradient(90deg, #b0c4ff, #ffffff, #b0c4ff);
@@ -67,15 +69,16 @@ video#bgVideo {
   -webkit-text-fill-color: transparent;
   animation: shimmer 4s linear infinite;
   z-index: 4;
+  text-align: center;
 }
 
 .screenshot-box {
   position: absolute;
-  top: 60%;
+  top: 55%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 700px;
-  height: 600px;
+  width: clamp(300px, 80vw, 700px);
+  height: clamp(250px, 60vh, 600px);
   padding: 0;
   background: rgba(14, 28, 51, 0.9);
   border: 3px solid #01d9f5;
@@ -136,10 +139,10 @@ video#bgVideo {
 
 .mmo-box {
   position: absolute;
-  top: calc(76% + 99px + 20px);
+  top: 80%;
   left: 50%;
   transform: translateX(-50%);
-  width: 500px;
+  width: clamp(200px, 70vw, 500px);
   height: 45px;
   padding: 0.5rem;
   background: rgba(113,72,56,0.8);
@@ -153,7 +156,7 @@ video#bgVideo {
 
 .mmo-box p {
   margin: 0;
-  font-size: 1.4rem;
+  font-size: clamp(1rem, 3vw, 1.4rem);
   color: #b0c4ff;
 }
 
@@ -163,7 +166,7 @@ video#bgVideo {
   left: 10px;
   width: 130px;
   max-height: calc(100vh - 120px);
-  overflow-y: hidden;
+  overflow-y: auto;
   overflow-x: hidden;
   z-index: 3;
   display: flex;
@@ -227,7 +230,7 @@ video#bgVideo {
   border-top: 3px solid #9ea3ff;
   padding: 2rem;
   text-align: center;
-  font-size: 1.2rem;
+  font-size: clamp(1rem, 2.5vw, 1.2rem);
   color: #d3dbff;
   box-shadow: 0 0 60px rgba(110, 148, 255, 0.5), 0 0 120px rgba(110, 148, 255, 0.25);
   z-index: 3;
@@ -236,12 +239,12 @@ video#bgVideo {
 
 .celestial-panel {
   position: fixed;
-  top: 0px;
+  top: 0;
   left: 0;
   width: 100%;
   background: #0e1c33;
   border-bottom: 2.7px solid #9ea3ff;
-  padding: 1.9rem 1.8rem;
+  padding: 1rem;
   text-align: center;
   font-size: 1.2rem;
   color: #d3dbff;
@@ -249,23 +252,19 @@ video#bgVideo {
   z-index: 3;
   animation: softGlow 6s ease-in-out infinite;
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
-  justify-content: flex-start;
-  gap: 30px;
-  position: relative;
+  justify-content: center;
+  gap: 15px;
 }
 
 .created-date {
-  position: absolute;
-  top: 0.5rem;
-  right: 65px;
   background: rgba(14, 28, 51, 0.8);
   border: 2px solid #01d9f5;
   border-radius: 10px;
   padding: 10px;
   color: #d3dbff;
   font-size: 1rem;
-  z-index: 4;
   box-shadow: 0 0 15px #01d9f5;
 }
 
@@ -283,15 +282,20 @@ video#bgVideo {
 #mmorie-points {
   font-size: 1rem;
   color: #d3dbff;
-  z-index: 4;
   margin: 0;
-  padding: 0;
-  position: absolute;
+  padding: 10px;
 }
 
-#memory-counter { top: 10px; left: 1210px; }
-#visit-counter { top: 10px; left: 1000px; }
-#mmorie-points { top: 10px; left: 1450px; }
+.shimmer-text {
+  font-family: 'EB Garamond', serif;
+  font-size: 1rem;
+  letter-spacing: 0.5px;
+  background: linear-gradient(90deg, #cadcff, #ffffff, #cadcff);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmer 6s linear infinite;
+}
 
 #change-background-btn,
 #change-border-btn,
@@ -299,8 +303,6 @@ video#bgVideo {
 #edit-profile-btn,
 #donate-btn,
 #change-box-bg-btn {
-  position: absolute;
-  top: 0.5rem;
   background: rgba(14, 28, 51, 0.8);
   border: 2px solid #01d9f5;
   border-radius: 10px;
@@ -309,7 +311,6 @@ video#bgVideo {
   font-size: 1rem;
   font-family: 'EB Garamond', serif;
   cursor: pointer;
-  z-index: 4;
   box-shadow: 0 0 15px #01d9f588;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
@@ -336,13 +337,6 @@ video#bgVideo {
   -webkit-text-fill-color: transparent;
   animation: shimmer 6s linear infinite;
 }
-
-#change-background-btn { right: 380px; }
-#change-border-btn { right: 550px; }
-#reset-customizations-btn { right: 2300px; }
-#edit-profile-btn { right: 2480px; }
-#donate-btn { right: 2200px; }
-#change-box-bg-btn { right: 700px; }
 
 .modal {
   display: none;
@@ -469,17 +463,6 @@ video#bgVideo {
   100% { box-shadow: 0 0 40px rgba(110, 148, 255, 0.4), 0 0 80px rgba(110, 148, 255, 0.2); }
 }
 
-.shimmer-text {
-  font-family: 'EB Garamond', serif;
-  font-size: 1rem;
-  letter-spacing: 0.5px;
-  background: linear-gradient(90deg, #cadcff, #ffffff, #cadcff);
-  background-size: 200% auto;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  animation: shimmer 6s linear infinite;
-}
-
 @keyframes shimmer {
   0% { background-position: 200% center; }
   100% { background-position: -200% center; }
@@ -502,16 +485,12 @@ video#bgVideo {
     padding: 1rem;
   }
 
-  #change-background-btn, #change-border-btn, #reset-customizations-btn, #edit-profile-btn, #donate-btn, #change-box-bg-btn {
+  #change-background-btn, #change-border-btn, #reset-customizations-btn, 
+  #edit-profile-btn, #donate-btn, #change-box-bg-btn, .created-date {
     position: static;
     width: 100%;
     max-width: 200px;
-    margin: 0 auto;
-  }
-
-  .created-date {
-    position: static;
-    margin: 0 auto;
+    margin: 5px auto;
   }
 
   .screenshot-box {
@@ -523,8 +502,6 @@ video#bgVideo {
     width: 80px;
     left: 5px;
     top: 80px;
-    overflow-y: hidden;
-    overflow-x: hidden;
   }
 
   #achievements img {
@@ -535,26 +512,47 @@ video#bgVideo {
   #memory-counter, #visit-counter, #mmorie-points {
     position: static;
     text-align: center;
-    margin: 5px 0;
+    margin: 5px auto;
+    width: 100%;
+    max-width: 200px;
   }
 
-  #memory-counter { margin-top: 10px; }
-  #visit-counter { margin-top: 5px; }
-  #mmorie-points { margin-top: 5px; }
+  .profile-background {
+    width: 95vw;
+  }
 
-  .profile-background { width: 95vw; }
-  .mmo-box { width: 80vw; }
-  .shimmer-name { font-size: 6rem; }
-  .shimmer-guild { font-size: 2.7rem; }
+  .mmo-box {
+    width: 80vw;
+    top: 85%;
+  }
+
+  .shimmer-name {
+    top: 8%;
+    font-size: clamp(3rem, 6vw, 4rem);
+  }
+
+  .shimmer-guild {
+    top: 18%;
+    font-size: clamp(1.5rem, 3vw, 2rem);
+  }
 
   .modal {
     width: 90vw;
     padding: 15px;
   }
 
-  .modal-content { font-size: 1rem; }
-  .modal-buttons { flex-direction: column; gap: 10px; }
-  .modal-btn { width: 100%; }
+  .modal-content {
+    font-size: 1rem;
+  }
+
+  .modal-buttons {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .modal-btn {
+    width: 100%;
+  }
 
   .arrow-btn {
     width: 30px;

@@ -439,10 +439,26 @@
       const name = urlParams.get('name');
       const guild = urlParams.get('guild');
       const mmo = urlParams.get('mmo');
+      const edit = urlParams.get('edit');
+      const profileKey = urlParams.get('profile');
 
-      if (name) document.getElementById('name').value = name;
-      if (guild) document.getElementById('guild').value = guild;
-      if (mmo) document.getElementById('mmo').value = mmo.replace(/\+/g, ' ');
+      if (edit && profileKey) {
+        const profileData = localStorage.getItem(profileKey);
+        if (profileData) {
+          try {
+            const profile = JSON.parse(profileData);
+            document.getElementById('name').value = profile.name || '';
+            document.getElementById('guild').value = profile.guild || '';
+            document.getElementById('mmo').value = profile.mmo || '';
+          } catch (error) {
+            console.error('Failed to parse profile data for edit:', error);
+          }
+        }
+      } else {
+        if (name) document.getElementById('name').value = name;
+        if (guild) document.getElementById('guild').value = guild;
+        if (mmo) document.getElementById('mmo').value = mmo.replace(/\+/g, ' ');
+      }
     }
 
     // Particle animation
@@ -652,30 +668,52 @@
         // Create a new profile reference
         const profilesRef = ref(database, 'profiles');
         const newProfileRef = push(profilesRef);
+        const profileKey = newProfileRef.key;
 
         // Upload screenshots to Firebase Storage
         const screenshotURLs = await Promise.all(
           screenshots.map(async (file, index) => {
-            const screenshotRef = storageRef(storage, `screenshots/${newProfileRef.key}/screenshot${index + 1}_${file.name}`);
+            const screenshotRef = storageRef(storage, `screenshots/${profileKey}/screenshot${index + 1}_${file.name}`);
             await uploadBytes(screenshotRef, file);
             return getDownloadURL(screenshotRef);
           })
         );
 
-        // Save profile data to Realtime Database
-        await set(newProfileRef, {
+        // Map data for Firebase
+        const firebaseData = {
           characterName: name,
           guild: guild || '[Wanderer]',
           mmoGame: mmo,
           screenshotURLs,
           timestamp: Date.now()
-        });
+        };
 
-        alert('Profile immortalized successfully! Redirecting to your profile...');
-        // Redirect after Firebase operations complete
-        setTimeout(() => {
+        // Map data for localStorage (matching profile.js expectations)
+        const localStorageData = {
+          name,
+          guild: guild || '[Wanderer]',
+          mmo,
+          screenshots: screenshotURLs.map(url => ({
+            src: url,
+            positionX: 0,
+            positionY: 0,
+            scale: 1
+          })),
+          registeredAt: new Date().toLocaleString()
+        };
+
+        // Save to Firebase
+        await set(newProfileRef, firebaseData);
+
+        // Save to localStorage
+        localStorage.setItem(profileKey, JSON.stringify(localStorageData));
+        localStorage.setItem('lastProfileKey', profileKey);
+
+        // Ensure loading bar completes before redirect
+        document.getElementById('loading-bar').addEventListener('animationend', () => {
+          alert('Profile immortalized successfully! Redirecting to your profile...');
           try {
-            window.location.assign(`profile.html?profile=${newProfileRef.key}`);
+            window.location.assign(`profile.html?profile=${profileKey}`);
             // Reset form and UI
             document.getElementById('profileForm').reset();
             document.getElementById('loading-section').style.display = 'none';
@@ -687,14 +725,14 @@
             document.querySelectorAll('.screenshot-group:not(:first-child)').forEach(group => group.remove());
           } catch (redirectError) {
             console.error('Redirect failed:', redirectError);
-            alert('Error redirecting to profile page. Please try again.');
+            alert('Error redirecting to profile page. Please navigate to your profile manually.');
             document.getElementById('loading-section').style.display = 'none';
             document.getElementById('loading-bar').style.animation = 'none';
           }
-        }, 3000);
+        }, { once: true });
       } catch (error) {
         console.error('Error saving profile:', error);
-        alert(`Error immortalizing profile: ${error.message}. Please try again or check your connection.`);
+        alert(`Error immortalizing profile: ${error.message}. Please check your connection or Firebase configuration.`);
         document.getElementById('loading-section').style.display = 'none';
         document.getElementById('loading-bar').style.animation = 'none';
       }

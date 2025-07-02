@@ -1,29 +1,84 @@
-window.addEventListener("DOMContentLoaded", () => {
+import { initializeApp } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js";
+import { getDatabase, ref, get } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-database.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyBbQkQ2Sy9pMyKx68z3p_PLwTON70BS1PQ",
+  authDomain: "mmories-org-live.firebaseapp.com",
+  projectId: "mmories-org-live",
+  storageBucket: "mmories-org-live.firebasestorage.app",
+  messagingSenderId: "978660559442",
+  appId: "1:978660559442:web:b874b822f391a765a4ed8b"
+};
+
+const app = initializeApp(firebaseConfig);
+const database = getDatabase(app);
+
+window.addEventListener("DOMContentLoaded", async () => {
   console.log("DOM loaded, initializing profile page");
+
+  const loadingOverlay = document.getElementById("loading-overlay");
+  if (!loadingOverlay) {
+    console.warn("Loading overlay not found");
+  }
 
   const urlParams = new URLSearchParams(window.location.search);
   const profileKey = urlParams.get('profile') || localStorage.getItem("lastProfileKey");
   if (!profileKey) {
     console.error("No profile key found, redirecting to create-profile.html");
+    alert("No profile key provided. Redirecting to create a new profile.");
     window.location.href = "create-profile.html";
-    return;
-  }
-
-  let profileData = localStorage.getItem(profileKey);
-  if (!profileData) {
-    console.error("No profile data found for key:", profileKey, "redirecting to create-profile.html");
-    window.location.href = "create-profile.html";
+    if (loadingOverlay) loadingOverlay.style.display = "none";
     return;
   }
 
   let profile;
   try {
-    profile = JSON.parse(profileData);
-    console.log("Profile Data:", profile);
+    // Try fetching from Firebase first
+    const profileRef = ref(database, `profiles/${profileKey}`);
+    const snapshot = await get(profileRef);
+    if (snapshot.exists()) {
+      const firebaseData = snapshot.val();
+      // Validate Firebase data
+      if (!firebaseData.characterName || !firebaseData.mmoGame) {
+        throw new Error("Invalid Firebase data: missing characterName or mmoGame");
+      }
+      profile = {
+        name: firebaseData.characterName,
+        guild: firebaseData.guild || '[Wanderer]',
+        mmo: firebaseData.mmoGame,
+        screenshots: (firebaseData.screenshotURLs || []).map(url => ({
+          src: url,
+          positionX: 0,
+          positionY: 0,
+          scale: 1
+        })),
+        registeredAt: firebaseData.timestamp ? new Date(firebaseData.timestamp).toLocaleString() : new Date().toLocaleString()
+      };
+      // Save to localStorage for consistency
+      localStorage.setItem(profileKey, JSON.stringify(profile));
+      console.log("Profile fetched from Firebase and saved to localStorage:", profile);
+    } else {
+      // Fallback to localStorage
+      const profileData = localStorage.getItem(profileKey);
+      if (!profileData) {
+        console.error("No profile data found for key:", profileKey, "redirecting to create-profile.html");
+        alert("Profile not found. Redirecting to create a new profile.");
+        window.location.href = "create-profile.html";
+        if (loadingOverlay) loadingOverlay.style.display = "none";
+        return;
+      }
+      profile = JSON.parse(profileData);
+      // Validate localStorage data
+      if (!profile.name || !profile.mmo) {
+        throw new Error("Invalid localStorage data: missing name or mmo");
+      }
+      console.log("Profile fetched from localStorage:", profile);
+    }
   } catch (error) {
-    console.error("Failed to parse profile data:", error);
-    alert("Invalid profile data. Please create a new profile.");
+    console.error("Failed to fetch profile data:", error);
+    alert(`Error loading profile: ${error.message}. Please try again or create a new profile.`);
     window.location.href = "create-profile.html";
+    if (loadingOverlay) loadingOverlay.style.display = "none";
     return;
   }
 
@@ -76,56 +131,68 @@ window.addEventListener("DOMContentLoaded", () => {
 
   localStorage.setItem(`${profileKey}_achievements`, JSON.stringify(achievements));
 
-  const nameEl = document.getElementById("char-name");
-  const guildEl = document.getElementById("char-guild");
-  const mmoEl = document.getElementById("char-mmo");
-  const screenshotEl = document.getElementById("char-screenshot");
-  const createdDateEl = document.getElementById("created-date-text");
-  const counterEl = document.getElementById("memory-counter");
-  const visitCounterEl = document.getElementById("visit-counter");
-  const mmoriePointsEl = document.getElementById("mmorie-points");
-  const achievementsEl = document.getElementById("achievements");
-  const bgVideoEl = document.getElementById("bgVideo");
-  const changeBgBtn = document.getElementById("change-background-btn");
-  const changeBorderBtn = document.getElementById("change-border-btn");
-  const changeBoxBgBtn = document.getElementById("change-box-bg-btn");
-  const resetCustomizationsBtn = document.getElementById("reset-customizations-btn");
-  const editProfileBtn = document.getElementById("edit-profile-btn");
-  const donateBtn = document.getElementById("donate-btn");
-  const donationModal = document.getElementById("donation-modal");
-  const cancelDonationBtn = document.getElementById("cancel-donation-btn");
-  const confirmDonationBtn = document.getElementById("confirm-donation-btn");
-  const donationInput = document.getElementById("donation-input");
-  const donationNoteEl = document.getElementById("donation-note");
-  const donationTypes = document.getElementsByName("donation-type");
-  const prevScreenshotBtn = document.getElementById("prev-screenshot");
-  const nextScreenshotBtn = document.getElementById("next-screenshot");
+  const elements = {
+    nameEl: document.getElementById("char-name"),
+    guildEl: document.getElementById("char-guild"),
+    mmoEl: document.getElementById("char-mmo"),
+    screenshotEl: document.getElementById("char-screenshot"),
+    createdDateEl: document.getElementById("created-date-text"),
+    counterEl: document.getElementById("memory-counter"),
+    visitCounterEl: document.getElementById("visit-counter"),
+    mmoriePointsEl: document.getElementById("mmorie-points"),
+    achievementsEl: document.getElementById("achievements"),
+    bgVideoEl: document.getElementById("bgVideo"),
+    changeBgBtn: document.getElementById("change-background-btn"),
+    changeBorderBtn: document.getElementById("change-border-btn"),
+    changeBoxBgBtn: document.getElementById("change-box-bg-btn"),
+    resetCustomizationsBtn: document.getElementById("reset-customizations-btn"),
+    editProfileBtn: document.getElementById("edit-profile-btn"),
+    donateBtn: document.getElementById("donate-btn"),
+    donationModal: document.getElementById("donation-modal"),
+    cancelDonationBtn: document.getElementById("cancel-donation-btn"),
+    confirmDonationBtn: document.getElementById("confirm-donation-btn"),
+    donationInput: document.getElementById("donation-input"),
+    donationNoteEl: document.getElementById("donation-note"),
+    donationTypes: document.getElementsByName("donation-type"),
+    prevScreenshotBtn: document.getElementById("prev-screenshot"),
+    nextScreenshotBtn: document.getElementById("next-screenshot")
+  };
 
-  if (nameEl) {
-    nameEl.textContent = profile.name || "Unknown Character";
-    console.log("Name set to:", nameEl.textContent);
+  // Check for missing elements
+  Object.entries(elements).forEach(([key, el]) => {
+    if (!el && key !== "donationTypes") {
+      console.warn(`Element ${key} not found in DOM`);
+    }
+  });
+
+  if (elements.nameEl) {
+    elements.nameEl.textContent = profile.name || "Unknown Character";
+    console.log("Name set to:", elements.nameEl.textContent);
   }
-  if (guildEl) {
-    guildEl.textContent = profile.guild || "No Guild";
-    console.log("Guild set to:", guildEl.textContent);
+  if (elements.guildEl) {
+    elements.guildEl.textContent = profile.guild || "[Wanderer]";
+    console.log("Guild set to:", elements.guildEl.textContent);
   }
-  if (mmoEl) mmoEl.textContent = `From: ${profile.mmo || "Unknown MMO"}`;
-  if (createdDateEl) {
-    createdDateEl.textContent = new Date(profile.registeredAt).toLocaleString() || "6/2/2025, 09:00 AM";
-    console.log("Created date set to:", createdDateEl.textContent);
+  if (elements.mmoEl) {
+    elements.mmoEl.textContent = `From: ${profile.mmo || "Unknown MMO"}`;
+    console.log("MMO set to:", elements.mmoEl.textContent);
+  }
+  if (elements.createdDateEl) {
+    elements.createdDateEl.textContent = profile.registeredAt || "6/2/2025, 09:00 AM";
+    console.log("Created date set to:", elements.createdDateEl.textContent);
   }
 
   let currentScreenshotIndex = 0;
-  if (screenshotEl && profile.screenshots && profile.screenshots.length > 0) {
+  if (elements.screenshotEl && profile.screenshots && profile.screenshots.length > 0) {
     function updateScreenshot() {
       const currentScreenshot = profile.screenshots[currentScreenshotIndex];
-      screenshotEl.src = currentScreenshot.src || "default-screenshot.png";
-      screenshotEl.alt = `Screenshot of ${profile.name || "Unknown Character"}`;
-      screenshotEl.style.transform = `translate(${currentScreenshot.positionX || 0}px, ${currentScreenshot.positionY || 0}px) scale(${currentScreenshot.scale || 1})`;
-      console.log("Screenshot set:", screenshotEl.src, "Index:", currentScreenshotIndex);
+      elements.screenshotEl.src = currentScreenshot.src || "default-screenshot.png";
+      elements.screenshotEl.alt = `Screenshot of ${profile.name || "Unknown Character"}`;
+      elements.screenshotEl.style.transform = `translate(${currentScreenshot.positionX || 0}px, ${currentScreenshot.positionY || 0}px) scale(${currentScreenshot.scale || 1})`;
+      console.log("Screenshot set:", elements.screenshotEl.src, "Index:", currentScreenshotIndex);
     }
 
-    prevScreenshotBtn.addEventListener("click", () => {
+    elements.prevScreenshotBtn.addEventListener("click", () => {
       currentScreenshotIndex = (currentScreenshotIndex - 1 + profile.screenshots.length) % profile.screenshots.length;
       updateScreenshot();
       const clickSound = document.getElementById("click-sound");
@@ -134,7 +201,7 @@ window.addEventListener("DOMContentLoaded", () => {
       }
     });
 
-    nextScreenshotBtn.addEventListener("click", () => {
+    elements.nextScreenshotBtn.addEventListener("click", () => {
       currentScreenshotIndex = (currentScreenshotIndex + 1) % profile.screenshots.length;
       updateScreenshot();
       const clickSound = document.getElementById("click-sound");
@@ -144,18 +211,17 @@ window.addEventListener("DOMContentLoaded", () => {
     });
 
     updateScreenshot();
-  } else if (screenshotEl && profile.screenshot) {
-    // Fallback for single screenshot
+  } else if (elements.screenshotEl && profile.screenshot) {
     profile.screenshots = [{ src: profile.screenshot, positionX: profile.positionX, positionY: profile.positionY, scale: profile.scale }];
     function updateScreenshot() {
       const currentScreenshot = profile.screenshots[currentScreenshotIndex];
-      screenshotEl.src = currentScreenshot.src || "default-screenshot.png";
-      screenshotEl.alt = `Screenshot of ${profile.name || "Unknown Character"}`;
-      screenshotEl.style.transform = `translate(${currentScreenshot.positionX || 0}px, ${currentScreenshot.positionY || 0}px) scale(${currentScreenshot.scale || 1})`;
-      console.log("Screenshot set:", screenshotEl.src, "Index:", currentScreenshotIndex);
+      elements.screenshotEl.src = currentScreenshot.src || "default-screenshot.png";
+      elements.screenshotEl.alt = `Screenshot of ${profile.name || "Unknown Character"}`;
+      elements.screenshotEl.style.transform = `translate(${currentScreenshot.positionX || 0}px, ${currentScreenshot.positionY || 0}px) scale(${currentScreenshot.scale || 1})`;
+      console.log("Screenshot set:", elements.screenshotEl.src, "Index:", currentScreenshotIndex);
     }
 
-    prevScreenshotBtn.addEventListener("click", () => {
+    elements.prevScreenshotBtn.addEventListener("click", () => {
       currentScreenshotIndex = (currentScreenshotIndex - 1 + profile.screenshots.length) % profile.screenshots.length;
       updateScreenshot();
       const clickSound = document.getElementById("click-sound");
@@ -164,7 +230,7 @@ window.addEventListener("DOMContentLoaded", () => {
       }
     });
 
-    nextScreenshotBtn.addEventListener("click", () => {
+    elements.nextScreenshotBtn.addEventListener("click", () => {
       currentScreenshotIndex = (currentScreenshotIndex + 1) % profile.screenshots.length;
       updateScreenshot();
       const clickSound = document.getElementById("click-sound");
@@ -174,40 +240,40 @@ window.addEventListener("DOMContentLoaded", () => {
     });
 
     updateScreenshot();
-  } else {
-    screenshotEl.src = "default-screenshot.png";
-    screenshotEl.alt = "No Screenshot Available";
+  } else if (elements.screenshotEl) {
+    elements.screenshotEl.src = "default-screenshot.png";
+    elements.screenshotEl.alt = "No Screenshot Available";
     console.error("No screenshots found in profile data");
   }
 
-  if (counterEl && profile.registeredAt) {
+  if (elements.counterEl && profile.registeredAt) {
     try {
       const registered = new Date(profile.registeredAt);
       const now = new Date();
       if (isNaN(registered.getTime())) {
         console.error("Invalid registeredAt date:", profile.registeredAt);
-        counterEl.textContent = "Memory Age: Invalid Date";
+        elements.counterEl.textContent = "Memory Age: Invalid Date";
       } else {
         const days = Math.floor((now - registered) / (1000 * 60 * 60 * 24));
-        counterEl.textContent = `Memory Age: ${days} days`;
+        elements.counterEl.textContent = `Memory Age: ${days} days`;
         console.log("Memory Age set to:", days, "days, registeredAt:", profile.registeredAt);
       }
     } catch (error) {
       console.error("Error calculating memory age:", error);
-      counterEl.textContent = "Memory Age: Error";
+      elements.counterEl.textContent = "Memory Age: Error";
     }
   }
-  if (visitCounterEl) {
-    visitCounterEl.textContent = `Profile Visits: ${visitCount}`;
+  if (elements.visitCounterEl) {
+    elements.visitCounterEl.textContent = `Profile Visits: ${visitCount}`;
     console.log("Visit counter set to:", visitCount);
   }
-  if (mmoriePointsEl) {
-    mmoriePointsEl.textContent = `mmPoints: ${mmoriePoints}`;
+  if (elements.mmoriePointsEl) {
+    elements.mmoriePointsEl.textContent = `mmPoints: ${mmoriePoints}`;
     console.log("mmoriePoints set to:", mmoriePoints);
   }
 
-  if (achievementsEl) {
-    achievementsEl.innerHTML = "";
+  if (elements.achievementsEl) {
+    elements.achievementsEl.innerHTML = "";
     const achievementData = [
       { visits: 10, image: "Coins/10-profile.png", alt: "10 Visits Achievement", tooltip: "Your profile was visited 10 times! Congrats!" },
       { visits: 100, image: "Coins/100-profile.png", alt: "100 Visits Achievement", tooltip: "Your profile was visited 100 times! Congrats!" },
@@ -226,7 +292,7 @@ window.addEventListener("DOMContentLoaded", () => {
         img.src = ach.image;
         img.alt = ach.alt;
         img.setAttribute("data-tooltip", ach.tooltip);
-        achievementsEl.appendChild(img);
+        elements.achievementsEl.appendChild(img);
         console.log("Added coin:", ach.alt, "src:", ach.image, "tooltip:", ach.tooltip);
 
         img.addEventListener("mouseenter", (e) => {
@@ -280,7 +346,6 @@ window.addEventListener("DOMContentLoaded", () => {
       }
     });
 
-    // Add Corshark-Admin.png only if profile.name is "Corshark"
     if (profile.name === "Corshark" && !achievements.includes("admin")) {
       const adminAch = achievementData.find(a => a.visits === "admin");
       if (adminAch) {
@@ -288,7 +353,7 @@ window.addEventListener("DOMContentLoaded", () => {
         img.src = adminAch.image;
         img.alt = adminAch.alt;
         img.setAttribute("data-tooltip", adminAch.tooltip);
-        achievementsEl.appendChild(img);
+        elements.achievementsEl.appendChild(img);
         console.log("Added admin coin:", adminAch.alt, "src:", adminAch.image, "tooltip:", adminAch.tooltip);
 
         img.addEventListener("mouseenter", (e) => {
@@ -346,23 +411,23 @@ window.addEventListener("DOMContentLoaded", () => {
     console.error("Achievements element not found");
   }
 
-  if (changeBgBtn && bgVideoEl) {
+  if (elements.changeBgBtn && elements.bgVideoEl) {
     const backgrounds = ["videos/profile.mp4", "videos/profile1.mp4", "videos/profile2.mp4", "videos/profile3.mp4", "videos/profile4.mp4"];
     let currentBgIndex = parseInt(localStorage.getItem(`${profileKey}_currentBgIndex`) || "0");
 
-    bgVideoEl.src = backgrounds[currentBgIndex];
-    bgVideoEl.load();
-    bgVideoEl.play();
+    elements.bgVideoEl.src = backgrounds[currentBgIndex];
+    elements.bgVideoEl.load();
+    elements.bgVideoEl.play().catch(e => console.warn("Video playback failed:", e));
     console.log("Loaded background:", backgrounds[currentBgIndex]);
 
-    changeBgBtn.addEventListener("mouseenter", (e) => {
+    elements.changeBgBtn.addEventListener("mouseenter", (e) => {
       console.log("Hover on Change Background button: showing tooltip");
       const tooltip = document.createElement("div");
       tooltip.classList.add("tooltip");
       tooltip.textContent = "100 mmoriePoints to change background!";
       document.body.appendChild(tooltip);
 
-      const rect = changeBgBtn.getBoundingClientRect();
+      const rect = elements.changeBgBtn.getBoundingClientRect();
       tooltip.style.left = `${rect.right + 10}px`;
       tooltip.style.top = `${rect.top + rect.height / 2}px`;
       tooltip.style.transform = "translateY(-50%)";
@@ -370,18 +435,18 @@ window.addEventListener("DOMContentLoaded", () => {
 
       console.log(`Button tooltip positioned at left: ${tooltip.style.left}, top: ${tooltip.style.top}`);
 
-      changeBgBtn._tooltip = tooltip;
+      elements.changeBgBtn._tooltip = tooltip;
     });
 
-    changeBgBtn.addEventListener("mouseleave", () => {
+    elements.changeBgBtn.addEventListener("mouseleave", () => {
       console.log("Mouse leave on Change Background button: hiding tooltip");
-      if (changeBgBtn._tooltip) {
-        changeBgBtn._tooltip.remove();
-        changeBgBtn._tooltip = null;
+      if (elements.changeBgBtn._tooltip) {
+        elements.changeBgBtn._tooltip.remove();
+        elements.changeBgBtn._tooltip = null;
       }
     });
 
-    changeBgBtn.addEventListener("click", () => {
+    elements.changeBgBtn.addEventListener("click", () => {
       const clickSound = document.getElementById("click-sound");
       if (clickSound) {
         try { clickSound.currentTime = 0; clickSound.play(); } catch (e) { console.warn("Failed to play click sound:", e); }
@@ -397,16 +462,16 @@ window.addEventListener("DOMContentLoaded", () => {
 
         mmoriePoints -= 100;
         localStorage.setItem(`${profileKey}_mmoriePoints`, mmoriePoints);
-        mmoriePointsEl.textContent = `mmPoints: ${mmoriePoints}`;
-        mmoriePointsEl.classList.add("points-updated");
-        setTimeout(() => mmoriePointsEl.classList.remove("points-updated"), 500);
+        elements.mmoriePointsEl.textContent = `mmPoints: ${mmoriePoints}`;
+        elements.mmoriePointsEl.classList.add("points-updated");
+        setTimeout(() => elements.mmoriePointsEl.classList.remove("points-updated"), 500);
         console.log("Deducted 100 mmoriePoints, new balance:", mmoriePoints);
 
         currentBgIndex = (currentBgIndex + 1) % backgrounds.length;
         const newVideoSrc = backgrounds[currentBgIndex];
-        bgVideoEl.src = newVideoSrc;
-        bgVideoEl.load();
-        bgVideoEl.play();
+        elements.bgVideoEl.src = newVideoSrc;
+        elements.bgVideoEl.load();
+        elements.bgVideoEl.play().catch(e => console.warn("Video playback failed:", e));
         localStorage.setItem(`${profileKey}_currentBgIndex`, currentBgIndex);
         console.log("Changed background to:", newVideoSrc);
       } else {
@@ -418,7 +483,7 @@ window.addEventListener("DOMContentLoaded", () => {
     console.error("Change Background button or bgVideo element not found");
   }
 
-  if (changeBorderBtn) {
+  if (elements.changeBorderBtn) {
     const borderColors = ["#01d9f5", "#ff2e95", "#ffd700", "#a649cb", "#00ff7f"];
     let currentBorderIndex = parseInt(localStorage.getItem(`${profileKey}_currentBorderIndex`) || "0");
     const profileBg = document.querySelector(".profile-background");
@@ -446,14 +511,14 @@ window.addEventListener("DOMContentLoaded", () => {
     if (createdDate) createdDate.style.borderColor = borderColors[currentBorderIndex];
     console.log("Loaded border color:", borderColors[currentBorderIndex]);
 
-    changeBorderBtn.addEventListener("mouseenter", (e) => {
+    elements.changeBorderBtn.addEventListener("mouseenter", (e) => {
       console.log("Hover on Change Border button: showing tooltip");
       const tooltip = document.createElement("div");
       tooltip.classList.add("tooltip");
       tooltip.textContent = "100 mmoriePoints to change borders!";
       document.body.appendChild(tooltip);
 
-      const rect = changeBorderBtn.getBoundingClientRect();
+      const rect = elements.changeBorderBtn.getBoundingClientRect();
       tooltip.style.left = `${rect.right + 10}px`;
       tooltip.style.top = `${rect.top + rect.height / 2}px`;
       tooltip.style.transform = "translateY(-50%)";
@@ -461,18 +526,18 @@ window.addEventListener("DOMContentLoaded", () => {
 
       console.log(`Border tooltip positioned at left: ${tooltip.style.left}, top: ${tooltip.style.top}`);
 
-      changeBorderBtn._tooltip = tooltip;
+      elements.changeBorderBtn._tooltip = tooltip;
     });
 
-    changeBorderBtn.addEventListener("mouseleave", () => {
+    elements.changeBorderBtn.addEventListener("mouseleave", () => {
       console.log("Mouse leave on Change Border button: hiding tooltip");
-      if (changeBorderBtn._tooltip) {
-        changeBorderBtn._tooltip.remove();
-        changeBorderBtn._tooltip = null;
+      if (elements.changeBorderBtn._tooltip) {
+        elements.changeBorderBtn._tooltip.remove();
+        elements.changeBorderBtn._tooltip = null;
       }
     });
 
-    changeBorderBtn.addEventListener("click", () => {
+    elements.changeBorderBtn.addEventListener("click", () => {
       const clickSound = document.getElementById("click-sound");
       if (clickSound) {
         try { clickSound.currentTime = 0; clickSound.play(); } catch (e) { console.warn("Failed to play click sound:", e); }
@@ -488,9 +553,9 @@ window.addEventListener("DOMContentLoaded", () => {
 
         mmoriePoints -= 100;
         localStorage.setItem(`${profileKey}_mmoriePoints`, mmoriePoints);
-        mmoriePointsEl.textContent = `mmPoints: ${mmoriePoints}`;
-        mmoriePointsEl.classList.add("points-updated");
-        setTimeout(() => mmoriePointsEl.classList.remove("points-updated"), 500);
+        elements.mmoriePointsEl.textContent = `mmPoints: ${mmoriePoints}`;
+        elements.mmoriePointsEl.classList.add("points-updated");
+        setTimeout(() => elements.mmoriePointsEl.classList.remove("points-updated"), 500);
         console.log("Deducted 100 mmoriePoints, new balance:", mmoriePoints);
 
         currentBorderIndex = (currentBorderIndex + 1) % borderColors.length;
@@ -522,7 +587,7 @@ window.addEventListener("DOMContentLoaded", () => {
     console.error("Change Border button not found");
   }
 
-  if (changeBoxBgBtn) {
+  if (elements.changeBoxBgBtn) {
     const boxBackgrounds = [
       "rgb(14, 28, 51)",
       "linear-gradient(to bottom, #2a4066, #1a2b4a)",
@@ -549,14 +614,14 @@ window.addEventListener("DOMContentLoaded", () => {
     if (modal) modal.style.background = savedBoxBg;
     console.log("Loaded box background:", savedBoxBg);
 
-    changeBoxBgBtn.addEventListener("mouseenter", (e) => {
+    elements.changeBoxBgBtn.addEventListener("mouseenter", (e) => {
       console.log("Hover on Change Box Background button: showing tooltip");
       const tooltip = document.createElement("div");
       tooltip.classList.add("tooltip");
       tooltip.textContent = "100 mmoriePoints to change box backgrounds!";
       document.body.appendChild(tooltip);
 
-      const rect = changeBoxBgBtn.getBoundingClientRect();
+      const rect = elements.changeBoxBgBtn.getBoundingClientRect();
       tooltip.style.left = `${rect.right + 10}px`;
       tooltip.style.top = `${rect.top + rect.height / 2}px`;
       tooltip.style.transform = "translateY(-50%)";
@@ -564,18 +629,18 @@ window.addEventListener("DOMContentLoaded", () => {
 
       console.log(`Box Bg tooltip positioned at left: ${tooltip.style.left}, top: ${tooltip.style.top}`);
 
-      changeBoxBgBtn._tooltip = tooltip;
+      elements.changeBoxBgBtn._tooltip = tooltip;
     });
 
-    changeBoxBgBtn.addEventListener("mouseleave", () => {
+    elements.changeBoxBgBtn.addEventListener("mouseleave", () => {
       console.log("Mouse leave on Change Box Background button: hiding tooltip");
-      if (changeBoxBgBtn._tooltip) {
-        changeBoxBgBtn._tooltip.remove();
-        changeBoxBgBtn._tooltip = null;
+      if (elements.changeBoxBgBtn._tooltip) {
+        elements.changeBoxBgBtn._tooltip.remove();
+        elements.changeBoxBgBtn._tooltip = null;
       }
     });
 
-    changeBoxBgBtn.addEventListener("click", () => {
+    elements.changeBoxBgBtn.addEventListener("click", () => {
       const clickSound = document.getElementById("click-sound");
       if (clickSound) {
         try { clickSound.currentTime = 0; clickSound.play(); } catch (e) { console.warn("Failed to play click sound:", e); }
@@ -591,9 +656,9 @@ window.addEventListener("DOMContentLoaded", () => {
 
         mmoriePoints -= 100;
         localStorage.setItem(`${profileKey}_mmoriePoints`, mmoriePoints);
-        mmoriePointsEl.textContent = `mmPoints: ${mmoriePoints}`;
-        mmoriePointsEl.classList.add("points-updated");
-        setTimeout(() => mmoriePointsEl.classList.remove("points-updated"), 500);
+        elements.mmoriePointsEl.textContent = `mmPoints: ${mmoriePoints}`;
+        elements.mmoriePointsEl.classList.add("points-updated");
+        setTimeout(() => elements.mmoriePointsEl.classList.remove("points-updated"), 500);
         console.log("Deducted 100 mmoriePoints, new balance:", mmoriePoints);
 
         currentBoxBgIndex = (currentBoxBgIndex + 1) % boxBackgrounds.length;
@@ -618,7 +683,7 @@ window.addEventListener("DOMContentLoaded", () => {
     console.error("Change Box Background button not found");
   }
 
-  if (resetCustomizationsBtn) {
+  if (elements.resetCustomizationsBtn) {
     const defaultBorderColor = "#01d9f5";
     const defaultBackground = "videos/profile.mp4";
     const defaultBoxBg = "rgb(14, 28, 51)";
@@ -631,14 +696,14 @@ window.addEventListener("DOMContentLoaded", () => {
     const mysticPanel = document.querySelector(".mystic-panel");
     const modal = document.querySelector(".modal");
 
-    resetCustomizationsBtn.addEventListener("mouseenter", (e) => {
+    elements.resetCustomizationsBtn.addEventListener("mouseenter", (e) => {
       console.log("Hover on Reset Customizations button: showing tooltip");
       const tooltip = document.createElement("div");
       tooltip.classList.add("tooltip");
       tooltip.textContent = "50 mmoriePoints to reset borders, background, and box backgrounds!";
       document.body.appendChild(tooltip);
 
-      const rect = resetCustomizationsBtn.getBoundingClientRect();
+      const rect = elements.resetCustomizationsBtn.getBoundingClientRect();
       tooltip.style.left = `${rect.right + 10}px`;
       tooltip.style.top = `${rect.top + rect.height / 2}px`;
       tooltip.style.transform = "translateY(-50%)";
@@ -646,18 +711,18 @@ window.addEventListener("DOMContentLoaded", () => {
 
       console.log(`Reset tooltip positioned at left: ${tooltip.style.left}, top: ${tooltip.style.top}`);
 
-      resetCustomizationsBtn._tooltip = tooltip;
+      elements.resetCustomizationsBtn._tooltip = tooltip;
     });
 
-    resetCustomizationsBtn.addEventListener("mouseleave", () => {
+    elements.resetCustomizationsBtn.addEventListener("mouseleave", () => {
       console.log("Mouse leave on Reset Customizations button: hiding tooltip");
-      if (resetCustomizationsBtn._tooltip) {
-        resetCustomizationsBtn._tooltip.remove();
-        resetCustomizationsBtn._tooltip = null;
+      if (elements.resetCustomizationsBtn._tooltip) {
+        elements.resetCustomizationsBtn._tooltip.remove();
+        elements.resetCustomizationsBtn._tooltip = null;
       }
     });
 
-    resetCustomizationsBtn.addEventListener("click", () => {
+    elements.resetCustomizationsBtn.addEventListener("click", () => {
       if (mmoriePoints >= 50) {
         const clickSound = document.getElementById("click-sound");
         if (clickSound) {
@@ -665,14 +730,14 @@ window.addEventListener("DOMContentLoaded", () => {
         }
         mmoriePoints -= 50;
         localStorage.setItem(`${profileKey}_mmoriePoints`, mmoriePoints);
-        mmoriePointsEl.textContent = `mmPoints: ${mmoriePoints}`;
-        mmoriePointsEl.classList.add("points-updated");
-        setTimeout(() => mmoriePointsEl.classList.remove("points-updated"), 500);
+        elements.mmoriePointsEl.textContent = `mmPoints: ${mmoriePoints}`;
+        elements.mmoriePointsEl.classList.add("points-updated");
+        setTimeout(() => elements.mmoriePointsEl.classList.remove("points-updated"), 500);
         console.log("Deducted 50 mmoriePoints, new balance:", mmoriePoints);
 
-        bgVideoEl.src = defaultBackground;
-        bgVideoEl.load();
-        bgVideoEl.play();
+        elements.bgVideoEl.src = defaultBackground;
+        elements.bgVideoEl.load();
+        elements.bgVideoEl.play().catch(e => console.warn("Video playback failed:", e));
         localStorage.setItem(`${profileKey}_currentBgIndex`, "0");
         console.log("Reset background to:", defaultBackground);
 
@@ -714,20 +779,20 @@ window.addEventListener("DOMContentLoaded", () => {
     console.error("Reset Customizations button not found");
   }
 
-  if (editProfileBtn) {
-    editProfileBtn.addEventListener("click", () => {
+  if (elements.editProfileBtn) {
+    elements.editProfileBtn.addEventListener("click", () => {
       console.log("Edit Profile clicked, redirecting to create-profile.html");
-      window.location.href = "create-profile.html?edit=true&profile=" + profileKey;
+      window.location.href = `create-profile.html?edit=true&profile=${profileKey}`;
     });
 
-    editProfileBtn.addEventListener("mouseenter", (e) => {
+    elements.editProfileBtn.addEventListener("mouseenter", (e) => {
       console.log("Hover on Edit Profile button: showing tooltip");
       const tooltip = document.createElement("div");
       tooltip.classList.add("tooltip");
       tooltip.textContent = "Edit your character’s name, guild, MMO, or screenshot!";
       document.body.appendChild(tooltip);
 
-      const rect = editProfileBtn.getBoundingClientRect();
+      const rect = elements.editProfileBtn.getBoundingClientRect();
       tooltip.style.left = `${rect.right + 10}px`;
       tooltip.style.top = `${rect.top + rect.height / 2}px`;
       tooltip.style.transform = "translateY(-50%)";
@@ -735,21 +800,21 @@ window.addEventListener("DOMContentLoaded", () => {
 
       console.log(`Edit tooltip positioned at left: ${tooltip.style.left}, top: ${tooltip.style.top}`);
 
-      editProfileBtn._tooltip = tooltip;
+      elements.editProfileBtn._tooltip = tooltip;
     });
 
-    editProfileBtn.addEventListener("mouseleave", () => {
+    elements.editProfileBtn.addEventListener("mouseleave", () => {
       console.log("Mouse leave on Edit Profile button: hiding tooltip");
-      if (editProfileBtn._tooltip) {
-        editProfileBtn._tooltip.remove();
-        editProfileBtn._tooltip = null;
+      if (elements.editProfileBtn._tooltip) {
+        elements.editProfileBtn._tooltip.remove();
+        elements.editProfileBtn._tooltip = null;
       }
     });
   } else {
     console.error("Edit Profile button not found");
   }
 
-  if (donateBtn && donationModal) {
+  if (elements.donateBtn && elements.donationModal) {
     const steamTradeUrl = "https://steamcommunity.com/tradeoffer/new/?partner=234292270&token=Za-GzrF9";
     let donationAmount = "0.01";
 
@@ -792,221 +857,7 @@ window.addEventListener("DOMContentLoaded", () => {
 
         mmoriePoints += 500;
         localStorage.setItem(`${profileKey}_mmoriePoints`, mmoriePoints);
-        mmoriePointsEl.textContent = `mmPoints: ${mmoriePoints}`;
-        mmoriePointsEl.classList.add("points-updated");
-        setTimeout(() => mmoriePointsEl.classList.remove("points-updated"), 500);
-        console.log("Awarded 500 mmoriePoints for MetaMask donation, new balance:", mmoriePoints);
-
-        localStorage.setItem("isDonator", "true");
-        if (!achievements.includes("donator")) {
-          achievements.push("donator");
-          localStorage.setItem(`${profileKey}_achievements`, JSON.stringify(achievements));
-          console.log("Added donator achievement for MetaMask donation");
-        }
-        if (!achievements.includes("metamask-donator")) {
-          achievements.push("metamask-donator");
-          localStorage.setItem(`${profileKey}_achievements`, JSON.stringify(achievements));
-          console.log("Added metamask-donator achievement for MetaMask donation");
-        }
-
-        achievementsEl.innerHTML = "";
-        achievements.forEach(achievement => {
-          const ach = achievementData.find(a => a.visits.toString() === achievement);
-          if (ach) {
-            const img = document.createElement("img");
-            img.src = ach.image;
-            img.alt = ach.alt;
-            img.setAttribute("data-tooltip", ach.tooltip);
-            achievementsEl.appendChild(img);
-
-            img.addEventListener("mouseenter", (e) => {
-              console.log(`Hover on ${ach.alt}: showing tooltip`);
-              const tooltip = document.createElement("div");
-              tooltip.classList.add("tooltip");
-              tooltip.textContent = ach.tooltip;
-              document.body.appendChild(tooltip);
-
-              const rect = img.getBoundingClientRect();
-              tooltip.style.left = `${rect.right + 10}px`;
-              tooltip.style.top = `${rect.top + rect.height / 2}px`;
-              tooltip.style.transform = "translateY(-50%)";
-              tooltip.style.display = "block";
-
-              console.log(`Tooltip positioned at left: ${tooltip.style.left}, top: ${tooltip.style.top}`);
-
-              img._tooltip = tooltip;
-            });
-            img.addEventListener("mouseleave", () => {
-              console.log(`Mouse leave on ${ach.alt}: hiding tooltip`);
-              if (img._tooltip) {
-                img._tooltip.remove();
-                img._tooltip = null;
-              }
-            });
-            img.addEventListener("click", () => {
-              if (img.classList.contains("flipping")) {
-                console.log(`Click on ${ach.alt} ignored, animation in progress`);
-                return;
-              }
-
-              console.log(`Clicked on ${ach.alt}, toggling flip`);
-              img.classList.add("flipping");
-              img.classList.toggle("flip");
-
-              const flipSound = document.getElementById("flip-sound");
-              if (flipSound) {
-                try { flipSound.currentTime = 0; flipSound.play(); } catch (e) { console.warn("Failed to play flip sound:", e); }
-              }
-              const clickSound = document.getElementById("click-sound");
-              if (clickSound) {
-                try { clickSound.currentTime = 0; clickSound.play(); } catch (e) { console.warn("Failed to play click sound:", e); }
-              }
-
-              setTimeout(() => {
-                img.classList.remove("flipping");
-                console.log(`Flip animation complete for ${ach.alt}`);
-              }, 600);
-            });
-          }
-        });
-        console.log("Refreshed achievements with new coins");
-
-        donationModal.style.display = "none";
-      } catch (error) {
-        console.error("Donation transaction failed:", error);
-        alert("Donation failed. Please check your MetaMask wallet and try again.");
-      }
-    }
-
-    donateBtn.addEventListener("click", () => {
-      console.log("Donate clicked");
-      const clickSound = document.getElementById("click-sound");
-      if (clickSound) {
-        try { clickSound.currentTime = 0; clickSound.play(); } catch (e) { console.warn("Failed to play click sound:", e); }
-        console.log("Donate button clicked, click sound played");
-      }
-
-      donationModal.style.display = "block";
-      const selectedType = document.querySelector('input[name="donation-type"]:checked').value;
-      if (selectedType === "steam-trade") {
-        donationInput.style.display = "none";
-        donationNoteEl.style.display = "block";
-        donationNoteEl.textContent = `Please include your mmories.com username: ${profile.name || "Unknown Character"}`;
-      } else if (selectedType === "metamask") {
-        donationInput.style.display = "block";
-        donationNoteEl.style.display = "block";
-        donationNoteEl.textContent = `Enter amount and include your mmories.com username: ${profile.name || "Unknown Character"} in the transaction note.`;
-      }
-
-      const donateSound = document.getElementById("donate-sound");
-      if (donateSound) {
-        try { donateSound.currentTime = 0; donateSound.play(); } catch (e) { console.warn("Failed to play donate sound:", e); }
-        console.log("Donation modal opened, donate sound played");
-      }
-    });
-
-    donationTypes.forEach(type => {
-      type.addEventListener("change", () => {
-        donationInput.style.display = "none";
-        donationNoteEl.style.display = "block";
-        if (type.value === "steam-trade") {
-          donationNoteEl.textContent = `Please include your mmories.com username: ${profile.name || "Unknown Character"}`;
-        } else if (type.value === "metamask") {
-          donationInput.style.display = "block";
-          donationNoteEl.textContent = `Enter amount and include your mmories.com username: ${profile.name || "Unknown Character"} in the transaction note.`;
-        }
-        console.log("Donation type changed to:", type.value);
-      });
-    });
-
-    cancelDonationBtn.addEventListener("click", () => {
-      console.log("Cancel donation clicked");
-      const clickSound = document.getElementById("click-sound");
-      if (clickSound) {
-        try { clickSound.currentTime = 0; clickSound.play(); } catch (e) { console.warn("Failed to play click sound:", e); }
-      }
-      donationModal.style.display = "none";
-    });
-
-    confirmDonationBtn.addEventListener("click", async () => {
-      console.log("Confirm donation clicked");
-      const clickSound = document.getElementById("click-sound");
-      if (clickSound) {
-        try { clickSound.currentTime = 0; clickSound.play(); } catch (e) { console.warn("Failed to play click sound:", e); }
-      }
-      const selectedType = document.querySelector('input[name="donation-type"]:checked').value;
-      if (selectedType === "steam-trade") {
-        window.open(steamTradeUrl, "_blank");
-        alert(`Please include your mmories.com username: ${profile.name || "Unknown Character"}`);
-        donationModal.style.display = "none";
-        console.log("Opened Steam Trade link:", steamTradeUrl);
-      } else if (selectedType === "metamask") {
-        const walletAddress = await connectMetaMask();
-        if (walletAddress) {
-          const amount = parseFloat(document.getElementById("donation-input").value) || 0.01;
-          donationAmount = amount.toString();
-          await sendDonation(walletAddress);
-        }
-      }
-    });
-
-    donateBtn.addEventListener("mouseenter", (e) => {
-      console.log("Hover on Donate button: showing tooltip");
-      const tooltip = document.createElement("div");
-      tooltip.classList.add("tooltip");
-      tooltip.textContent = "Donate via Steam Trade or MetaMask to earn points and a coin!";
-      document.body.appendChild(tooltip);
-
-      const rect = donateBtn.getBoundingClientRect();
-      tooltip.style.left = `${rect.right + 10}px`;
-      tooltip.style.top = `${rect.top + rect.height / 2}px`;
-      tooltip.style.transform = "translateY(-50%)";
-      tooltip.style.display = "block";
-
-      console.log(`Donate tooltip positioned at left: ${tooltip.style.left}, top: ${tooltip.style.top}`);
-
-      donateBtn._tooltip = tooltip;
-    });
-
-    donateBtn.addEventListener("mouseleave", () => {
-      console.log("Mouse leave on Donate button: hiding tooltip");
-      if (donateBtn._tooltip) {
-        donateBtn._tooltip.remove();
-        donateBtn._tooltip = null;
-      }
-    });
-  } else {
-    console.error("Donate button or donation modal not found");
-  }
-
-  const counters = [counterEl, visitCounterEl, mmoriePointsEl];
-  counters.forEach(counter => {
-    if (counter) {
-      counter.addEventListener("mouseenter", (e) => {
-        console.log(`Hover on ${counter.id}: showing tooltip`);
-        const tooltip = document.createElement("div");
-        tooltip.classList.add("tooltip");
-        tooltip.textContent = counter.getAttribute("data-tooltip");
-        document.body.appendChild(tooltip);
-
-        const rect = counter.getBoundingClientRect();
-        tooltip.style.left = `${rect.right + 10}px`;
-        tooltip.style.top = `${rect.top + rect.height / 2}px`;
-        tooltip.style.transform = "translateY(-50%)";
-        tooltip.style.display = "block";
-
-        console.log(`Tooltip for ${counter.id} positioned at left: ${tooltip.style.left}, top: ${tooltip.style.top}`);
-
-        counter._tooltip = tooltip;
-      });
-
-      counter.addEventListener("mouseleave", () => {
-        console.log(`Mouse leave on ${counter.id}: hiding tooltip`);
-        if (counter._tooltip) {
-          counter._tooltip.remove();
-          counter._tooltip = null;
-        }
-      });
-    }
-  });
-});
+        elements.mmoriePointsEl.textContent = `mmPoints: ${mmoriePoints}`;
+        elements.mmoriePointsEl.classList.add("points-updated");
+        setTimeout(() => elements.mmoriePointsEl.classList.remove("points-updated"), 500);
+        console.log("Awarded 500 mmoriePoints for MetaMask donation, new balance:",
