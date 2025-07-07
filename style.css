@@ -256,7 +256,7 @@ html, body {
 }
 .button-bar {
   position: absolute;
-  top: 75%; /* moved 1.5 times lower */
+  top: 150%; /* moved 1.5 times lower */
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 10;
