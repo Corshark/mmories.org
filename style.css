@@ -256,7 +256,7 @@ html, body {
 }
 .button-bar {
   position: absolute;
-  top: 150%; /* moved 1.5 times lower */
+  top: 150%;
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 40;
@@ -264,7 +264,8 @@ html, body {
   display: flex;
   flex-direction: column;
   gap: 1vh;
-  background: rgba(28, 2, 55, 0.6);
+  /* background: rgba(28, 2, 55, 0.6); ← Remove this */
+  background: transparent; /* Optional, or just delete */
   padding: 1vh 2vw;
   border-radius: 1vh;
   align-items: center;
