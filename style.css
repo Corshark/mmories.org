@@ -8,110 +8,7 @@ html, body {
   font-family: 'EB Garamond', serif;
   overflow: hidden;
 }
-.header-content {
-  position: relative;
-  z-index: 2;
-  text-align: center;
-  padding: 50px 20px;
-  color: #FFD700;
-  text-shadow: 0 0 10px #FFD70088;
-}
 
-.header-content h1 {
-  font-size: 3em;
-  margin: 0;
-}
-
-.header-content p {
-  font-size: 1.2em;
-  margin: 10px 0;
-}
-
-.top-nav {
-  position: relative;
-  z-index: 2;
-  text-align: center;
-  padding: 10px;
-}
-
-.archives-button {
-  padding: 10px 20px;
-  font-size: 1.2em;
-  background-color: #1C0237;
-  color: #FFD700;
-  border: 2px solid #FFD700;
-  border-radius: 12px;
-  text-decoration: none;
-  transition: transform 0.3s ease, background-color 0.3s ease;
-}
-
-.archives-button:hover {
-  transform: scale(1.1);
-  background-color: #FFD700;
-  color: #1C0237;
-}
-
-.g_id_signin {
-  display: block;
-  margin: 20px auto;
-  position: relative;
-  z-index: 2;
-  max-width: 300px; /* Optional: limits button width */
-}
-
-.audio-controls {
-  position: relative;
-  z-index: 2;
-  text-align: center;
-  padding: 10px;
-}
-
-#volumeSlider {
-  display: none;
-  width: 100px;
-  margin-top: 5px;
-}
-.founders {
-  position: absolute;
-  bottom: 20px;
-  width: 100%;
-  z-index: 2;
-  text-align: center;
-  padding: 20px;
-  color: #DDD;
-  font-size: 1.1em;
-}
-
-
-.founders-title {
-  font-size: 1.5em;
-  color: #FFD700;
-  text-shadow: 0 0 10px #FFD70088;
-  margin-bottom: 10px;
-}
-
-.founder-item {
-  margin: 5px 0;
-  font-family: 'EB Garamond', serif;
-  color: #FFD700;
-  text-shadow: 0 0 5px #FFD70066;
-  transition: transform 0.3s ease;
-}
-
-.founder-item:hover {
-  transform: scale(1.05);
-}
-
-.shimmer-name {
-  animation: shimmer 2s infinite alternate;
-  color: #FFD700;
-  text-shadow: 0 0 15px #FFD700, 0 0 30px #FFD70088;
-}
-
-@keyframes shimmer {
-  0% { text-shadow: 0 0 10px #FFD700, 0 0 20px #FFD70066; }
-  100% { text-shadow: 0 0 20px #FFD700, 0 0 40px #FFD70088; }
-}
 #bgVideo {
   position: fixed;
   right: 0;
@@ -119,6 +16,7 @@ html, body {
   min-width: 100%;
   min-height: 100%;
   z-index: 1;
+  pointer-events: none;
 }
 
 .content {
@@ -128,7 +26,6 @@ html, body {
   position: relative;
   z-index: 2; 
 }
-
 
 .title {
   font-size: 9em;
@@ -163,7 +60,6 @@ html, body {
   }
 }
 
-
 .subtitle {
   font-size: 1.2em;
   margin-bottom: 2em;
@@ -173,26 +69,6 @@ html, body {
   margin-bottom: 3em;
 }
 
-.main-btn {
-  display: inline-block;
-  margin: 0.5em;
-  padding: 0.8em 1.6em;
-  background: rgba(255, 255, 255, 0.1);
-  color: #fff;
-  border: 2px solid #fff;
-  border-radius: 10px;
-  text-decoration: none;
-  font-weight: bold;
-  transition: all 0.3s ease;
-}
-
-.main-btn:hover {
-  background: rgba(255, 255, 255, 0.3);
-  color: #000;
-}
-#bgVideo {
-  pointer-events: none;
-}
 .mystic-btn {
   display: inline-block;
   margin: 10px;
@@ -215,4 +91,97 @@ html, body {
   text-shadow: 0 0 10px #1C0237aa;
   transform: scale(1.05);
   box-shadow: 0 0 15px #FFD700aa;
+}
+
+.founders-box {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.6);
+  border: 2px solid #5bfafa;
+  border-radius: 16px;
+  padding: 20px 30px;
+  width: fit-content;
+  max-width: 90%;
+  z-index: 2;
+  text-align: center;
+  box-shadow: 0 0 20px #5bfafa44;
+}
+
+.founders-title {
+  font-size: 1.6em;
+  color: #5bfafa;
+  text-shadow: 0 0 10px #5bfafa88;
+  margin-bottom: 15px;
+}
+
+.founder-list p {
+  margin: 10px 0;
+  color: #fff;
+  font-family: 'EB Garamond', serif;
+  font-size: 1.1em;
+  text-shadow: 0 0 5px #ffffff33;
+}
+
+.glow-label {
+  color: #5bfafa;
+  font-weight: bold;
+  text-shadow: 0 0 8px #5bfafa66;
+}
+
+/* Optional glow on hover for founder names */
+.founder-item {
+  margin: 5px 0;
+  font-family: 'EB Garamond', serif;
+  color: #FFD700;
+  text-shadow: 0 0 5px #FFD70066;
+  transition: transform 0.3s ease;
+}
+
+.founder-item:hover {
+  transform: scale(1.05);
+}
+
+.shimmer-name {
+  animation: shimmer 2s infinite alternate;
+  color: #FFD700;
+  text-shadow: 0 0 15px #FFD700, 0 0 30px #FFD70088;
+}
+
+@keyframes shimmer {
+  0% { text-shadow: 0 0 10px #FFD700, 0 0 20px #FFD70066; }
+  100% { text-shadow: 0 0 20px #FFD700, 0 0 40px #FFD70088; }
+}
+
+/* Optional UI elements for other parts of the site */
+
+.archives-button {
+  padding: 10px 20px;
+  font-size: 1.2em;
+  background-color: #1C0237;
+  color: #FFD700;
+  border: 2px solid #FFD700;
+  border-radius: 12px;
+  text-decoration: none;
+  transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.archives-button:hover {
+  transform: scale(1.1);
+  background-color: #FFD700;
+  color: #1C0237;
+}
+
+.audio-controls {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  padding: 10px;
+}
+
+#volumeSlider {
+  display: none;
+  width: 100px;
+  margin-top: 5px;
 }
