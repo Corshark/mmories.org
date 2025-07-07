@@ -255,17 +255,27 @@ html, body {
   fill: gold;
 }
 .button-bar {
-  position: fixed;
-  top: 20px;
+  position: absolute; /* or relative, but absolute is fine */
+  top: 50%;
   left: 50%;
-  transform: translateX(-50%);
+  transform: translate(-50%, -50%);
   z-index: 10;
+
   display: flex;
-  gap: 1vw;
+  flex-direction: column; /* stack .up and .down vertically */
+  gap: 1vh;
   background: rgba(28, 2, 55, 0.6);
-  padding: 0.5vh 1vw;
+  padding: 1vh 2vw;
   border-radius: 1vh;
+  align-items: center; /* center horizontally */
+  width: max-content; /* shrink to content */
 }
+
+.up, .down {
+  display: flex;
+  gap: 1vw; /* space between buttons in a row */
+}
+
 .button-bar button {
   color: #FFD700;
   font-weight: bold;
