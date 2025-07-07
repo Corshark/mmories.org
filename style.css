@@ -146,13 +146,34 @@ html, body {
   font-size: clamp(2.5rem, 7vw, 6rem);
   font-weight: bold;
   color: #5bfafa;
-  margin-bottom: 1vh;
-  text-shadow: 0 0 2.5vw #5bfafa66, 0 0 5vw #5bfafa33;
   position: relative;
   display: inline-block;
   overflow: hidden;
-  animation: glow-title 3s infinite alternate, shimmer 3s infinite alternate;
+  
+  /* Make the text take the gradient */
+  background: linear-gradient(
+    135deg,  /* diagonal angle */
+    #5bfafa 0%, 
+    #ffffff 40%,   /* highlight color */
+    #5bfafa 80%
+  );
+  background-size: 200% 200%; /* double size for sliding */
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  
+  animation: shine-slide 3s infinite;
 }
+
+@keyframes shine-slide {
+  0% {
+    background-position: 200% 0%;  /* start off-screen top-right */
+  }
+  100% {
+    background-position: -200% 100%; /* end off-screen bottom-left */
+  }
+}
+
 
 .mystic-btn, .archives-button {
   animation: pulse-glow 2s infinite alternate;
