@@ -201,6 +201,59 @@ html, body {
   letter-spacing: 0.03em;
   text-transform: uppercase;
 }
+/* === Fancy button layout from Uiverse.io === */
+.main {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+}
+.up,
+.down {
+  display: flex;
+  flex-direction: row;
+  gap: 0.5em;
+}
+.card1, .card2, .card3, .card4 {
+  width: 90px;
+  height: 90px;
+  outline: none;
+  border: none;
+  background: white;
+  border-radius: 90px 5px 5px 5px;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
+              rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+  transition: transform 0.2s ease-in-out;
+}
+.card2 { border-radius: 5px 90px 5px 5px; }
+.card3 { border-radius: 5px 5px 5px 90px; }
+.card4 { border-radius: 5px 5px 90px 5px; }
+
+.card1:hover,
+.card2:hover,
+.card3:hover,
+.card4:hover {
+  cursor: pointer;
+  transform: scale(1.05);
+}
+
+.custom-icon {
+  margin-top: 1em;
+  margin-left: 1em;
+  fill: #555;
+}
+.card1, .card2, .card3, .card4 {
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.1);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.card1:hover, .card2:hover, .card3:hover, .card4:hover {
+  box-shadow: 0 0 12px rgba(255, 200, 100, 0.6), 0 0 4px rgba(255, 255, 255, 0.4);
+}
+.custom-icon {
+  fill: gold;
+}
 
  
 
