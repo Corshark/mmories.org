@@ -185,6 +185,22 @@ html, body {
   color: #1C0237;
   box-shadow: 0 0 1vw #FFD70088, 0 0 2vw #FFD700aa;
 }
+.statement {
+  font-size: clamp(1.6rem, 3vw, 2.2rem); /* ~2x bigger than before */
+  font-weight: 700; /* Make it bold */
+  color: #ffffff;
+  text-shadow: 0 0 1vw #ffffff55;
+  margin-bottom: 4vh;
+  font-family: 'EB Garamond', serif;
+}
+.statement {
+  border-bottom: 2px solid #5bfafa88;
+  padding-bottom: 1vh;
+}
+.statement {
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
 
  
 
