@@ -28,7 +28,7 @@ html, body {
 }
 
 .title {
-  font-size: 9vw; /* Scales with screen width */
+  font-size: clamp(2.5rem, 7vw, 6rem); /* limits size on large screens */
   font-weight: bold;
   color: #5bfafa;
   margin-bottom: 1vh;
@@ -38,35 +38,9 @@ html, body {
   overflow: hidden;
 }
 
-.title::before {
-  content: '';
-  position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.4), transparent);
-  transform: rotate(25deg);
-  animation: shimmerMove 3s infinite;
-  pointer-events: none;
-}
-
-@keyframes shimmerMove {
-  0% {
-    transform: translate(-100%, -100%) rotate(25deg);
-  }
-  100% {
-    transform: translate(100%, 100%) rotate(25deg);
-  }
-}
-
 .subtitle {
-  font-size: 1.6vw;
+  font-size: clamp(1.2rem, 2vw, 1.6rem);
   margin-bottom: 4vh;
-}
-
-.button-group {
-  margin-bottom: 5vh;
 }
 
 .mystic-btn {
@@ -78,19 +52,11 @@ html, body {
   background-color: rgba(28, 2, 55, 0.6);
   color: #FFD700;
   font-family: 'EB Garamond', serif;
-  font-size: 1.6vw;
+  font-size: clamp(1rem, 1.6vw, 1.4rem);
   text-shadow: 0 0 0.6vw #FFD70088;
   text-decoration: none;
   transition: all 0.3s ease;
   box-shadow: 0 0 1vw #FFD70033;
-}
-
-.mystic-btn:hover {
-  background-color: #FFD700;
-  color: #1C0237;
-  text-shadow: 0 0 1vw #1C0237aa;
-  transform: scale(1.05);
-  box-shadow: 0 0 1.5vw #FFD700aa;
 }
 
 .founders-box {
@@ -104,13 +70,14 @@ html, body {
   padding: 2vh 4vw;
   width: fit-content;
   max-width: 90%;
+  max-width: 800px; /* NEW: keeps it readable */
   z-index: 2;
   text-align: center;
   box-shadow: 0 0 2vw #5bfafa44;
 }
 
 .founders-title {
-  font-size: 2vw;
+  font-size: clamp(1.5rem, 2vw, 2rem);
   color: #5bfafa;
   text-shadow: 0 0 1vw #5bfafa88;
   margin-bottom: 2vh;
@@ -120,14 +87,19 @@ html, body {
   margin: 1vh 0;
   color: #fff;
   font-family: 'EB Garamond', serif;
-  font-size: 1.3vw;
+  font-size: clamp(1rem, 1.3vw, 1.2rem);
   text-shadow: 0 0 0.4vw #ffffff33;
 }
 
-.glow-label {
-  color: #5bfafa;
-  font-weight: bold;
-  text-shadow: 0 0 0.8vw #5bfafa66;
+.archives-button {
+  padding: 1.2vh 2vw;
+  font-size: clamp(1rem, 1.4vw, 1.2rem);
+  background-color: #1C0237;
+  color: #FFD700;
+  border: 0.25vh solid #FFD700;
+  border-radius: 1.5vh;
+  text-decoration: none;
+  transition: transform 0.3s ease, background-color 0.3s ease;
 }
 
 /* Optional glow on hover for founder names */
@@ -152,19 +124,6 @@ html, body {
 @keyframes shimmer {
   0% { text-shadow: 0 0 1vw #FFD700, 0 0 2vw #FFD70066; }
   100% { text-shadow: 0 0 2vw #FFD700, 0 0 4vw #FFD70088; }
-}
-
-/* Optional UI elements for other parts of the site */
-
-.archives-button {
-  padding: 1.2vh 2vw;
-  font-size: 1.4vw;
-  background-color: #1C0237;
-  color: #FFD700;
-  border: 0.25vh solid #FFD700;
-  border-radius: 1.5vh;
-  text-decoration: none;
-  transition: transform 0.3s ease, background-color 0.3s ease;
 }
 
 .archives-button:hover {
