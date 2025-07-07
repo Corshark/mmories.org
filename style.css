@@ -27,17 +27,6 @@ html, body {
   z-index: 2;
 }
 
-.title {
-  font-size: clamp(2.5rem, 7vw, 6rem); /* limits size on large screens */
-  font-weight: bold;
-  color: #5bfafa;
-  margin-bottom: 1vh;
-  text-shadow: 0 0 2.5vw #5bfafa66, 0 0 5vw #5bfafa33;
-  position: relative;
-  display: inline-block;
-  overflow: hidden;
-}
-
 .subtitle {
   font-size: clamp(1.2rem, 2vw, 1.6rem);
   margin-bottom: 4vh;
@@ -144,3 +133,38 @@ html, body {
   width: 15vw;
   margin-top: 1vh;
 }
+@keyframes pulse-glow {
+  0% {
+    box-shadow: 0 0 0.5vw #FFD70033;
+  }
+  100% {
+    box-shadow: 0 0 1vw #FFD70066;
+  }
+}
+
+.title {
+  font-size: clamp(2.5rem, 7vw, 6rem);
+  font-weight: bold;
+  color: #5bfafa;
+  margin-bottom: 1vh;
+  text-shadow: 0 0 2.5vw #5bfafa66, 0 0 5vw #5bfafa33;
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+  animation: glow-title 3s infinite alternate, shimmer 3s infinite alternate;
+}
+
+.mystic-btn, .archives-button {
+  animation: pulse-glow 2s infinite alternate;
+}
+
+.mystic-btn:hover,
+.archives-button:hover {
+  transform: scale(1.1);
+  background-color: #FFD700;
+  color: #1C0237;
+  box-shadow: 0 0 1vw #FFD70088, 0 0 2vw #FFD700aa;
+}
+
+ 
+
