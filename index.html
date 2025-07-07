@@ -1,31 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>mmories.com</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <title>mmories.org</title>
+  <link rel="stylesheet" href="style.css">
 
-    <!-- Firebase App and Auth SDKs -->
-    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-analytics.js"></script>
+  <!-- Firebase App and Auth SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-analytics.js"></script>
 
-    <script>
-        // Your Firebase config
-        const firebaseConfig = {
-            apiKey: "AIzaSyBztUoMtgYAGCRwjYFcqYZeRU5lsLOWBSs",
-            authDomain: "mmories-5b419.firebaseapp.com",
-            projectId: "mmories-5b419",
-            storageBucket: "mmories-5b419.firebasestorage.app",
-            messagingSenderId: "180262364874",
-            appId: "1:180262364874:web:104036052645786c16f633",
-            measurementId: "G-HMJFTLKLX9"
-        };
+  <script>
+    // Your Firebase config
+    const firebaseConfig = {
+      apiKey: "AIzaSyBztUoMtgYAGCRwjYFcqYZeRU5lsLOWBSs",
+      authDomain: "mmories-5b419.firebaseapp.com",
+      projectId: "mmories-5b419",
+      storageBucket: "mmories-5b419.firebasestorage.app",
+      messagingSenderId: "180262364874",
+      appId: "1:180262364874:web:104036052645786c16f633",
+      measurementId: "G-HMJFTLKLX9"
+    };
 
-        // Initialize Firebase
-        firebase.initializeApp(firebaseConfig);
-        firebase.analytics();
-    </script>
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    firebase.analytics();
+  </script>
 </head>
 <body>
   <video autoplay muted loop id="bgVideo">
@@ -36,22 +36,31 @@
     <h1 class="title">mmories.org</h1>
     <p class="subtitle">Exposing scammers. Protecting the community. Reporting with purpose.</p>
 
-    <!-- ✨ New Buttons -->
+    <!-- ✨ Mystic Buttons -->
     <div class="button-group">
-      <a href="archives.html" class="main-btn">Browse Known Scammers</a>
-      <a href="#" class="main-btn">Watch How to Report</a>
-      <a href="banned.html" class="main-btn">View Banned Archive</a>
+      <a href="archives.html" class="mystic-btn">Browse Known Scammers</a>
+      <a href="#" class="mystic-btn">Watch How to Report</a>
+      <a href="banned.html" class="mystic-btn">View Banned Archive</a>
     </div>
+  </div>
 
-    <!-- ✅ Founders: Unchanged -->
-    <div class="founders">
-      <p><strong>Founders:</strong></p>
-      <p>The Sanctum of Legacy - Hizaki420</p>
-      <p>AethersOffline - Sirencore</p>
-      <p>Citadel of Memories - Shinners13</p>
-      <p>mmories.com - Ozorah</p>
-      <p>Aoe.Archives of Eternals - Falconer</p>
-    </div>
+  <!-- ✅ Founders moved to bottom -->
+  <div class="founders">
+    <div class="founders-title">The Sanctum of Legacy</div>
+    <div class="founder-item">Hizaki420</div>
+
+    <div class="founders-title">AethersOffline</div>
+    <div class="founder-item">Sirencore</div>
+
+    <div class="founders-title">Citadel of Memories</div>
+    <div class="founder-item">Shinners13</div>
+
+    <div class="founders-title">mmories.com</div>
+    <div class="founder-item">Ozorah</div>
+
+    <div class="founders-title">Aoe.Archives of Eternals</div>
+    <div class="founder-item shimmer-name">Falconer</div>
   </div>
 </body>
 </html>
+
