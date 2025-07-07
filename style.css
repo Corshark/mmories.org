@@ -131,9 +131,13 @@ html, body {
 
 
 .title {
-  font-size: 3em;
+  font-size: 9em;
+  font-weight: bold;
+  color: #5bfafa;
   margin-bottom: 0.2em;
+  text-shadow: 0 0 25px #5bfafa66, 0 0 50px #5bfafa33;
 }
+
 
 .subtitle {
   font-size: 1.2em;
