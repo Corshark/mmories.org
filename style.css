@@ -24,15 +24,15 @@ html, body {
   color: white;
   padding-top: 10vh;
   position: relative;
-  z-index: 2; 
+  z-index: 2;
 }
 
 .title {
-  font-size: 9em;
+  font-size: 9vw; /* Scales with screen width */
   font-weight: bold;
   color: #5bfafa;
-  margin-bottom: 0.2em;
-  text-shadow: 0 0 25px #5bfafa66, 0 0 50px #5bfafa33;
+  margin-bottom: 1vh;
+  text-shadow: 0 0 2.5vw #5bfafa66, 0 0 5vw #5bfafa33;
   position: relative;
   display: inline-block;
   overflow: hidden;
@@ -61,81 +61,81 @@ html, body {
 }
 
 .subtitle {
-  font-size: 1.2em;
-  margin-bottom: 2em;
+  font-size: 1.6vw;
+  margin-bottom: 4vh;
 }
 
 .button-group {
-  margin-bottom: 3em;
+  margin-bottom: 5vh;
 }
 
 .mystic-btn {
   display: inline-block;
-  margin: 10px;
-  padding: 12px 24px;
-  border: 2px solid #FFD700;
-  border-radius: 16px;
+  margin: 1vh;
+  padding: 1.2vh 2.5vw;
+  border: 0.25vh solid #FFD700;
+  border-radius: 2vh;
   background-color: rgba(28, 2, 55, 0.6);
   color: #FFD700;
   font-family: 'EB Garamond', serif;
-  font-size: 1.3em;
-  text-shadow: 0 0 6px #FFD70088;
+  font-size: 1.6vw;
+  text-shadow: 0 0 0.6vw #FFD70088;
   text-decoration: none;
   transition: all 0.3s ease;
-  box-shadow: 0 0 10px #FFD70033;
+  box-shadow: 0 0 1vw #FFD70033;
 }
 
 .mystic-btn:hover {
   background-color: #FFD700;
   color: #1C0237;
-  text-shadow: 0 0 10px #1C0237aa;
+  text-shadow: 0 0 1vw #1C0237aa;
   transform: scale(1.05);
-  box-shadow: 0 0 15px #FFD700aa;
+  box-shadow: 0 0 1.5vw #FFD700aa;
 }
 
 .founders-box {
   position: absolute;
-  bottom: 20px;
+  bottom: 3vh;
   left: 50%;
   transform: translateX(-50%);
   background: rgba(0, 0, 0, 0.6);
-  border: 2px solid #5bfafa;
-  border-radius: 16px;
-  padding: 20px 30px;
+  border: 0.3vh solid #5bfafa;
+  border-radius: 2vh;
+  padding: 2vh 4vw;
   width: fit-content;
   max-width: 90%;
   z-index: 2;
   text-align: center;
-  box-shadow: 0 0 20px #5bfafa44;
+  box-shadow: 0 0 2vw #5bfafa44;
 }
 
 .founders-title {
-  font-size: 1.6em;
+  font-size: 2vw;
   color: #5bfafa;
-  text-shadow: 0 0 10px #5bfafa88;
-  margin-bottom: 15px;
+  text-shadow: 0 0 1vw #5bfafa88;
+  margin-bottom: 2vh;
 }
 
 .founder-list p {
-  margin: 10px 0;
+  margin: 1vh 0;
   color: #fff;
   font-family: 'EB Garamond', serif;
-  font-size: 1.1em;
-  text-shadow: 0 0 5px #ffffff33;
+  font-size: 1.3vw;
+  text-shadow: 0 0 0.4vw #ffffff33;
 }
 
 .glow-label {
   color: #5bfafa;
   font-weight: bold;
-  text-shadow: 0 0 8px #5bfafa66;
+  text-shadow: 0 0 0.8vw #5bfafa66;
 }
 
 /* Optional glow on hover for founder names */
 .founder-item {
-  margin: 5px 0;
+  margin: 1vh 0;
   font-family: 'EB Garamond', serif;
   color: #FFD700;
-  text-shadow: 0 0 5px #FFD70066;
+  text-shadow: 0 0 0.5vw #FFD70066;
   transition: transform 0.3s ease;
 }
 
@@ -146,23 +146,23 @@ html, body {
 .shimmer-name {
   animation: shimmer 2s infinite alternate;
   color: #FFD700;
-  text-shadow: 0 0 15px #FFD700, 0 0 30px #FFD70088;
+  text-shadow: 0 0 1.5vw #FFD700, 0 0 3vw #FFD70088;
 }
 
 @keyframes shimmer {
-  0% { text-shadow: 0 0 10px #FFD700, 0 0 20px #FFD70066; }
-  100% { text-shadow: 0 0 20px #FFD700, 0 0 40px #FFD70088; }
+  0% { text-shadow: 0 0 1vw #FFD700, 0 0 2vw #FFD70066; }
+  100% { text-shadow: 0 0 2vw #FFD700, 0 0 4vw #FFD70088; }
 }
 
 /* Optional UI elements for other parts of the site */
 
 .archives-button {
-  padding: 10px 20px;
-  font-size: 1.2em;
+  padding: 1.2vh 2vw;
+  font-size: 1.4vw;
   background-color: #1C0237;
   color: #FFD700;
-  border: 2px solid #FFD700;
-  border-radius: 12px;
+  border: 0.25vh solid #FFD700;
+  border-radius: 1.5vh;
   text-decoration: none;
   transition: transform 0.3s ease, background-color 0.3s ease;
 }
@@ -177,11 +177,11 @@ html, body {
   position: relative;
   z-index: 2;
   text-align: center;
-  padding: 10px;
+  padding: 1vh;
 }
 
 #volumeSlider {
   display: none;
-  width: 100px;
-  margin-top: 5px;
+  width: 15vw;
+  margin-top: 1vh;
 }
