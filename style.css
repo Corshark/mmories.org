@@ -254,6 +254,25 @@ html, body {
 .custom-icon {
   fill: gold;
 }
+.button-bar {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  display: flex;
+  gap: 1vw;
+  background: rgba(28, 2, 55, 0.6);
+  padding: 0.5vh 1vw;
+  border-radius: 1vh;
+}
+.button-bar button {
+  color: #FFD700;
+  font-weight: bold;
+  font-size: clamp(1rem, 1.4vw, 1.6rem);
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+}
 
- 
 
