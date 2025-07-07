@@ -285,5 +285,29 @@ html, body {
   align-items: center;
   gap: 0.5em;
 }
+.card1 {
+  background: #01cbf2;
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 0 8px rgba(1, 203, 242, 0.3);
+}
+.card2 {
+  background: #9a31d9;
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 0 8px rgba(154, 49, 217, 0.3);
+}
+.card3 {
+  background: #226901;
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 0 8px rgba(34, 105, 1, 0.3);
+}
+.card4 {
+  background: #2e2526;
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 0 8px rgba(46, 37, 38, 0.3);
+}
 
 
