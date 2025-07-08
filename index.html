@@ -47,57 +47,77 @@
     </div>
   </div>
 
-  <!-- Donate Modal -->
-  <div id="donateModal" class="modal" style="display:none;">
-    <div class="modal-content">
-      <span class="close-btn" id="donateClose">&times;</span>
-      <h2>Support mmories.org</h2>
-      <p>Choose your donation method:</p>
-      
-      <div class="donate-option">
-        <h3>Crypto Wallet</h3>
-        <p id="cryptoWallet" class="copy-text">0xc4fc89419aDdC40be739D5ab31ac9720bE67e5ac</p>
-        <button id="copyWalletBtn">Copy Address</button>
-        <!-- QR code removed -->
-      </div>
-      
-      <div class="donate-option">
-        <h3>Steam Trade Offer</h3>
-        <a href="https://steamcommunity.com/tradeoffer/new/?partner=234292270&token=Za-GzrF9" target="_blank" class="steam-link">Open Steam Trade Link</a>
-      </div>
-    </div>
-  </div>
+<!-- Donate Modal -->
+<div id="donateModal" class="modal" style="display:none;">
+  <!-- content... -->
+</div>
 
+<!-- Submit Modal -->
+<div id="submitModal" class="modal" style="display:none;">
+  <div class="modal-content">
+    <span class="close-btn" id="submitClose">&times;</span>
+    <h2>Submit a Report</h2>
+    <p>You can send proof of:</p>
+    <ul>
+      <li>Selling or distributing hacks</li>
+      <li>Scamming players or communities</li>
+      <li>Impersonating pro players</li>
+      <li>Videos or content that shouldn't be on YouTube</li>
+    </ul>
+    <p>Please send screenshots, links, or detailed information to:</p>
+    <p><a href="mailto:makinginternetsave@gmail.com" class="email-link">makinginternetsave@gmail.com</a></p>
+  </div>
+</div>
+
+<!-- Donate Modal Script -->
 <script>
   const donateModal = document.getElementById('donateModal');
-  const donateBtn = document.getElementById('donateBtn'); // DONATE button
+  const donateBtn = document.getElementById('donateBtn');
   const closeBtn = document.getElementById('donateClose');
   const copyBtn = document.getElementById('copyWalletBtn');
   const cryptoText = document.getElementById('cryptoWallet');
 
-  // Show modal on Donate button click
   donateBtn.addEventListener('click', () => {
     donateModal.style.display = 'block';
   });
 
-  // Close modal on X click
   closeBtn.addEventListener('click', () => {
     donateModal.style.display = 'none';
   });
 
-  // Close modal if clicked outside modal content
   window.addEventListener('click', (e) => {
     if (e.target === donateModal) {
       donateModal.style.display = 'none';
     }
   });
 
-  // Copy wallet address to clipboard
   copyBtn.addEventListener('click', () => {
     navigator.clipboard.writeText(cryptoText.textContent)
       .then(() => alert('Crypto wallet address copied to clipboard!'))
       .catch(() => alert('Failed to copy. Please copy manually.'));
   });
+</script>
+
+<!-- Submit Modal Script -->
+<script>
+  const submitModal = document.getElementById('submitModal');
+  const submitBtn = document.querySelector('.card3');
+  const submitClose = document.getElementById('submitClose');
+
+  submitBtn.addEventListener('click', () => {
+    submitModal.style.display = 'block';
+  });
+
+  submitClose.addEventListener('click', () => {
+    submitModal.style.display = 'none';
+  });
+
+  window.addEventListener('click', (e) => {
+    if (e.target === submitModal) {
+      submitModal.style.display = 'none';
+    }
+  });
+
 </script>
 </body>
 </html>
