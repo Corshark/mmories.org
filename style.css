@@ -1,420 +1,151 @@
-@import url('https://fonts.googleapis.com/css2?family=EB+Garamond&display=swap&v=2025060302');
-
-html, body {
-  margin: 0;
-  padding: 0;
-  height: 100%;
-  background: black;
-  font-family: 'EB Garamond', serif;
-  overflow: hidden;
-}
-
+/* Background Video */
 #bgVideo {
   position: fixed;
   right: 0;
   bottom: 0;
   min-width: 100%;
   min-height: 100%;
-  z-index: 1;
-  pointer-events: none;
+  object-fit: cover;
+  z-index: -1;
 }
 
+/* Base styles */
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #fff;
+  background: #000;
+  overflow-x: hidden;
+}
+
+/* Content layout */
 .content {
   text-align: center;
-  color: white;
-  padding-top: 10vh;
-  position: relative;
-  z-index: 2;
+  padding-top: 5vh;
 }
 
-.subtitle {
-  font-size: clamp(1.2rem, 2vw, 1.6rem);
-  margin-bottom: 4vh;
-}
-
-.mystic-btn {
-  display: inline-block;
-  margin: 1vh;
-  padding: 1.2vh 2.5vw;
-  border: 0.25vh solid #FFD700;
-  border-radius: 2vh;
-  background-color: rgba(28, 2, 55, 0.6);
-  color: #FFD700;
-  font-family: 'EB Garamond', serif;
-  font-size: clamp(1rem, 1.6vw, 1.4rem);
-  text-shadow: 0 0 0.6vw #FFD70088;
-  text-decoration: none;
-  transition: all 0.3s ease;
-  box-shadow: 0 0 1vw #FFD70033;
-}
-
-.founders-box {
-  position: absolute;
-  bottom: 3vh;
-  left: 50%;
-  transform: translateX(-50%);
-  background: rgba(0, 0, 0, 0.6);
-  border: 0.3vh solid #5bfafa;
-  border-radius: 2vh;
-  padding: 2vh 4vw;
-  width: fit-content;
-  max-width: 90%;
-  max-width: 800px; /* NEW: keeps it readable */
-  z-index: 2;
-  text-align: center;
-  box-shadow: 0 0 2vw #5bfafa44;
-}
-
-.founders-title {
-  font-size: clamp(1.5rem, 2vw, 2rem);
-  color: #5bfafa;
-  text-shadow: 0 0 1vw #5bfafa88;
-  margin-bottom: 2vh;
-}
-
-.founder-list p {
-  margin: 1vh 0;
-  color: #fff;
-  font-family: 'EB Garamond', serif;
-  font-size: clamp(1rem, 1.3vw, 1.2rem);
-  text-shadow: 0 0 0.4vw #ffffff33;
-}
-
-.archives-button {
-  padding: 1.2vh 2vw;
-  font-size: clamp(1rem, 1.4vw, 1.2rem);
-  background-color: #1C0237;
-  color: #FFD700;
-  border: 0.25vh solid #FFD700;
-  border-radius: 1.5vh;
-  text-decoration: none;
-  transition: transform 0.3s ease, background-color 0.3s ease;
-}
-
-/* Optional glow on hover for founder names */
-.founder-item {
-  margin: 1vh 0;
-  font-family: 'EB Garamond', serif;
-  color: #FFD700;
-  text-shadow: 0 0 0.5vw #FFD70066;
-  transition: transform 0.3s ease;
-}
-
-.founder-item:hover {
-  transform: scale(1.05);
-}
-
-.shimmer-name {
-  animation: shimmer 2s infinite alternate;
-  color: #FFD700;
-  text-shadow: 0 0 1.5vw #FFD700, 0 0 3vw #FFD70088;
-}
-
-@keyframes shimmer {
-  0% { text-shadow: 0 0 1vw #FFD700, 0 0 2vw #FFD70066; }
-  100% { text-shadow: 0 0 2vw #FFD700, 0 0 4vw #FFD70088; }
-}
-
-.archives-button:hover {
-  transform: scale(1.1);
-  background-color: #FFD700;
-  color: #1C0237;
-}
-
-.audio-controls {
-  position: relative;
-  z-index: 2;
-  text-align: center;
-  padding: 1vh;
-}
-
-#volumeSlider {
-  display: none;
-  width: 15vw;
-  margin-top: 1vh;
-}
-@keyframes pulse-glow {
-  0% {
-    box-shadow: 0 0 0.5vw #FFD70033;
-  }
-  100% {
-    box-shadow: 0 0 1vw #FFD70066;
-  }
-}
-
+/* Title */
 .title {
-  font-size: clamp(2.5rem, 7vw, 6rem);
+  font-size: 4em;
   font-weight: bold;
-  color: #5bfafa;
-  position: relative;
-  display: inline-block;
-  overflow: hidden;
-  
-  /* Make the text take the gradient */
-  background: linear-gradient(
-    135deg,  /* diagonal angle */
-    #5bfafa 0%, 
-    #ffffff 40%,   /* highlight color */
-    #5bfafa 80%
-  );
-  background-size: 200% 200%; /* double size for sliding */
-  background-clip: text;
-  -webkit-background-clip: text;
-  color: transparent;
-  
-  animation: shine-slide 3s infinite;
-}
-
-@keyframes shine-slide {
-  0% {
-    background-position: 200% 0%;  /* start off-screen top-right */
-  }
-  100% {
-    background-position: -200% 100%; /* end off-screen bottom-left */
-  }
-}
-
-.mystic-btn, .archives-button {
-  animation: pulse-glow 2s infinite alternate;
-}
-
-.mystic-btn:hover,
-.archives-button:hover {
-  transform: scale(1.1);
-  background-color: #FFD700;
-  color: #1C0237;
-  box-shadow: 0 0 1vw #FFD70088, 0 0 2vw #FFD700aa;
-}
-.statement {
-  font-size: clamp(1.6rem, 3vw, 2.2rem);
-  font-weight: 700;
   color: #ffffff;
-  text-shadow: 0 0 1vw #ffffff55;
-  margin-bottom: 4vh;
-  font-family: 'EB Garamond', serif;
-  border-bottom: 2px solid #5bfafa88;
-  padding-bottom: 1vh;
-  letter-spacing: 0.03em;
-  text-transform: uppercase;
-}
-/* === Fancy button layout from Uiverse.io === */
-.main {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5em;
-}
-.up,
-.down {
-  display: flex;
-  flex-direction: row;
-  gap: 0.5em;
-}
-.card1, .card2, .card3, .card4 {
-  width: 90px;
-  height: 90px;
-  outline: none;
-  border: none;
-  border-radius: 5px;
-  backdrop-filter: blur(6px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  transition: transform 0.2s ease-in-out, box-shadow 0.2s;
+  text-shadow: 0 0 20px #ff00ff, 0 0 40px #660066;
 }
 
-.card1 { background: #01cbf2; box-shadow: 0 0 8px rgba(1, 203, 242, 0.3); border-radius: 90px 5px 5px 5px; }
-.card2 { background: #9a31d9; box-shadow: 0 0 8px rgba(154, 49, 217, 0.3); border-radius: 5px 90px 5px 5px; }
-.card3 { background: #226901; box-shadow: 0 0 8px rgba(34, 105, 1, 0.3); border-radius: 5px 5px 5px 90px; }
-.card4 { background: #2e2526; box-shadow: 0 0 8px rgba(46, 37, 38, 0.3); border-radius: 5px 5px 90px 5px; }
-
-.card1:hover,
-.card2:hover,
-.card3:hover,
-.card4:hover {
-  cursor: pointer;
-  transform: scale(1.05);
-}
-
-.custom-icon {
+/* Statement */
+.statement {
+  font-size: 1.3em;
   margin-top: 1em;
-  margin-left: 1em;
-  fill: #555;
+  margin-bottom: 3em;
+  color: #e0e0e0;
+  text-shadow: 0 0 10px #000;
 }
-.card1, .card2, .card3, .card4 {
-  background: rgba(255, 255, 255, 0.08);
-  backdrop-filter: blur(6px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  box-shadow: 0 0 8px rgba(255, 255, 255, 0.1);
-  transition: transform 0.2s, box-shadow 0.2s;
-}
-.card1:hover, .card2:hover, .card3:hover, .card4:hover {
-  box-shadow: 0 0 12px rgba(255, 200, 100, 0.6), 0 0 4px rgba(255, 255, 255, 0.4);
-}
-.custom-icon {
-  fill: gold;
-}
-.button-bar {
-  position: absolute;
-  top: 150%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 40;
 
+/* Button bar */
+.button-bar {
   display: flex;
   flex-direction: column;
-  gap: 1vh;
-  /* background: rgba(28, 2, 55, 0.6); ← Remove this */
-  background: transparent; /* Optional, or just delete */
-  padding: 1vh 2vw;
-  border-radius: 1vh;
   align-items: center;
-  width: max-content;
+  gap: 40px;
 }
 
 .up, .down {
   display: flex;
-  gap: 1vw; /* space between buttons in a row */
+  gap: 60px;
 }
 
-.button-bar button {
-  color: #FFD700;
-  font-weight: bold;
-  font-size: clamp(1rem, 1.4vw, 1.6rem);
-  display: flex;
-  align-items: center;
-  gap: 0.5em;
-}
-.card1 {
-  background: #01cbf2;
-  backdrop-filter: blur(6px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  box-shadow: 0 0 8px rgba(1, 203, 242, 0.3);
-}
-.card2 {
-  background: #9a31d9;
-  backdrop-filter: blur(6px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  box-shadow: 0 0 8px rgba(154, 49, 217, 0.3);
-}
-.card3 {
-  background: #226901;
-  backdrop-filter: blur(6px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  box-shadow: 0 0 8px rgba(34, 105, 1, 0.3);
-}
-.card4 {
-  background: #2e2526;
-  backdrop-filter: blur(6px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  box-shadow: 0 0 8px rgba(46, 37, 38, 0.3);
-}
+/* Button styling */
 .button-wrapper {
   position: relative;
-  display: inline-block;
-  margin: 10px;
 }
 
+button[class^="card"] {
+  width: 100px;
+  height: 140px;
+  border: none;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.05);
+  color: #fff;
+  font-size: 2em;
+  cursor: pointer;
+  box-shadow: 0 0 20px #222;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+button[class^="card"]:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 30px #00ffff;
+}
+
+/* Hover icons */
 .hover-icon {
   position: absolute;
-  width: 30px;
-  height: 30px;
-  top: 50%;
-  left: 110%;
-  transform: translateY(-50%);
+  top: -40px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 48px;
+  height: 48px;
   opacity: 0;
-  transition: opacity 0.3s ease, transform 0.3s ease;
+  transition: opacity 0.3s ease;
   pointer-events: none;
 }
 
 .button-wrapper:hover .hover-icon {
   opacity: 1;
-  transform: translateY(-50%) translateX(5px);
 }
+
+/* Founders box */
+.founders-box {
+  margin-top: 80px;
+  padding: 20px;
+  background: rgba(0, 0, 0, 0.6);
+  border-radius: 16px;
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+}
+
+.founders-title {
+  font-size: 2.5em;
+  margin-bottom: 20px;
+  text-shadow: 0 0 10px #fff, 0 0 20px #0ff;
+}
+
+/* Shimmer effect */
+.shimmer-name {
+  background: linear-gradient(to right, #ffffff 0%, #00ffff 50%, #ffffff 100%);
+  background-size: 200% auto;
+  color: #fff;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmer 3s linear infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: 200% center;
+  }
+  100% {
+    background-position: -200% center;
+  }
+}
+
+/* Founder list */
+.founder-list {
+  font-size: 1.2em;
+  line-height: 1.6em;
+  text-align: center;
+}
+
+.glow-label {
+  color: #00ffff;
+  font-weight: bold;
+  text-shadow: 0 0 10px #00ffff;
+}
+
 .button-spin-wrapper {
-  display: inline-block;
-  animation: spinIn 1.4s ease-out;
+  margin-top: 60px;
 }
-
-@keyframes spinIn {
-  from {
-    transform: rotate(-180deg);
-    opacity: 0;
-  }
-  to {
-    transform: rotate(0deg);
-    opacity: 1;
-  }
-}
-
-.button-wrapper {
-  position: relative;
-  display: inline-block;
-  margin: 10px;
-}
-
-.hover-icon {
-  position: absolute;
-  width: 30px;
-  height: 30px;
-  top: 50%;
-  left: 110%;
-  transform: translateY(-50%);
-  opacity: 0;
-  transition: opacity 0.3s ease, transform 0.3s ease;
-  pointer-events: none;
-}
-
-.button-wrapper:hover .hover-icon {
-  opacity: 1;
-  transform: translateY(-50%) translateX(5px);
-}
-/* From Uiverse.io by InfinityLoopGames */ 
-.glowbutton {
-  --glow-color: rgb(176, 252, 255);
-  --glow-spread-color: rgba(123, 251, 255, 0.781);
-  --enhanced-glow-color: rgb(206, 255, 255);
-  --btn-color: rgb(61, 127, 136);
-  border: 0.25em solid var(--glow-color);
-  padding: 1em 3em;
-  color: var(--glow-color);
-  font-size: 15px;
-  font-weight: bold;
-  background-color: var(--btn-color);
-  border-radius: 1em;
-  outline: none;
-  box-shadow: 0 0 1em 0.25em var(--glow-color),
-    0 0 4em 1em var(--glow-spread-color),
-    inset 0 0 0.75em 0.25em var(--glow-color);
-  text-shadow: 0 0 0.5em var(--glow-color);
-  position: relative;
-  transition: all 0.3s;
-}
-
-.glowbutton::after {
-  pointer-events: none;
-  content: "";
-  position: absolute;
-  top: 120%;
-  left: 0;
-  height: 100%;
-  width: 100%;
-  background-color: var(--glow-spread-color);
-  filter: blur(2em);
-  opacity: 0.7;
-  transform: perspective(1.5em) rotateX(35deg) scale(1, 0.6);
-}
-
-.glowbutton:hover {
-  color: var(--btn-color);
-  background-color: var(--glow-color);
-  box-shadow: 0 0 1.5em 0.5em var(--enhanced-glow-color),
-              0 0 4em 2em var(--glow-spread-color),
-              inset 0 0 1em 0.5em var(--enhanced-glow-color);
-  text-shadow: none;
-}
-
-.glowbutton:active {
-  box-shadow: 0 0 0.6em 0.25em var(--glow-color),
-    0 0 2.5em 2em var(--glow-spread-color),
-    inset 0 0 0.5em 0.25em var(--glow-color);
-}
-
 
