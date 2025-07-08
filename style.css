@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=EB+Garamond&display=swap?cachebust=2025060302');
+@import url('https://fonts.googleapis.com/css2?family=EB+Garamond&display=swap&v=2025060302');
 
 html, body {
   margin: 0;
@@ -186,18 +186,14 @@ html, body {
   box-shadow: 0 0 1vw #FFD70088, 0 0 2vw #FFD700aa;
 }
 .statement {
-  font-size: clamp(1.6rem, 3vw, 2.2rem); /* ~2x bigger than before */
-  font-weight: 700; /* Make it bold */
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  font-weight: 700;
   color: #ffffff;
   text-shadow: 0 0 1vw #ffffff55;
   margin-bottom: 4vh;
   font-family: 'EB Garamond', serif;
-}
-.statement {
   border-bottom: 2px solid #5bfafa88;
   padding-bottom: 1vh;
-}
-.statement {
   letter-spacing: 0.03em;
   text-transform: uppercase;
 }
@@ -218,15 +214,16 @@ html, body {
   height: 90px;
   outline: none;
   border: none;
-  background: white;
-  border-radius: 90px 5px 5px 5px;
-  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
-              rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
-  transition: transform 0.2s ease-in-out;
+  border-radius: 5px;
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s;
 }
-.card2 { border-radius: 5px 90px 5px 5px; }
-.card3 { border-radius: 5px 5px 5px 90px; }
-.card4 { border-radius: 5px 5px 90px 5px; }
+
+.card1 { background: #01cbf2; box-shadow: 0 0 8px rgba(1, 203, 242, 0.3); border-radius: 90px 5px 5px 5px; }
+.card2 { background: #9a31d9; box-shadow: 0 0 8px rgba(154, 49, 217, 0.3); border-radius: 5px 90px 5px 5px; }
+.card3 { background: #226901; box-shadow: 0 0 8px rgba(34, 105, 1, 0.3); border-radius: 5px 5px 5px 90px; }
+.card4 { background: #2e2526; box-shadow: 0 0 8px rgba(46, 37, 38, 0.3); border-radius: 5px 5px 90px 5px; }
 
 .card1:hover,
 .card2:hover,
@@ -368,6 +365,56 @@ html, body {
 .button-wrapper:hover .hover-icon {
   opacity: 1;
   transform: translateY(-50%) translateX(5px);
+}
+/* From Uiverse.io by InfinityLoopGames */ 
+.glowbutton {
+  --glow-color: rgb(176, 252, 255);
+  --glow-spread-color: rgba(123, 251, 255, 0.781);
+  --enhanced-glow-color: rgb(206, 255, 255);
+  --btn-color: rgb(61, 127, 136);
+  border: 0.25em solid var(--glow-color);
+  padding: 1em 3em;
+  color: var(--glow-color);
+  font-size: 15px;
+  font-weight: bold;
+  background-color: var(--btn-color);
+  border-radius: 1em;
+  outline: none;
+  box-shadow: 0 0 1em 0.25em var(--glow-color),
+    0 0 4em 1em var(--glow-spread-color),
+    inset 0 0 0.75em 0.25em var(--glow-color);
+  text-shadow: 0 0 0.5em var(--glow-color);
+  position: relative;
+  transition: all 0.3s;
+}
+
+.glowbutton::after {
+  pointer-events: none;
+  content: "";
+  position: absolute;
+  top: 120%;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: var(--glow-spread-color);
+  filter: blur(2em);
+  opacity: 0.7;
+  transform: perspective(1.5em) rotateX(35deg) scale(1, 0.6);
+}
+
+.glowbutton:hover {
+  color: var(--btn-color);
+  background-color: var(--glow-color);
+  box-shadow: 0 0 1.5em 0.5em var(--enhanced-glow-color),
+              0 0 4em 2em var(--glow-spread-color),
+              inset 0 0 1em 0.5em var(--enhanced-glow-color);
+  text-shadow: none;
+}
+
+.glowbutton:active {
+  box-shadow: 0 0 0.6em 0.25em var(--glow-color),
+    0 0 2.5em 2em var(--glow-spread-color),
+    inset 0 0 0.5em 0.25em var(--glow-color);
 }
 
 
