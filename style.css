@@ -309,5 +309,65 @@ html, body {
   border: 1px solid rgba(255, 255, 255, 0.2);
   box-shadow: 0 0 8px rgba(46, 37, 38, 0.3);
 }
+.button-wrapper {
+  position: relative;
+  display: inline-block;
+  margin: 10px;
+}
+
+.hover-icon {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  top: 50%;
+  left: 110%;
+  transform: translateY(-50%);
+  opacity: 0;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  pointer-events: none;
+}
+
+.button-wrapper:hover .hover-icon {
+  opacity: 1;
+  transform: translateY(-50%) translateX(5px);
+}
+.button-spin-wrapper {
+  display: inline-block;
+  animation: spinIn 1.4s ease-out;
+}
+
+@keyframes spinIn {
+  from {
+    transform: rotate(-180deg);
+    opacity: 0;
+  }
+  to {
+    transform: rotate(0deg);
+    opacity: 1;
+  }
+}
+
+.button-wrapper {
+  position: relative;
+  display: inline-block;
+  margin: 10px;
+}
+
+.hover-icon {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  top: 50%;
+  left: 110%;
+  transform: translateY(-50%);
+  opacity: 0;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  pointer-events: none;
+}
+
+.button-wrapper:hover .hover-icon {
+  opacity: 1;
+  transform: translateY(-50%) translateX(5px);
+}
 
 
