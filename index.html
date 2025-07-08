@@ -9,6 +9,53 @@
     .hidden {
       display: none;
     }
+
+    /* Modal Styling */
+    .modal {
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0, 0, 0, 0.7); /* dark overlay */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal-content {
+      background-color: #111;
+      padding: 20px 30px;
+      border-radius: 10px;
+      max-width: 500px;
+      width: 90%;
+      color: #fff;
+      box-shadow: 0 0 30px rgba(255, 255, 255, 0.2);
+    }
+
+    .close-btn {
+      float: right;
+      font-size: 24px;
+      font-weight: bold;
+      cursor: pointer;
+      color: #f88;
+    }
+
+    .close-btn:hover {
+      color: #fff;
+    }
+
+    .email-link {
+      color: #66c0f4;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .email-link:hover {
+      text-decoration: underline;
+    }
   </style>
 </head>
 <body>
@@ -59,11 +106,9 @@
       <span class="close-btn" id="donateClose">&times;</span>
       <h2>Support the Site</h2>
       <p>This project is maintained with passion. If you'd like to support it:</p>
-      
       <p><strong>Crypto Wallet:</strong></p>
       <p id="cryptoWallet">0xc4fc89419aDdC40be739D5ab31ac9720bE67e5ac</p>
       <button id="copyWalletBtn">Copy Wallet Address</button>
-
       <p>
         <a href="https://steamcommunity.com/tradeoffer/new/?partner=234292270&token=Za-GzrF9" target="_blank"
            class="donate-steam-link"
@@ -72,7 +117,6 @@
           <span>Open Steam Trade Offer</span>
         </a>
       </p>
-
       <p>Or email donations via Paysafecard, skins, etc. to:</p>
       <p><a href="mailto:makinginternetsave@gmail.com">makinginternetsave@gmail.com</a></p>
     </div>
@@ -126,12 +170,8 @@
     });
 
     window.addEventListener('click', (e) => {
-      if (e.target === donateModal) {
-        donateModal.classList.add('hidden');
-      }
-      if (e.target === submitModal) {
-        submitModal.classList.add('hidden');
-      }
+      if (e.target === donateModal) donateModal.classList.add('hidden');
+      if (e.target === submitModal) submitModal.classList.add('hidden');
     });
 
     window.addEventListener('keydown', (e) => {
@@ -150,4 +190,3 @@
   </script>
 </body>
 </html>
-
