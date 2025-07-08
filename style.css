@@ -286,15 +286,10 @@ html, body {
   gap: 0.5em;
 }
 .card1 {
-  background: url('images/enter-archives.webp') no-repeat center center;
-  background-size: cover;
-  border-radius: 90px 5px 5px 5px;
-  width: 90px;
-  height: 90px;
-  border: none;
-  outline: none;
-  box-shadow: 0 0 8px rgba(1, 203, 242, 0.3);
+  background: #01cbf2;
   backdrop-filter: blur(6px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 0 8px rgba(1, 203, 242, 0.3);
 }
 .card2 {
   background: #9a31d9;
