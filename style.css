@@ -149,42 +149,42 @@ button[class^="card"]:hover {
   margin-top: 60px;
 }
 /* Card 1 – Electric Blue */
-.card1 {
-  border: 2px solid #00f7ff;
-  box-shadow: 0 0 12px #00f7ff;
-  color: #00f7ff;
+button.card1 {
+  border: 2px solid #00f7ff !important;
+  box-shadow: 0 0 12px #00f7ff !important;
+  color: #00f7ff !important;
 }
-.card1:hover {
-  box-shadow: 0 0 20px #00f7ff, 0 0 40px #00f7ff;
+button.card1:hover {
+  box-shadow: 0 0 20px #00f7ff, 0 0 40px #00f7ff !important;
 }
 
 /* Card 2 – Mystic Purple */
-.card2 {
-  border: 2px solid #c77dff;
-  box-shadow: 0 0 12px #c77dff;
-  color: #c77dff;
+button.card2 {
+  border: 2px solid #c77dff !important;
+  box-shadow: 0 0 12px #c77dff !important;
+  color: #c77dff !important;
 }
-.card2:hover {
-  box-shadow: 0 0 20px #c77dff, 0 0 40px #c77dff;
+button.card2:hover {
+  box-shadow: 0 0 20px #c77dff, 0 0 40px #c77dff !important;
 }
 
 /* Card 3 – Arcane Green */
-.card3 {
-  border: 2px solid #00ffa1;
-  box-shadow: 0 0 12px #00ffa1;
-  color: #00ffa1;
+button.card3 {
+  border: 2px solid #00ffa1 !important;
+  box-shadow: 0 0 12px #00ffa1 !important;
+  color: #00ffa1 !important;
 }
-.card3:hover {
-  box-shadow: 0 0 20px #00ffa1, 0 0 40px #00ffa1;
+button.card3:hover {
+  box-shadow: 0 0 20px #00ffa1, 0 0 40px #00ffa1 !important;
 }
 
 /* Card 4 – Amber Gold */
-.card4 {
-  border: 2px solid #ffd166;
-  box-shadow: 0 0 12px #ffd166;
-  color: #ffd166;
+button.card4 {
+  border: 2px solid #ffd166 !important;
+  box-shadow: 0 0 12px #ffd166 !important;
+  color: #ffd166 !important;
 }
-.card4:hover {
-  box-shadow: 0 0 20px #ffd166, 0 0 40px #ffd166;
+button.card4:hover {
+  box-shadow: 0 0 20px #ffd166, 0 0 40px #ffd166 !important;
 }
 
