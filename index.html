@@ -3,7 +3,13 @@
 <head>
   <meta charset="UTF-8" />
   <title>mmories.org</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="style.css" />
+  <style>
+    .hidden {
+      display: none;
+    }
+  </style>
 </head>
 <body>
   <video autoplay muted loop id="bgVideo">
@@ -26,7 +32,7 @@
         <span class="text">BANNED</span>
       </button>
 
-      <button class="animated-button card3" onclick="alert('This one does something later!')">
+      <button class="animated-button card3">
         <span class="text">SUBMIT</span>
       </button>
 
@@ -47,101 +53,101 @@
     </div>
   </div>
 
-<!-- Donate Modal -->
-<div id="donateModal" class="modal" style="display:none;">
-  <div class="modal-content">
-    <span class="close-btn" id="donateClose">&times;</span>
-    <h2>Support the Site</h2>
-    <p>This project is maintained with passion. If you'd like to support it:</p>
-    
-    <p><strong>Crypto Wallet:</strong></p>
-    <p id="cryptoWallet">0xc4fc89419aDdC40be739D5ab31ac9720bE67e5ac</p>
-    <button id="copyWalletBtn">Copy Wallet Address</button>
+  <!-- Donate Modal -->
+  <div id="donateModal" class="modal hidden">
+    <div class="modal-content">
+      <span class="close-btn" id="donateClose">&times;</span>
+      <h2>Support the Site</h2>
+      <p>This project is maintained with passion. If you'd like to support it:</p>
+      
+      <p><strong>Crypto Wallet:</strong></p>
+      <p id="cryptoWallet">0xc4fc89419aDdC40be739D5ab31ac9720bE67e5ac</p>
+      <button id="copyWalletBtn">Copy Wallet Address</button>
 
-<p>
-  <a href="https://steamcommunity.com/tradeoffer/new/?partner=234292270&token=Za-GzrF9" target="_blank"
-     style="display: flex; align-items: center; gap: 10px; text-decoration: none; color: #66c0f4; font-weight: bold;">
-    <img src="images/steam-logo.svg" alt="Steam" style="width: 20px; height: 20px;">
-    <span>Open Steam Trade Offer</span>
-  </a>
-</p>
+      <p>
+        <a href="https://steamcommunity.com/tradeoffer/new/?partner=234292270&token=Za-GzrF9" target="_blank"
+           class="donate-steam-link"
+           style="display: flex; align-items: center; gap: 10px; text-decoration: none; color: #66c0f4; font-weight: bold;">
+          <img src="images/steam-logo.svg" alt="Steam" style="width: 20px; height: 20px;">
+          <span>Open Steam Trade Offer</span>
+        </a>
+      </p>
 
-
-
-    <p>Or email donations via Paysafecard, skins, etc. to:</p>
-    <p><a href="mailto:makinginternetsave@gmail.com">makinginternetsave@gmail.com</a></p>
+      <p>Or email donations via Paysafecard, skins, etc. to:</p>
+      <p><a href="mailto:makinginternetsave@gmail.com">makinginternetsave@gmail.com</a></p>
+    </div>
   </div>
-</div>
 
-
-
-<!-- Submit Modal -->
-<div id="submitModal" class="modal" style="display:none;">
-  <div class="modal-content">
-    <span class="close-btn" id="submitClose">&times;</span>
-    <h2>Submit a Report</h2>
-    <p>You can send proof of:</p>
-    <ul>
-      <li>Selling or distributing hacks</li>
-      <li>Scamming players or communities</li>
-      <li>Impersonating pro players</li>
-      <li>Videos or content that shouldn't be on YouTube</li>
-    </ul>
-    <p>Please send screenshots, links, or detailed information to:</p>
-    <p><a href="mailto:makinginternetsave@gmail.com" class="email-link">makinginternetsave@gmail.com</a></p>
+  <!-- Submit Modal -->
+  <div id="submitModal" class="modal hidden">
+    <div class="modal-content">
+      <span class="close-btn" id="submitClose">&times;</span>
+      <h2>Submit a Report</h2>
+      <p>You can send proof of:</p>
+      <ul>
+        <li>Selling or distributing hacks</li>
+        <li>Scamming players or communities</li>
+        <li>Impersonating pro players</li>
+        <li>Videos or content that shouldn't be on YouTube</li>
+      </ul>
+      <p>Please send screenshots, links, or detailed information to:</p>
+      <p><a href="mailto:makinginternetsave@gmail.com" class="email-link">makinginternetsave@gmail.com</a></p>
+    </div>
   </div>
-</div>
 
-<!-- Donate Modal Script -->
-<script>
-  const donateModal = document.getElementById('donateModal');
-  const donateBtn = document.getElementById('donateBtn');
-  const closeBtn = document.getElementById('donateClose');
-  const copyBtn = document.getElementById('copyWalletBtn');
-  const cryptoText = document.getElementById('cryptoWallet');
+  <!-- Modal Script -->
+  <script>
+    const donateModal = document.getElementById('donateModal');
+    const donateBtn = document.getElementById('donateBtn');
+    const donateClose = document.getElementById('donateClose');
+    const copyBtn = document.getElementById('copyWalletBtn');
+    const cryptoText = document.getElementById('cryptoWallet');
 
-  donateBtn.addEventListener('click', () => {
-    donateModal.style.display = 'block';
-  });
+    const submitModal = document.getElementById('submitModal');
+    const submitBtn = document.querySelector('.card3');
+    const submitClose = document.getElementById('submitClose');
 
-  closeBtn.addEventListener('click', () => {
-    donateModal.style.display = 'none';
-  });
+    // Open Modals
+    donateBtn.addEventListener('click', () => {
+      donateModal.classList.remove('hidden');
+    });
 
-  window.addEventListener('click', (e) => {
-    if (e.target === donateModal) {
-      donateModal.style.display = 'none';
-    }
-  });
+    submitBtn.addEventListener('click', () => {
+      submitModal.classList.remove('hidden');
+    });
 
-  copyBtn.addEventListener('click', () => {
-    navigator.clipboard.writeText(cryptoText.textContent)
-      .then(() => alert('Crypto wallet address copied to clipboard!'))
-      .catch(() => alert('Failed to copy. Please copy manually.'));
-  });
-</script>
+    // Close Modals
+    donateClose.addEventListener('click', () => {
+      donateModal.classList.add('hidden');
+    });
 
-<!-- Submit Modal Script -->
-<script>
-  const submitModal = document.getElementById('submitModal');
-  const submitBtn = document.querySelector('.card3');
-  const submitClose = document.getElementById('submitClose');
+    submitClose.addEventListener('click', () => {
+      submitModal.classList.add('hidden');
+    });
 
-  submitBtn.addEventListener('click', () => {
-    submitModal.style.display = 'block';
-  });
+    window.addEventListener('click', (e) => {
+      if (e.target === donateModal) {
+        donateModal.classList.add('hidden');
+      }
+      if (e.target === submitModal) {
+        submitModal.classList.add('hidden');
+      }
+    });
 
-  submitClose.addEventListener('click', () => {
-    submitModal.style.display = 'none';
-  });
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        donateModal.classList.add('hidden');
+        submitModal.classList.add('hidden');
+      }
+    });
 
-  window.addEventListener('click', (e) => {
-    if (e.target === submitModal) {
-      submitModal.style.display = 'none';
-    }
-  });
-
-</script>
+    // Copy to clipboard
+    copyBtn.addEventListener('click', () => {
+      navigator.clipboard.writeText(cryptoText.textContent)
+        .then(() => alert('Crypto wallet address copied to clipboard!'))
+        .catch(() => alert('Failed to copy. Please copy manually.'));
+    });
+  </script>
 </body>
 </html>
 
