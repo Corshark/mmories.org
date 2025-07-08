@@ -58,7 +58,7 @@
         <h3>Crypto Wallet</h3>
         <p id="cryptoWallet" class="copy-text">0xc4fc89419aDdC40be739D5ab31ac9720bE67e5ac</p>
         <button id="copyWalletBtn">Copy Address</button>
-        <div id="qrcode"></div> <!-- QR code will appear here -->
+        <!-- QR code removed -->
       </div>
       
       <div class="donate-option">
@@ -68,7 +68,6 @@
     </div>
   </div>
 
-<script src="https://cdn.jsdelivr.net/npm/qrcodejs/qrcode.min.js"></script>
 <script>
   const donateModal = document.getElementById('donateModal');
   const donateBtn = document.getElementById('donateBtn'); // DONATE button
@@ -99,16 +98,7 @@
       .then(() => alert('Crypto wallet address copied to clipboard!'))
       .catch(() => alert('Failed to copy. Please copy manually.'));
   });
-
-  // Generate QR code for the crypto wallet address
-  new QRCode(document.getElementById("qrcode"), {
-    text: cryptoText.textContent,
-    width: 150,
-    height: 150,
-    colorDark : "#000000",
-    colorLight : "#ffffff",
-    correctLevel : QRCode.CorrectLevel.H
-  });
 </script>
 </body>
 </html>
+
