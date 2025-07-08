@@ -41,57 +41,110 @@ body {
   text-shadow: 0 0 10px #000;
 }
 
-/* Button bar */
-.button-bar {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 40px;
-}
-
-.up, .down {
-  display: flex;
-  gap: 60px;
-}
-
-/* Button styling */
-.button-wrapper {
+/* Animated Button Base Styles (from Uiverse.io by gharsh11032000) */
+.animated-button {
   position: relative;
-}
-
-button[class^="card"] {
-  width: 100px;
-  height: 140px;
-  border: none;
-  border-radius: 16px;
-  background: rgba(255, 255, 255, 0.05);
-  color: #fff;
-  font-size: 2em;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 16px 36px;
+  border: 4px solid transparent;
+  font-size: 16px;
+  background-color: inherit;
+  border-radius: 100px;
+  font-weight: 600;
+  color: greenyellow; /* default color */
+  box-shadow: 0 0 0 2px currentColor;
   cursor: pointer;
-  box-shadow: 0 0 20px #222;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  overflow: hidden;
+  transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
 }
 
-button[class^="card"]:hover {
-  transform: scale(1.05);
-  box-shadow: 0 0 30px #00ffff;
-}
-
-/* Hover icons */
-.hover-icon {
+.animated-button svg {
   position: absolute;
-  top: -40px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 48px;
-  height: 48px;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-  pointer-events: none;
+  width: 24px;
+  fill: currentColor;
+  z-index: 9;
+  transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
 }
 
-.button-wrapper:hover .hover-icon {
+.animated-button .arr-1 {
+  right: 16px;
+}
+
+.animated-button .arr-2 {
+  left: -25%;
+}
+
+.animated-button .circle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 20px;
+  height: 20px;
+  background-color: currentColor;
+  border-radius: 50%;
+  opacity: 0;
+  transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.animated-button .text {
+  position: relative;
+  z-index: 1;
+  transform: translateX(-12px);
+  transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.animated-button:hover {
+  box-shadow: 0 0 0 12px transparent;
+  color: #212121;
+  border-radius: 12px;
+}
+
+.animated-button:hover .arr-1 {
+  right: -25%;
+}
+
+.animated-button:hover .arr-2 {
+  left: 16px;
+}
+
+.animated-button:hover .text {
+  transform: translateX(12px);
+}
+
+.animated-button:hover svg {
+  fill: #212121;
+}
+
+.animated-button:active {
+  scale: 0.95;
+  box-shadow: 0 0 0 4px currentColor;
+}
+
+.animated-button:hover .circle {
+  width: 220px;
+  height: 220px;
   opacity: 1;
+}
+
+/* Color Variants for Your Buttons */
+
+.animated-button.card1 {
+  color: #00f7ff; /* Electric Blue */
+}
+
+.animated-button.card2 {
+  color: #c77dff; /* Mystic Purple */
+}
+
+.animated-button.card3 {
+  color: #00ffa1; /* Arcane Green */
+}
+
+.animated-button.card4 {
+  color: #ffd166; /* Amber Gold */
 }
 
 /* Founders box */
@@ -147,44 +200,5 @@ button[class^="card"]:hover {
 
 .button-spin-wrapper {
   margin-top: 60px;
-}
-/* Card 1 – Electric Blue */
-button.card1 {
-  border: 2px solid #00f7ff !important;
-  box-shadow: 0 0 12px #00f7ff !important;
-  color: #00f7ff !important;
-}
-button.card1:hover {
-  box-shadow: 0 0 20px #00f7ff, 0 0 40px #00f7ff !important;
-}
-
-/* Card 2 – Mystic Purple */
-button.card2 {
-  border: 2px solid #c77dff !important;
-  box-shadow: 0 0 12px #c77dff !important;
-  color: #c77dff !important;
-}
-button.card2:hover {
-  box-shadow: 0 0 20px #c77dff, 0 0 40px #c77dff !important;
-}
-
-/* Card 3 – Arcane Green */
-button.card3 {
-  border: 2px solid #00ffa1 !important;
-  box-shadow: 0 0 12px #00ffa1 !important;
-  color: #00ffa1 !important;
-}
-button.card3:hover {
-  box-shadow: 0 0 20px #00ffa1, 0 0 40px #00ffa1 !important;
-}
-
-/* Card 4 – Amber Gold */
-button.card4 {
-  border: 2px solid #ffd166 !important;
-  box-shadow: 0 0 12px #ffd166 !important;
-  color: #ffd166 !important;
-}
-button.card4:hover {
-  box-shadow: 0 0 20px #ffd166, 0 0 40px #ffd166 !important;
 }
 
