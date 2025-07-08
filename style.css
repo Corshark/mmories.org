@@ -148,4 +148,43 @@ button[class^="card"]:hover {
 .button-spin-wrapper {
   margin-top: 60px;
 }
+/* Card 1 – Electric Blue */
+.card1 {
+  border: 2px solid #00f7ff;
+  box-shadow: 0 0 12px #00f7ff;
+  color: #00f7ff;
+}
+.card1:hover {
+  box-shadow: 0 0 20px #00f7ff, 0 0 40px #00f7ff;
+}
+
+/* Card 2 – Mystic Purple */
+.card2 {
+  border: 2px solid #c77dff;
+  box-shadow: 0 0 12px #c77dff;
+  color: #c77dff;
+}
+.card2:hover {
+  box-shadow: 0 0 20px #c77dff, 0 0 40px #c77dff;
+}
+
+/* Card 3 – Arcane Green */
+.card3 {
+  border: 2px solid #00ffa1;
+  box-shadow: 0 0 12px #00ffa1;
+  color: #00ffa1;
+}
+.card3:hover {
+  box-shadow: 0 0 20px #00ffa1, 0 0 40px #00ffa1;
+}
+
+/* Card 4 – Amber Gold */
+.card4 {
+  border: 2px solid #ffd166;
+  box-shadow: 0 0 12px #ffd166;
+  color: #ffd166;
+}
+.card4:hover {
+  box-shadow: 0 0 20px #ffd166, 0 0 40px #ffd166;
+}
 
