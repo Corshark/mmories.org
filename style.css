@@ -240,4 +240,15 @@ body {
 .button-spin-wrapper {
   margin-top: 60px;
 }
+.founders-title {
+  font-size: 2.5em;
+  margin-bottom: 30px;   /* increased spacing below title */
+  text-shadow: 0 0 10px #fff, 0 0 20px #0ff;
+  display: block;
+  text-align: center;
+}
+
+.founder-list p {
+  margin-bottom: 1.5rem;  /* space between each founder group */
+}
 
