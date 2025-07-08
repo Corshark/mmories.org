@@ -1,4 +1,4 @@
-/* Background Video */
+ /* Background Video */
 #bgVideo {
   position: fixed;
   right: 0;
@@ -119,9 +119,8 @@ body {
 }
 
 .animated-button:active {
-  transform: scale(0.95);
+  scale: 0.95;
   box-shadow: 0 0 0 4px currentColor;
-
 }
 
 .animated-button:hover .circle {
@@ -333,6 +332,16 @@ body {
 .steam-link:hover {
   background: #3b5e8e;
 }
+.modal {
+  position: fixed;
+  z-index: 999;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  backdrop-filter: blur(8px);
+  background-color: rgba(0, 0, 0, 0.6);
+}
 .modal-content {
   animation: fadeIn 0.3s ease;
 }
@@ -352,7 +361,4 @@ body {
 
 .donate-steam-link:hover img {
   transform: scale(1.1);
-}
-.hidden {
-  display: none;
 }
