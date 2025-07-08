@@ -53,5 +53,56 @@
   <div class="button-spin-wrapper">
   <!-- all buttons here -->
   </div>
+<!-- Donate Modal -->
+<div id="donateModal" class="modal">
+  <div class="modal-content">
+    <span class="close-btn" id="donateClose">&times;</span>
+    <h2>Support mmories.org</h2>
+    <p>Choose your donation method:</p>
+    
+    <div class="donate-option">
+      <h3>Crypto Wallet</h3>
+      <p id="cryptoWallet" class="copy-text">0xc4fc89419aDdC40be739D5ab31ac9720bE67e5ac</p>
+      <button id="copyWalletBtn">Copy Address</button>
+    </div>
+    
+    <div class="donate-option">
+      <h3>Steam Trade Offer</h3>
+      <a href="https://steamcommunity.com/tradeoffer/new/?partner=234292270&token=Za-GzrF9" target="_blank" class="steam-link">Open Steam Trade Link</a>
+    </div>
+  </div>
+</div>
+<script>
+  // Get modal and buttons
+  const donateModal = document.getElementById('donateModal');
+  const donateBtn = document.querySelector('.animated-button.card4'); // DONATE button
+  const closeBtn = document.getElementById('donateClose');
+  const copyBtn = document.getElementById('copyWalletBtn');
+  const cryptoText = document.getElementById('cryptoWallet');
+
+  // Show modal on Donate button click
+  donateBtn.addEventListener('click', () => {
+    donateModal.style.display = 'block';
+  });
+
+  // Close modal on X click
+  closeBtn.addEventListener('click', () => {
+    donateModal.style.display = 'none';
+  });
+
+  // Close modal if clicked outside modal content
+  window.addEventListener('click', (e) => {
+    if (e.target === donateModal) {
+      donateModal.style.display = 'none';
+    }
+  });
+
+  // Copy wallet address to clipboard
+  copyBtn.addEventListener('click', () => {
+    navigator.clipboard.writeText(cryptoText.textContent)
+      .then(() => alert('Crypto wallet address copied to clipboard!'))
+      .catch(() => alert('Failed to copy. Please copy manually.'));
+  });
+</script>
 </body>
 </html>

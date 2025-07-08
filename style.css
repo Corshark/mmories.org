@@ -251,4 +251,85 @@ body {
 .founder-list p {
   margin-bottom: 1.5rem;  /* space between each founder group */
 }
+/* Modal background */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed;
+  z-index: 1000; /* on top of everything */
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto; /* enable scroll if needed */
+  background-color: rgba(0,0,0,0.7);
+}
+
+/* Modal content box */
+.modal-content {
+  background-color: #121212;
+  margin: 10% auto;
+  padding: 30px;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 400px;
+  color: #fff;
+  box-shadow: 0 0 25px #0ff;
+  text-align: center;
+}
+
+/* Close button */
+.close-btn {
+  color: #fff;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.close-btn:hover {
+  color: #0ff;
+}
+
+.donate-option {
+  margin: 20px 0;
+}
+
+.copy-text {
+  background-color: #222;
+  padding: 10px;
+  border-radius: 8px;
+  user-select: all;
+  font-family: monospace;
+  margin-bottom: 10px;
+}
+
+#copyWalletBtn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  background: #00ffa1;
+  color: #000;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+#copyWalletBtn:hover {
+  background: #00cc7a;
+}
+
+.steam-link {
+  display: inline-block;
+  padding: 12px 20px;
+  background: #507cbe;
+  color: white;
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: 600;
+  transition: background 0.3s;
+}
+
+.steam-link:hover {
+  background: #3b5e8e;
+}
 
