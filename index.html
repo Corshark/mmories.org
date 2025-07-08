@@ -17,28 +17,24 @@
       Exposing scammers. Protecting the community. Reporting with purpose.
     </div>
 
-<div class="button-bar" style="display: flex; flex-direction: column; gap: 20px; max-width: 300px; margin: 0 auto;">
-  <button class="animated-button card1" onclick="window.location.href='targets.html'">
-    <!-- SVGs and content -->
-    <span class="text">TARGETS</span>
-  </button>
+    <div class="button-bar" style="display: flex; flex-direction: column; gap: 20px; max-width: 300px; margin: 0 auto;">
+      <button class="animated-button card1" onclick="window.location.href='targets.html'">
+        <span class="text">TARGETS</span>
+      </button>
 
-  <button class="animated-button card2" onclick="window.location.href='banned-archive.html'">
-    <!-- SVGs and content -->
-    <span class="text">BANNED</span>
-  </button>
+      <button class="animated-button card2" onclick="window.location.href='banned-archive.html'">
+        <span class="text">BANNED</span>
+      </button>
 
-  <button class="animated-button card3" onclick="alert('This one does something later!')">
-    <!-- SVGs and content -->
-    <span class="text">SUBMIT</span>
-  </button>
+      <button class="animated-button card3" onclick="alert('This one does something later!')">
+        <span class="text">SUBMIT</span>
+      </button>
 
-  <button class="animated-button card4" onclick="alert('Donate action coming soon!')">
-    <!-- SVGs and content -->
-    <span class="text">DONATE</span>
-  </button>
-</div>
-</div>
+      <button class="animated-button card4" id="donateBtn">
+        <span class="text">DONATE</span>
+      </button>
+    </div>
+  </div>
 
   <div class="founders-box">
     <div class="founders-title shimmer-name">THE FOUNDERS</div>
@@ -50,32 +46,32 @@
       <p><span class="glow-label">Aoe.Archives of Eternals</span><br />Falconer</p>
     </div>
   </div>
-  <div class="button-spin-wrapper">
-  <!-- all buttons here -->
-  </div>
-<!-- Donate Modal -->
-<div id="donateModal" class="modal">
-  <div class="modal-content">
-    <span class="close-btn" id="donateClose">&times;</span>
-    <h2>Support mmories.org</h2>
-    <p>Choose your donation method:</p>
-    
-    <div class="donate-option">
-      <h3>Crypto Wallet</h3>
-      <p id="cryptoWallet" class="copy-text">0xc4fc89419aDdC40be739D5ab31ac9720bE67e5ac</p>
-      <button id="copyWalletBtn">Copy Address</button>
+
+  <!-- Donate Modal -->
+  <div id="donateModal" class="modal" style="display:none;">
+    <div class="modal-content">
+      <span class="close-btn" id="donateClose">&times;</span>
+      <h2>Support mmories.org</h2>
+      <p>Choose your donation method:</p>
+      
+      <div class="donate-option">
+        <h3>Crypto Wallet</h3>
+        <p id="cryptoWallet" class="copy-text">0xc4fc89419aDdC40be739D5ab31ac9720bE67e5ac</p>
+        <button id="copyWalletBtn">Copy Address</button>
+        <div id="qrcode"></div> <!-- QR code will appear here -->
+      </div>
+      
+      <div class="donate-option">
+        <h3>Steam Trade Offer</h3>
+        <a href="https://steamcommunity.com/tradeoffer/new/?partner=234292270&token=Za-GzrF9" target="_blank" class="steam-link">Open Steam Trade Link</a>
+      </div>
     </div>
-    
-    <div class="donate-option">
-      <h3>Steam Trade Offer</h3>
-      <a href="https://steamcommunity.com/tradeoffer/new/?partner=234292270&token=Za-GzrF9" target="_blank" class="steam-link">Open Steam Trade Link</a>
-    </div>
   </div>
-</div>
+
+<script src="https://cdn.jsdelivr.net/npm/qrcodejs/qrcode.min.js"></script>
 <script>
-  // Get modal and buttons
   const donateModal = document.getElementById('donateModal');
-  const donateBtn = document.querySelector('.animated-button.card4'); // DONATE button
+  const donateBtn = document.getElementById('donateBtn'); // DONATE button
   const closeBtn = document.getElementById('donateClose');
   const copyBtn = document.getElementById('copyWalletBtn');
   const cryptoText = document.getElementById('cryptoWallet');
@@ -102,6 +98,16 @@
     navigator.clipboard.writeText(cryptoText.textContent)
       .then(() => alert('Crypto wallet address copied to clipboard!'))
       .catch(() => alert('Failed to copy. Please copy manually.'));
+  });
+
+  // Generate QR code for the crypto wallet address
+  new QRCode(document.getElementById("qrcode"), {
+    text: cryptoText.textContent,
+    width: 150,
+    height: 150,
+    colorDark : "#000000",
+    colorLight : "#ffffff",
+    correctLevel : QRCode.CorrectLevel.H
   });
 </script>
 </body>
