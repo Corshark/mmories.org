@@ -4,16 +4,35 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Targets – Scam Radar</title>
-  <link rel="stylesheet" href="archives-style.css"> <!-- Still using same style -->
+  <link rel="stylesheet" href="archives-style.css">
+  <style>
+    .target-entry {
+      display: block;
+      background-color: rgba(0, 0, 0, 0.65);
+      color: white;
+      text-decoration: none;
+      padding: 16px;
+      font-size: 20px;
+      font-weight: bold;
+      border: 2px solid red;
+      border-radius: 10px;
+      margin-bottom: 16px;
+      transition: background 0.3s ease;
+    }
+
+    .target-entry:hover {
+      background-color: rgba(255, 0, 0, 0.2);
+    }
+  </style>
 </head>
 <body class="archives-background">
 
   <!-- UI: Loading -->
   <div id="loading" style="color:white;text-align:center;padding:20px;">Loading Targets...</div>
 
-  <!-- Hall of Fame Container (Rebranded as Targets) -->
+  <!-- Target List -->
   <main class="hall-of-fame" id="hall-of-fame">
-    <!-- Targets will be inserted here -->
+    <!-- Targets go here -->
   </main>
 
   <!-- Return Button -->
@@ -28,18 +47,21 @@
 
       const targets = [
         {
-          name: "Fake s1mple scammer",
-          link: "https://www.youtube.com/watch?v=K296nne-6aM",
+          name: "Fake s1mple (scammer)",
+          link: "https://www.youtube.com/watch?v=K296nne-6aM"
+        },
+        {
+          name: "Fake Donk (scammer)",
+          link: "https://www.youtube.com/watch?v=Qd1KXchCZpA"
         }
-        // You can add more scammer targets here later
       ];
 
       targets.forEach(target => {
         const link = document.createElement("a");
         link.href = target.link;
         link.target = "_blank";
-        link.className = "vip";
-        link.innerHTML = `<span class="vip-sparkles">${target.name}</span>`;
+        link.className = "target-entry";
+        link.textContent = target.name;
         hall.appendChild(link);
       });
 
@@ -48,14 +70,14 @@
 
     window.onload = loadTargets;
 
-    // Click sound for all interactive elements
+    // Click sound effect
     const clickSound = document.getElementById('clickSound');
-    const clickableElements = document.querySelectorAll('button, a');
+    const clickableElements = document.querySelectorAll('a, button');
     clickableElements.forEach(element => {
       element.addEventListener('click', () => {
         if (clickSound) {
           clickSound.currentTime = 0;
-          clickSound.play().catch(error => console.error('Click sound play failed:', error));
+          clickSound.play().catch(() => {});
         }
       });
     });
