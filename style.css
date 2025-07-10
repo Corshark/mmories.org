@@ -362,3 +362,8 @@ body {
 .donate-steam-link:hover img {
   transform: scale(1.1);
 }
+.button-bar a {
+  display: block;
+  width: fit-content;
+  margin: 0 auto;
+}
