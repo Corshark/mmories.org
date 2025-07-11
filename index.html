@@ -54,7 +54,7 @@
 <section class="snap-section" style="position: relative;">
 
   <!-- Top Title & Statement -->
-  <div style="position: absolute; top: 60px; left: 50%; transform: translateX(-50%); text-align: center;">
+  <div style="position: absolute; top: 60px; left: 50%; transform: translateX(-50%); text-align: center; z-index: 10;">
     <h1 class="title">mmories.org</h1>
     <div class="statement" style="max-width: 90vw;">
       Exposing scammers. Protecting the community. Reporting with purpose.
@@ -62,10 +62,10 @@
   </div>
 
   <!-- Animated Flip Card About Box -->
-  <div class="card" style="position: absolute; bottom: 130px; left: 40px; z-index: 5; transform: scale(1.3); transform-origin: bottom left;">
+  <div class="card" style="position: absolute; bottom: 130px; left: 40px; z-index: 5; transform: scale(1.3); transform-origin: bottom left; max-width: 320px;">
     <div class="card-front">
       <p class="title">About mmories.org</p>
-      <p class="subtitle">mmories.org</p>
+      <p class="subtitle">Hover to reveal</p>
     </div>
     <div class="card-back">
       <p style="font-size: 1em; line-height: 1.6;">
@@ -78,8 +78,7 @@
 
 </section>
 
-
-<!-- SECTION 2: All Action Buttons -->
+<!-- SECTION 2: All Action Buttons (with image icons) -->
 <section class="snap-section">
   <div style="
     background: rgba(0, 0, 0, 0.5);
@@ -90,24 +89,33 @@
     display: flex;
     flex-direction: column;
     gap: 20px;
-    max-width: 320px;
+    max-width: 400px;
     margin: 0 auto;
+    z-index: 1;
   ">
     <a href="archives.html">
-      <button class="animated-button card1"><span class="text">TARGETS</span></button>
+      <button class="animated-button card1">
+        <img src="images/targets.webp" alt="Targets" style="height: 240px; margin-right: 10px; vertical-align: middle;">
+        <span class="text">TARGETS</span>
+      </button>
     </a>
+
     <button class="animated-button card2" onclick="window.location.href='banned-archive.html'">
+      <img src="images/banned.webp" alt="Banned" style="height: 240px; margin-right: 10px; vertical-align: middle;">
       <span class="text">BANNED</span>
     </button>
+
     <button class="animated-button card3" onclick="alert('This one does something later!')">
-      <span class="text">SUBMIT</span>
+      <img src="images/giveaway.webp" alt="Giveaway" style="height: 240px; margin-right: 10px; vertical-align: middle;">
+      <span class="text">GIVEAWAY</span>
     </button>
+
     <button class="animated-button card4" id="donateBtn">
+      <img src="images/donate.webp" alt="Donate" style="height: 240px; margin-right: 10px; vertical-align: middle;">
       <span class="text">DONATE</span>
     </button>
   </div>
 </section>
-
 
 <!-- SECTION 3: Founders + Easter Egg -->
 <section class="snap-section">
