@@ -84,29 +84,38 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 40px;
-    max-width: 520px;
+    max-width: 720px;
     margin: 0 auto;
     z-index: 1;
   ">
-    <a href="archives.html">
-      <button class="animated-button card1" style="background: transparent; box-shadow: none; border: none; padding: 0;">
-        <img src="images/targets.webp" alt="Targets" class="button-icon">
+    <div class="button-box">
+      <a href="archives.html">
+        <button class="animated-button card1">
+          <img src="images/targets.webp" alt="Targets" class="button-icon">
+        </button>
+      </a>
+    </div>
+
+    <div class="button-box">
+      <button class="animated-button card2" onclick="window.location.href='banned-archive.html'">
+        <img src="images/banned.webp" alt="Banned" class="button-icon">
       </button>
-    </a>
+    </div>
 
-    <button class="animated-button card2" onclick="window.location.href='banned-archive.html'" style="background: transparent; box-shadow: none; border: none; padding: 0;">
-      <img src="images/banned.webp" alt="Banned" class="button-icon">
-    </button>
+    <div class="button-box">
+      <button class="animated-button card3" onclick="alert('This one does something later!')">
+        <img src="images/giveaway.webp" alt="Giveaway" class="button-icon">
+      </button>
+    </div>
 
-    <button class="animated-button card3" onclick="alert('This one does something later!')" style="background: transparent; box-shadow: none; border: none; padding: 0;">
-      <img src="images/giveaway.webp" alt="Giveaway" class="button-icon">
-    </button>
-
-    <button class="animated-button card4" id="donateBtn" style="background: transparent; box-shadow: none; border: none; padding: 0;">
-      <img src="images/donate.webp" alt="Donate" class="button-icon">
-    </button>
+    <div class="button-box">
+      <button class="animated-button card4" id="donateBtn">
+        <img src="images/donate.webp" alt="Donate" class="button-icon">
+      </button>
+    </div>
   </div>
 </section>
+
 
 <!-- SECTION 3: Founders + Easter Egg -->
 <section class="snap-section">
