@@ -424,4 +424,23 @@ body {
   font-family: 'Segoe UI', sans-serif;
   text-shadow: 0 0 8px #7CC133;
 }
+/* Scroll behavior container */
+.scroll-container {
+  height: 100vh;
+  overflow-y: scroll;
+  scroll-snap-type: y mandatory;
+  scroll-behavior: smooth;
+  position: relative;
+  z-index: 1;
+}
+
+/* Each scrollable full-screen section */
+.snap-section {
+  height: 100vh;
+  scroll-snap-align: start;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 20px;
+}
 
