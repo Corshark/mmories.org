@@ -126,9 +126,7 @@ body {
 }
 
 .snap-section:last-child {
-  padding-bottom: 80px;
-  background: rgba(0, 0, 0, 0.4);
-  backdrop-filter: blur(4px);
+  min-height: 100vh;
 }
 
 /* Earth loader styles */
