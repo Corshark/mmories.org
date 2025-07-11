@@ -6,144 +6,119 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <video autoplay muted loop id="bgVideo">
-    <source src="videos/your-video.mp4" type="video/mp4" />
-    Your browser does not support the video tag.
-  </video>
 
-  <div class="content">
-    <h1 class="title">mmories.org</h1>
-    <div class="statement">
-      Exposing scammers. Protecting the community. Reporting with purpose.
+  <!-- EARTH LOADER -->
+  <div id="loaderWrapper" class="earth">
+    <div class="earth-loader">
+      <!-- Your 4 SVGs exactly as before -->
+      <!-- paste them here -->
+    </div>
+    <p>Connecting...</p>
+  </div>
+
+  <!-- MAIN CONTENT -->
+  <div id="mainContent" style="display: none;">
+    <!-- START original mmories content -->
+    <video autoplay muted loop id="bgVideo">
+      <source src="videos/your-video.mp4" type="video/mp4" />
+      Your browser does not support the video tag.
+    </video>
+
+    <div class="content">
+      <h1 class="title">mmories.org</h1>
+      <div class="statement">
+        Exposing scammers. Protecting the community. Reporting with purpose.
+      </div>
+
+      <div class="button-bar" style="display: flex; flex-direction: column; gap: 20px; max-width: 300px; margin: 0 auto;">
+        <a href="archives.html">
+          <button class="animated-button card1">
+            <span class="text">TARGETS</span>
+          </button>
+        </a>
+
+        <button class="animated-button card2" onclick="window.location.href='banned-archive.html'">
+          <span class="text">BANNED</span>
+        </button>
+
+        <button class="animated-button card3" onclick="alert('This one does something later!')">
+          <span class="text">SUBMIT</span>
+        </button>
+
+        <button class="animated-button card4" id="donateBtn">
+          <span class="text">DONATE</span>
+        </button>
+      </div>
     </div>
 
-    <div class="button-bar" style="display: flex; flex-direction: column; gap: 20px; max-width: 300px; margin: 0 auto;">
-    <a href="archives.html">
-    <button class="animated-button card1">
-    <span class="text">TARGETS</span>
-    </button>
-</a>
-
-
-      <button class="animated-button card2" onclick="window.location.href='banned-archive.html'">
-        <span class="text">BANNED</span>
-      </button>
-
-      <button class="animated-button card3" onclick="alert('This one does something later!')">
-        <span class="text">SUBMIT</span>
-      </button>
-
-      <button class="animated-button card4" id="donateBtn">
-        <span class="text">DONATE</span>
-      </button>
+    <div class="founders-box">
+      <div class="founders-title shimmer-name">THE FOUNDERS</div>
+      <div class="founder-list">
+        <p><span class="glow-label">The Sanctum of Legacy</span><br />Hizaki420</p>
+        <p><span class="glow-label">AethersOffline</span><br />Sirencore</p>
+        <p><span class="glow-label">Citadel of Memories</span><br />Shinners13</p>
+        <p><span class="glow-label">mmories.com</span><br />Ozorah</p>
+        <p><span class="glow-label">Aoe.Archives of Eternals</span><br />Falconer</p>
+      </div>
     </div>
+
+    <!-- Donate and Submit Modals go here -->
+    <!-- Keep your modal HTML exactly as is -->
   </div>
 
-  <div class="founders-box">
-    <div class="founders-title shimmer-name">THE FOUNDERS</div>
-    <div class="founder-list">
-      <p><span class="glow-label">The Sanctum of Legacy</span><br />Hizaki420</p>
-      <p><span class="glow-label">AethersOffline</span><br />Sirencore</p>
-      <p><span class="glow-label">Citadel of Memories</span><br />Shinners13</p>
-      <p><span class="glow-label">mmories.com</span><br />Ozorah</p>
-      <p><span class="glow-label">Aoe.Archives of Eternals</span><br />Falconer</p>
-    </div>
-  </div>
+  <!-- Scripts (Loader + Modals) -->
+  <script>
+    // Show site after 3 seconds
+    setTimeout(() => {
+      const loader = document.getElementById("loaderWrapper");
+      loader.style.display = "none";
+      document.getElementById("mainContent").style.display = "block";
+    }, 3000);
 
-<!-- Donate Modal -->
-<div id="donateModal" class="modal" style="display:none;">
-  <div class="modal-content">
-    <span class="close-btn" id="donateClose">&times;</span>
-    <h2>Support the Site</h2>
-    <p>This project is maintained with passion. If you'd like to support it:</p>
-    
-    <p><strong>Crypto Wallet:</strong></p>
-    <p id="cryptoWallet">0xc4fc89419aDdC40be739D5ab31ac9720bE67e5ac</p>
-    <button id="copyWalletBtn">Copy Wallet Address</button>
+    // Modal Logic
+    const donateModal = document.getElementById('donateModal');
+    const donateBtn = document.getElementById('donateBtn');
+    const closeBtn = document.getElementById('donateClose');
+    const copyBtn = document.getElementById('copyWalletBtn');
+    const cryptoText = document.getElementById('cryptoWallet');
 
-<p>
-  <a href="https://steamcommunity.com/tradeoffer/new/?partner=234292270&token=Za-GzrF9" target="_blank"
-     class="donate-steam-link"
-     style="display: flex; align-items: center; gap: 10px; text-decoration: none; color: #66c0f4; font-weight: bold;">
-    <img src="images/steam-logo.svg" alt="Steam" style="width: 20px; height: 20px;">
-    <span>Open Steam Trade Offer</span>
-  </a>
-</p>
+    donateBtn.addEventListener('click', () => {
+      donateModal.style.display = 'block';
+    });
 
-
-    <p>Or email donations via Paysafecard, skins, etc. to:</p>
-    <p><a href="mailto:makinginternetsave@gmail.com">makinginternetsave@gmail.com</a></p>
-  </div>
-</div>
-
-
-
-<!-- Submit Modal -->
-<div id="submitModal" class="modal" style="display:none;">
-  <div class="modal-content">
-    <span class="close-btn" id="submitClose">&times;</span>
-    <h2>Submit a Report</h2>
-    <p>You can send proof of:</p>
-    <ul>
-      <li>Selling or distributing hacks</li>
-      <li>Scamming players or communities</li>
-      <li>Impersonating pro players</li>
-      <li>Videos or content that shouldn't be on YouTube</li>
-    </ul>
-    <p>Please send screenshots, links, or detailed information to:</p>
-    <p><a href="mailto:makinginternetsave@gmail.com" class="email-link">makinginternetsave@gmail.com</a></p>
-  </div>
-</div>
-
-<!-- Donate Modal Script -->
-<script>
-  const donateModal = document.getElementById('donateModal');
-  const donateBtn = document.getElementById('donateBtn');
-  const closeBtn = document.getElementById('donateClose');
-  const copyBtn = document.getElementById('copyWalletBtn');
-  const cryptoText = document.getElementById('cryptoWallet');
-
-  donateBtn.addEventListener('click', () => {
-    donateModal.style.display = 'block';
-  });
-
-  closeBtn.addEventListener('click', () => {
-    donateModal.style.display = 'none';
-  });
-
-  window.addEventListener('click', (e) => {
-    if (e.target === donateModal) {
+    closeBtn.addEventListener('click', () => {
       donateModal.style.display = 'none';
-    }
-  });
+    });
 
-  copyBtn.addEventListener('click', () => {
-    navigator.clipboard.writeText(cryptoText.textContent)
-      .then(() => alert('Crypto wallet address copied to clipboard!'))
-      .catch(() => alert('Failed to copy. Please copy manually.'));
-  });
-</script>
+    window.addEventListener('click', (e) => {
+      if (e.target === donateModal) {
+        donateModal.style.display = 'none';
+      }
+    });
 
-<!-- Submit Modal Script -->
-<script>
-  const submitModal = document.getElementById('submitModal');
-  const submitBtn = document.querySelector('.card3');
-  const submitClose = document.getElementById('submitClose');
+    copyBtn.addEventListener('click', () => {
+      navigator.clipboard.writeText(cryptoText.textContent)
+        .then(() => alert('Crypto wallet address copied to clipboard!'))
+        .catch(() => alert('Failed to copy. Please copy manually.'));
+    });
 
-  submitBtn.addEventListener('click', () => {
-    submitModal.style.display = 'block';
-  });
+    const submitModal = document.getElementById('submitModal');
+    const submitBtn = document.querySelector('.card3');
+    const submitClose = document.getElementById('submitClose');
 
-  submitClose.addEventListener('click', () => {
-    submitModal.style.display = 'none';
-  });
+    submitBtn.addEventListener('click', () => {
+      submitModal.style.display = 'block';
+    });
 
-  window.addEventListener('click', (e) => {
-    if (e.target === submitModal) {
+    submitClose.addEventListener('click', () => {
       submitModal.style.display = 'none';
-    }
-  });
+    });
 
-</script>
+    window.addEventListener('click', (e) => {
+      if (e.target === submitModal) {
+        submitModal.style.display = 'none';
+      }
+    });
+  </script>
 </body>
 </html>
