@@ -452,10 +452,10 @@ backdrop-filter: blur(4px);
 /* Neobrutalist card from Uiverse */
 .card {
   font-family: Montserrat, sans-serif;
-  width: 360px;
+  width: 170px;
   background: #121212;
   color: #ccc;
-  border: 2px solid #00ffa1;
+  border: 2px solid #ffd166;
   box-shadow: 10px 10px 0 #00ffa1;
   border-radius: 12px;
 }
