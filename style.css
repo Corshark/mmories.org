@@ -443,4 +443,7 @@ body {
   justify-content: center;
   padding: 60px 20px;
 }
+.snap-section:last-child {
+  padding-bottom: 80px;
+}
 
