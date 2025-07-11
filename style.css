@@ -54,57 +54,6 @@ body {
   transition: transform 0.3s ease;
 }
 
-/* Founders box */
-.founders-box {
-  margin-top: 80px;
-  padding: 20px;
-  background: rgba(0, 0, 0, 0.6);
-  border-radius: 16px;
-  width: 80%;
-  margin-left: auto;
-  margin-right: auto;
-  box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
-}
-
-.founders-title {
-  font-size: 2.5em;
-  margin-bottom: 30px;
-  text-shadow: 0 0 10px #fff, 0 0 20px #0ff;
-  display: block;
-  text-align: center;
-}
-
-.shimmer-name {
-  background: linear-gradient(to right, #ffffff 0%, #00ffff 50%, #ffffff 100%);
-  background-size: 200% auto;
-  color: #fff;
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  animation: shimmer 3s linear infinite;
-}
-
-@keyframes shimmer {
-  0% {
-    background-position: 200% center;
-  }
-  100% {
-    background-position: -200% center;
-  }
-}
-
-.founder-list {
-  font-size: 1.2em;
-  line-height: 1.6em;
-  text-align: center;
-}
-
-.glow-label {
-  color: #00ffff;
-  font-weight: bold;
-  text-shadow: 0 0 10px #00ffff;
-}
-
 /* Scroll behavior */
 .scroll-container {
   height: 100vh;
