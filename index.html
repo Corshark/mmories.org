@@ -5,6 +5,14 @@
   <title>mmories.org</title>
   <link rel="stylesheet" href="style.css" />
   <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      overflow: hidden; /* prevent double scroll */
+      font-family: 'Segoe UI', sans-serif;
+      background: #000; /* fallback */
+    }
     /* Scroll layout */
     .scroll-container {
       height: 100vh;
@@ -20,47 +28,104 @@
       align-items: center;
       justify-content: center;
       flex-direction: column;
-      padding: 60px 20px;
+      padding: 20px; /* less padding to avoid overflow */
+      box-sizing: border-box;
+      color: #fff;
+      text-align: center;
+    }
+    /* Card fixed position if you want it always visible */
+    .card {
+      position: fixed;
+      bottom: 130px;
+      left: 40px;
+      z-index: 5;
+      transform: scale(1.3);
+      transform-origin: bottom left;
+      max-width: 320px;
+      background: rgba(0,0,0,0.7);
+      padding: 20px;
+      border-radius: 8px;
+      color: #fff;
+      font-size: 1em;
     }
   </style>
 </head>
 <body>
 
-<!-- EARTH LOADER (now permanently hidden) -->
-<div id="loaderWrapper" class="earth" style="display: none;">
-  <div class="earth-loader">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
-      <path transform="translate(100 100)" d="M29.4,-17.4C33.1,1.8,27.6,16.1,11.5,31.6C..." fill="#7CC133"/>
-    </svg>
-    <!-- Additional SVGs can remain here if you want -->
-    <p style="margin-top: 20px; font-size: 1.4em; color: #7CC133; font-family: 'Segoe UI', sans-serif; text-shadow: 0 0 8px #7CC133;">Connecting...</p>
-  </div>
-</div>
-
 <!-- BACKGROUND VIDEO -->
-<video autoplay muted loop id="bgVideo">
+<video autoplay muted loop id="bgVideo" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: -1;">
   <source src="videos/your-video.mp4" type="video/mp4" />
   Your browser does not support the video tag.
 </video>
 
-<!-- MAIN CONTENT (now visible by default) -->
 <div id="mainContent">
   <div class="scroll-container">
 
-<!-- SECTION 1 -->
-<section class="snap-section" style="padding-top: 10px;">
-<div class="title-wrapper">
-  <h1 class="title">mmories.org</h1>
-  <div class="statement">
-    Exposing scammers. Protecting the community. Reporting with purpose.
+    <!-- SECTION 1 -->
+    <section class="snap-section" style="padding-top: 10px;">
+      <div class="title-wrapper">
+        <h1 class="title">mmories.org</h1>
+        <div class="statement">
+          Exposing scammers. Protecting the community. Reporting with purpose.
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 2 -->
+    <section class="snap-section">
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px; max-width: 720px; margin: 0 auto; z-index: 1;">
+        <div class="button-box">
+          <a href="archives.html">
+            <button class="animated-button card1">
+              <img src="images/targets.webp" alt="Targets" class="button-icon" />
+            </button>
+          </a>
+        </div>
+
+        <div class="button-box">
+          <button class="animated-button card2" onclick="window.location.href='banned-archive.html'">
+            <img src="images/banned.webp" alt="Banned" class="button-icon" />
+          </button>
+        </div>
+
+        <div class="button-box">
+          <button class="animated-button card3" onclick="alert('This one does something later!')">
+            <img src="images/giveaway.webp" alt="Giveaway" class="button-icon" />
+          </button>
+        </div>
+
+        <div class="button-box">
+          <button class="animated-button card4" id="donateBtn">
+            <img src="images/donate.webp" alt="Donate" class="button-icon" />
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 3 -->
+    <section class="snap-section">
+      <div class="founders-box">
+        <div class="founders-title shimmer-name">THE FOUNDERS</div>
+        <div class="founder-list">
+          <p><span class="glow-label">The Sanctum of Legacy</span><br />Hizaki420</p>
+          <p><span class="glow-label">AethersOffline</span><br />Sirencore</p>
+          <p><span class="glow-label">Citadel of Memories</span><br />Shinners13</p>
+          <p><span class="glow-label">mmories.com</span><br />Ozorah</p>
+          <p><span class="glow-label">Aoe.Archives of Eternals</span><br />Falconer</p>
+        </div>
+      </div>
+
+      <div style="margin-top: 100px; text-align: center; opacity: 0.4; font-size: 1.1em; color: #ccc;">
+        Thank you.
+      </div>
+    </section>
+
   </div>
 </div>
-</section>
-
-  <div class="card" style="position: absolute; bottom: 130px; left: 40px; z-index: 5; transform: scale(1.3); transform-origin: bottom left; max-width: 320px;">
+  <!-- Card stays fixed on the viewport -->
+  <div class="card">
     <div class="card-front">
       <p class="title">About mmories.org</p>
-      <p class="subtitle">Hover to reveal</p>
     </div>
     <div class="card-back">
       <p style="font-size: 1em; line-height: 1.6;">
@@ -70,60 +135,7 @@
       </p>
     </div>
   </div>
-</section>
-
-<!-- SECTION 2 -->
-<section class="snap-section">
-  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px; max-width: 720px; margin: 0 auto; z-index: 1;">
-    <div class="button-box">
-      <a href="archives.html">
-        <button class="animated-button card1">
-          <img src="images/targets.webp" alt="Targets" class="button-icon">
-        </button>
-      </a>
-    </div>
-
-    <div class="button-box">
-      <button class="animated-button card2" onclick="window.location.href='banned-archive.html'">
-        <img src="images/banned.webp" alt="Banned" class="button-icon">
-      </button>
-    </div>
-
-    <div class="button-box">
-      <button class="animated-button card3" onclick="alert('This one does something later!')">
-        <img src="images/giveaway.webp" alt="Giveaway" class="button-icon">
-      </button>
-    </div>
-
-    <div class="button-box">
-      <button class="animated-button card4" id="donateBtn">
-        <img src="images/donate.webp" alt="Donate" class="button-icon">
-      </button>
-    </div>
-  </div>
-</section>
-
-<!-- SECTION 3 -->
-<section class="snap-section">
-  <div class="founders-box">
-    <div class="founders-title shimmer-name">THE FOUNDERS</div>
-    <div class="founder-list">
-      <p><span class="glow-label">The Sanctum of Legacy</span><br />Hizaki420</p>
-      <p><span class="glow-label">AethersOffline</span><br />Sirencore</p>
-      <p><span class="glow-label">Citadel of Memories</span><br />Shinners13</p>
-      <p><span class="glow-label">mmories.com</span><br />Ozorah</p>
-      <p><span class="glow-label">Aoe.Archives of Eternals</span><br />Falconer</p>
-    </div>
-  </div>
-
-  <div style="margin-top: 100px; text-align: center; opacity: 0.4; font-size: 1.1em; color: #ccc;">
-    Thank you.
-  </div>
-</section>
-
-  </div>
 </div>
-
 <!-- DONATE MODAL -->
 <div id="donateModal" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.7); justify-content:center; align-items:center; z-index:9999;">
   <div style="background:#222; padding:20px; border-radius:10px; color:#fff; width:300px; text-align:center; position:relative;">
