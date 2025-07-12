@@ -243,7 +243,16 @@ html, body {
     inset 0 0 10px rgba(0, 255, 161, 0.2),
     0 0 12px rgba(0, 255, 161, 0.5);
 }
+.about-typewriter-box {
+  max-width: 420px;
+  overflow: hidden;
+  background: transparent;
+  z-index: 5;
+}
+
 .about-typewriter-text {
+  display: inline-block;
+  width: 0;
   font-size: 1.1em;
   line-height: 1.6;
   font-weight: 400;
@@ -252,7 +261,7 @@ html, body {
   border-right: 2px solid #00ffa1;
   color: #fff;
   font-family: 'Segoe UI', sans-serif;
-  animation: typing 6s steps(100, end), blink 0.75s step-end infinite;
+  animation: typing 6s steps(100, end) forwards, blink 0.75s step-end infinite;
 }
 
 @keyframes typing {
