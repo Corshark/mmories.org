@@ -245,3 +245,9 @@ html, body {
     inset 0 0 10px rgba(0, 255, 161, 0.2),
     0 0 12px rgba(0, 255, 161, 0.5);
 }
+.title-wrapper {
+  align-self: flex-start;
+  margin-top: 40px;
+  text-align: center;
+  width: 100%;
+}
