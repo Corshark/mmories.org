@@ -144,33 +144,39 @@
 
 <!-- SCRIPT -->
 <script>
-  // Donate modal logic
-  const donateModal = document.getElementById('donateModal');
-  const donateBtn = document.getElementById('donateBtn');
-  const closeBtn = document.getElementById('donateClose');
-  const copyBtn = document.getElementById('copyWalletBtn');
-  const cryptoText = document.getElementById('cryptoWallet');
+  window.addEventListener('DOMContentLoaded', () => {
+    const donateModal = document.getElementById('donateModal');
+    const donateBtn = document.getElementById('donateBtn');
+    const closeBtn = document.getElementById('donateClose');
+    const copyBtn = document.getElementById('copyWalletBtn');
+    const cryptoText = document.getElementById('cryptoWallet');
 
-  donateBtn.addEventListener('click', () => {
-    donateModal.style.display = 'flex';
-  });
+    if (donateBtn) {
+      donateBtn.addEventListener('click', () => {
+        donateModal.style.display = 'flex';
+      });
+    }
 
-  closeBtn.addEventListener('click', () => {
-    donateModal.style.display = 'none';
-  });
+    if (closeBtn) {
+      closeBtn.addEventListener('click', () => {
+        donateModal.style.display = 'none';
+      });
+    }
 
-  window.addEventListener('click', (e) => {
-    if (e.target === donateModal) {
-      donateModal.style.display = 'none';
+    window.addEventListener('click', (e) => {
+      if (e.target === donateModal) {
+        donateModal.style.display = 'none';
+      }
+    });
+
+    if (copyBtn) {
+      copyBtn.addEventListener('click', () => {
+        navigator.clipboard.writeText(cryptoText.textContent)
+          .then(() => alert('Crypto wallet address copied to clipboard!'))
+          .catch(() => alert('Failed to copy. Please copy manually.'));
+      });
     }
   });
-
-  copyBtn.addEventListener('click', () => {
-    navigator.clipboard.writeText(cryptoText.textContent)
-      .then(() => alert('Crypto wallet address copied to clipboard!'))
-      .catch(() => alert('Failed to copy. Please copy manually.'));
-  });
 </script>
-
 </body>
 </html>
