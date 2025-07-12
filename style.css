@@ -16,7 +16,6 @@ body {
   color: #fff;
   background: #000;
   overflow-x: hidden;
-<<<<<<< HEAD
   overscroll-behavior-y: none;
 }
 
@@ -31,20 +30,17 @@ body {
 }
 
 .snap-section {
-  scroll-snap-align: start;
-  flex: 0 0 100vh;
   height: 100vh;
+  scroll-snap-align: start;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
+  flex-direction: column;
   padding: 60px 20px;
 }
 
 .snap-section:last-child {
   min-height: 100vh;
-=======
->>>>>>> parent of 537be6e (scroll function fix)
 }
 
 /* Title */
@@ -134,30 +130,6 @@ body {
   text-shadow: 0 0 10px #00ffff;
 }
 
-/* Scroll behavior */
-.scroll-container {
-  height: 100vh;
-  overflow-y: scroll;
-  scroll-snap-type: y mandatory;
-  scroll-behavior: smooth;
-  position: relative;
-  z-index: 1;
-}
-
-.snap-section {
-  height: 100vh;
-  scroll-snap-align: start;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  padding: 60px 20px;
-}
-
-.snap-section:last-child {
-  min-height: 100vh;
-}
-
 /* Earth loader styles */
 #loaderWrapper {
   position: fixed;
@@ -218,21 +190,18 @@ body {
   font-family: 'Segoe UI', sans-serif;
   text-shadow: 0 0 8px #7CC133;
 }
-<<<<<<< HEAD
 
 /* Flip card for About section */
 .card {
   perspective: 1000px;
   cursor: pointer;
+  position: relative;
+  width: 300px;  /* you can adjust width and height */
+  height: 200px;
 }
 
 .card-front, .card-back {
   background: rgba(0, 0, 0, 0.65);
-=======
-.button-box {
-  background: rgba(0, 0, 0, 0.6); /* semi-transparent black */
-  padding: 20px;
->>>>>>> parent of 537be6e (scroll function fix)
   border-radius: 16px;
   padding: 20px;
   text-align: left;
@@ -250,7 +219,6 @@ body {
   z-index: 2;
   transform: rotateY(0deg);
 }
-<<<<<<< HEAD
 
 .card-back {
   transform: rotateY(180deg);
@@ -265,12 +233,19 @@ body {
   transform: rotateY(0deg);
   z-index: 3;
 }
-=======
+
+/* Button box and glow effect */
+.button-box {
+  background: rgba(0, 0, 0, 0.6); /* semi-transparent black */
+  padding: 20px;
+}
+
 @keyframes buttonGlow {
   0%   { box-shadow: 0 0 8px rgba(0, 255, 161, 0.3); }
   50%  { box-shadow: 0 0 16px rgba(0, 255, 161, 0.6); }
   100% { box-shadow: 0 0 8px rgba(0, 255, 161, 0.3); }
 }
+
 .button-box .animated-button {
   border-radius: 12px;
   animation: buttonGlow 2.5s infinite ease-in-out;
@@ -279,4 +254,3 @@ body {
     0 0 12px rgba(0, 255, 161, 0.5);
 }
 
->>>>>>> parent of 537be6e (scroll function fix)
