@@ -247,7 +247,7 @@ html, body {
 }
 .title-wrapper {
   align-self: flex-start;
-  margin-top: 40px;
+  margin-top: 10px;
   text-align: center;
   width: 100%;
 }
