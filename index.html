@@ -12,7 +12,6 @@
       scroll-snap-type: y mandatory;
       scroll-behavior: smooth;
       position: relative;
-     
     }
     .snap-section {
       height: 100vh;
@@ -116,7 +115,6 @@
   </div>
 </section>
 
-
 <!-- SECTION 3: Founders + Easter Egg -->
 <section class="snap-section">
   <div class="founders-box">
@@ -139,6 +137,26 @@
   </div>
 </div>
 
+<!-- DONATE Popup Modal -->
+<div id="donateModal" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.7); 
+  display:flex; justify-content:center; align-items:center; z-index:9999;">
+  <div style="background:#222; padding:20px; border-radius:10px; color:#fff; width:300px; text-align:center; position:relative;">
+    <h2>Support via</h2>
+    <p><strong>Ethereum Address:</strong></p>
+    <p id="cryptoWallet" style="user-select:text; font-family: monospace; background:#333; padding:10px; border-radius:5px; cursor:pointer;">
+      0xc4fc89419aDdC40be739D5ab31ac9720bE67e5ac
+    </p>
+    <button id="copyWalletBtn" style="margin-bottom:15px;">Copy Address</button>
+
+    <p><strong>Steam Trade Link:</strong></p>
+    <a href="https://steamcommunity.com/tradeoffer/new/?partner=234292270&token=Za-GzrF9" target="_blank" 
+       style="color:#00aaff; text-decoration:underline;">Send a trade offer</a>
+
+    <br><br>
+    <button id="donateClose" style="background:#444; border:none; padding:8px 15px; border-radius:5px; cursor:pointer;">Close</button>
+  </div>
+</div>
+
 <!-- Loader + Modal Scripts -->
 <script>
   // Show main site after 3s
@@ -148,7 +166,7 @@
     document.getElementById("mainContent").style.display = "block";
   }, 3000);
 
-  // Modal logic
+  // Donate modal logic
   const donateModal = document.getElementById('donateModal');
   const donateBtn = document.getElementById('donateBtn');
   const closeBtn = document.getElementById('donateClose');
@@ -156,7 +174,7 @@
   const cryptoText = document.getElementById('cryptoWallet');
 
   donateBtn.addEventListener('click', () => {
-    donateModal.style.display = 'block';
+    donateModal.style.display = 'flex';
   });
 
   closeBtn.addEventListener('click', () => {
@@ -175,6 +193,7 @@
       .catch(() => alert('Failed to copy. Please copy manually.'));
   });
 
+  // Your existing submit modal code remains untouched
   const submitModal = document.getElementById('submitModal');
   const submitBtn = document.querySelector('.card3');
   const submitClose = document.getElementById('submitClose');
