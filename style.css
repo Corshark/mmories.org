@@ -8,7 +8,7 @@
   object-fit: cover;
   z-index: 0; 
   pointer-events: none;
- }
+}
 
 /* Base layout reset */
 html, body {
@@ -217,34 +217,6 @@ html, body {
   text-shadow: 0 0 8px #7CC133;
 }
 
-.button-box {
-  background: rgba(0, 0, 0, 0.6);
-  padding: 20px;
-  border-radius: 16px;
-  box-shadow: 0 0 16px rgba(0, 255, 161, 0.3);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: transform 0.3s ease;
-}
-
-.button-box:hover {
-  transform: scale(1.03);
-}
-
-@keyframes buttonGlow {
-  0%   { box-shadow: 0 0 8px rgba(0, 255, 161, 0.3); }
-  50%  { box-shadow: 0 0 16px rgba(0, 255, 161, 0.6); }
-  100% { box-shadow: 0 0 8px rgba(0, 255, 161, 0.3); }
-}
-
-.button-box .animated-button {
-  border-radius: 12px;
-  animation: buttonGlow 2.5s infinite ease-in-out;
-  box-shadow:
-    inset 0 0 10px rgba(0, 255, 161, 0.2),
-    0 0 12px rgba(0, 255, 161, 0.5);
-}
 .title-wrapper {
   align-self: flex-start;
   margin-top: 10px;
