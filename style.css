@@ -6,9 +6,9 @@
   width: 100vw;         
   height: 100vh;         
   object-fit: cover;
-  z-index: -1;
-  pointer-events: none;  
-}
+  z-index: 0; 
+  pointer-events: none;
+ }
 
 /* Base layout reset */
 html, body {
@@ -26,12 +26,12 @@ html, body {
 
 /* Scroll layout */
 .scroll-container {
+  position: relative;
+  z-index: 1; 
   height: 100vh;
   overflow-y: scroll;
   scroll-snap-type: y mandatory;
   scroll-behavior: smooth;
-  position: relative;
-  
 }
 
 .snap-section {
