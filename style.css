@@ -30,7 +30,7 @@ html, body {
   scroll-snap-type: y mandatory;
   scroll-behavior: smooth;
   position: relative;
-  z-index: 1;
+  
 }
 
 .snap-section {
