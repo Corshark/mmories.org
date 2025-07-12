@@ -248,6 +248,7 @@ html, body {
   overflow: hidden;
   background: transparent;
   z-index: 5;
+  position: relative;
 }
 
 .about-typewriter-text {
@@ -265,11 +266,11 @@ html, body {
 }
 
 @keyframes typing {
-  from { width: 0 }
-  to { width: 100% }
+  from { width: 0; }
+  to   { width: 100%; }
 }
 
 @keyframes blink {
-  0%, 100% { border-color: transparent }
-  50% { border-color: #00ffa1 }
+  0%, 100% { border-color: transparent; }
+  50%      { border-color: #00ffa1; }
 }
