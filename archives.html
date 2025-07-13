@@ -1,140 +1,87 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Targets | mmories.org</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
   <style>
-    * {
-      box-sizing: border-box;
-    }
+    /* Your existing CSS here */
+    * { box-sizing: border-box; }
     body {
-      margin: 0;
-      padding: 0;
-      font-family: 'Inter', sans-serif;
-      color: #fff;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      overflow: hidden;
-      background: black;
+      margin: 0; padding: 0; font-family: 'Inter', sans-serif;
+      color: #fff; display: flex; justify-content: center; align-items: center;
+      height: 100vh; overflow: hidden; background: black;
     }
     #bgVideo {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      z-index: -2;
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      object-fit: cover; z-index: -2;
     }
     .overlay {
       backdrop-filter: blur(4px);
       background: rgba(0, 0, 0, 0.6);
-      position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
+      position: fixed; top: 0; left: 0; right: 0; bottom: 0;
       z-index: -1;
     }
     .main {
-      display: flex;
-      justify-content: center;
-      align-items: flex-start;
-      gap: 2rem;
-      width: 100%;
-      max-width: 1600px;
-      transform: scale(1.15);
-      z-index: 1;
-      padding: 2rem;
+      display: flex; justify-content: center; align-items: flex-start;
+      gap: 2rem; width: 100%; max-width: 1600px; transform: scale(1.15);
+      z-index: 1; padding: 2rem;
     }
     .explanation-box {
       background: rgba(30, 30, 35, 0.9);
-      border-radius: 12px;
-      padding: 1.5rem;
-      width: 280px;
-      font-size: 0.95rem;
-      line-height: 1.5;
-      color: #ccc;
-      text-align: center;
+      border-radius: 12px; padding: 1.5rem;
+      width: 280px; font-size: 0.95rem; line-height: 1.5;
+      color: #ccc; text-align: center;
     }
     .back-button {
-      display: block;
-      margin: 1rem auto 0;
-      width: 140px;
-      cursor: pointer;
+      display: block; margin: 1rem auto 0;
+      width: 140px; cursor: pointer;
       transition: transform 0.2s ease;
     }
-    .back-button:hover {
-      transform: scale(1.05);
-    }
+    .back-button:hover { transform: scale(1.05); }
     .targets-list {
       background: rgba(30, 30, 35, 0.9);
-      border-radius: 12px;
-      padding: 1rem;
-      width: 280px;
-      display: flex;
-      flex-direction: column;
-      gap: 0.6rem;
-      overflow-y: auto;
-      max-height: 80vh;
+      border-radius: 12px; padding: 1rem;
+      width: 280px; display: flex; flex-direction: column;
+      gap: 0.6rem; overflow-y: auto; max-height: 80vh;
     }
     .targets-title {
-      font-size: 1.1rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      margin-bottom: 0.5rem;
-      color: #ccc;
-      text-align: center;
+      font-size: 1.1rem; font-weight: 600; text-transform: uppercase;
+      margin-bottom: 0.5rem; color: #ccc; text-align: center;
     }
     .targets-list button {
-      background: #1e1e24;
-      color: #fff;
-      padding: 0.75rem 1rem;
-      border: 2px solid transparent;
-      border-radius: 8px;
-      font-size: 0.95rem;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      text-align: left;
+      background: #1e1e24; color: #fff;
+      padding: 0.75rem 1rem; border: 2px solid transparent;
+      border-radius: 8px; font-size: 0.95rem; cursor: pointer;
+      transition: all 0.2s ease; text-align: left;
     }
     .targets-list button.magenta {
-      border-color: #ff5fcf;
-      box-shadow: 0 0 6px #ff5fcf;
+      border-color: #ff5fcf; box-shadow: 0 0 6px #ff5fcf;
     }
     .targets-list button.cyan {
-      border-color: #5feeff;
-      box-shadow: 0 0 6px #5feeff;
+      border-color: #5feeff; box-shadow: 0 0 6px #5feeff;
     }
     .targets-list input[type="text"] {
-      margin-top: 0.5rem;
-      padding: 0.5rem;
-      background: #1e1e24;
-      border: 1px solid #555;
-      border-radius: 6px;
-      color: #fff;
-      outline: none;
+      margin-top: 0.5rem; padding: 0.5rem;
+      background: #1e1e24; border: 1px solid #555;
+      border-radius: 6px; color: #fff; outline: none;
     }
     .details {
       background: rgba(30, 30, 35, 0.9);
-      padding: 1.5rem;
-      border-radius: 12px;
-      max-width: 480px;
-      flex-shrink: 0;
+      padding: 1.5rem; border-radius: 12px;
+      max-width: 480px; flex-shrink: 0;
     }
     .details h2 {
-      font-size: 1.5rem;
-      margin-bottom: 0.5rem;
+      font-size: 1.5rem; margin-bottom: 0.5rem;
     }
     .details p {
-      font-size: 0.95rem;
-      line-height: 1.5;
-      color: #ccc;
+      font-size: 0.95rem; line-height: 1.5; color: #ccc;
+      white-space: pre-wrap; user-select: all; cursor: text;
     }
     @media (max-width: 1024px) {
       .main {
-        flex-direction: column;
-        align-items: stretch;
+        flex-direction: column; align-items: stretch;
         transform: scale(1);
       }
       .details,
@@ -147,7 +94,7 @@
 </head>
 <body>
   <video autoplay muted loop id="bgVideo">
-    <source src="videos/targets-background.mp4" type="video/mp4">
+    <source src="videos/targets-background.mp4" type="video/mp4" />
     Your browser does not support the video tag.
   </video>
 
@@ -155,13 +102,11 @@
 
   <div class="main">
     <div class="explanation-box">
-      <strong>Targets</strong> – Here we collect direct links to scammers and hack/sellers. Once a scammer/hack-seller gets <strong>banned</strong>, a giveaway will start after 24 hours since admin notices the target was banned.<br><br>
-      Each giveaway will have <strong>3 affordable skins</strong> shown on this page. The winning skin is selected manually by the admin using a dice roll 🎲 — this process may be recorded or screenshotted and shared for transparency.<br><br>
-      <em>There is no dev team behind mmories.org — the entire website is operated by one person. So it takes time and we can’t afford expensive skins yet.</em><br><br>
-      <strong>Manual system disclaimer:</strong> This is a humble manual setup for now. The project is still growing and doesn’t use things like Firebase or smart contracts (yet). But everything is handled with love and honesty ♥
-      <br><br>
+      <strong>Targets</strong> – Click on a scammer’s name below to open their scam link and see the reporting text for easy copy/paste.<br /><br />
+      This helps you report impersonators quickly.<br /><br />
+      <em>Website operated by one person, manual system, thank you for understanding ♥</em><br /><br />
       <a href="index.html">
-        <img src="images/back-to-home.webp" alt="Back to Home" class="back-button">
+        <img src="images/back-to-home.webp" alt="Back to Home" class="back-button" />
       </a>
     </div>
 
@@ -173,47 +118,70 @@
 
     <div class="details" id="targetDetails">
       <h2>Select a Target</h2>
-      <p>Click on a scammer’s name to view their ban log and the skin ideas listed for giveaway.</p>
+      <p>Click on a scammer’s name to open their scam link and get the report text for copying.</p>
     </div>
   </div>
 
   <audio id="clickSound" src="click.mp3" preload="auto"></audio>
   <script>
+    // Only your new style targets here:
     const targetsData = [
-      { name: "Fake s1mple", type: "magenta" },
-      { name: "Fake Donk", type: "cyan" },
-      { name: "K. kotyliev", type: "cyan" }
+      {
+        name: "FAKE Donk",
+        type: "cyan",
+        externalLink: "https://www.youtube.com/watch?v=trhOOHFrAS0&ab_channel=donk",
+        reportText: `This is not the real Donk. The account linked above is impersonating the CS2 pro player “Donk” and streaming fake giveaways. A scam link appears in the live chat, designed to steal viewer credentials. Please investigate and take it down.`
+      },
+      {
+        name: "FAKE ExampleScammer1",
+        type: "magenta",
+        externalLink: "https://example.com/scammer1",
+        reportText: `This account is a known impersonator attempting to scam users. Please report accordingly.`
+      },
+      {
+        name: "FAKE ExampleScammer2",
+        type: "cyan",
+        externalLink: "https://example.com/scammer2",
+        reportText: `This account is impersonating a known CS2 player and is involved in phishing attempts. Report immediately.`
+      }
     ];
 
-    const buttonsContainer = document.getElementById('targetButtons');
-    const targetDetails = document.getElementById('targetDetails');
-    const searchInput = document.getElementById('searchInput');
-    const clickSound = document.getElementById('clickSound');
+    const buttonsContainer = document.getElementById("targetButtons");
+    const targetDetails = document.getElementById("targetDetails");
+    const searchInput = document.getElementById("searchInput");
+    const clickSound = document.getElementById("clickSound");
 
     function renderButtons(data) {
-      buttonsContainer.innerHTML = '';
-      data.forEach(target => {
-        const btn = document.createElement('button');
+      buttonsContainer.innerHTML = "";
+      data.forEach((target) => {
+        const btn = document.createElement("button");
         btn.className = target.type;
-        btn.textContent = `${target.name} (scammer)`;
-        btn.addEventListener('click', () => {
+        btn.textContent = `${target.name}`;
+
+        btn.addEventListener("click", () => {
           clickSound.play();
-          updateDetails(target.name);
+
+          // Open the scammer's external link in a new tab
+          if (target.externalLink) {
+            window.open(target.externalLink, "_blank");
+          }
+
+          // Show report text for easy copy-paste
+          targetDetails.innerHTML = `
+            <h2>${target.name} - REPORT</h2>
+            <p>${target.reportText}</p>
+          `;
         });
+
         buttonsContainer.appendChild(btn);
       });
     }
 
-    function updateDetails(name) {
-      targetDetails.innerHTML = `
-        <h2>${name}</h2>
-        <p>This scammer was logged on mmories.org. Giveaway skin roll coming soon.</p>
-      `;
-    }
-
-    searchInput.addEventListener('input', () => {
+    searchInput.addEventListener("input", () => {
       const query = searchInput.value.toLowerCase();
-      const filtered = targetsData.filter(t => t.name.toLowerCase().includes(query));
+      const filtered = targetsData.filter((t) =>
+        t.name.toLowerCase().includes(query)
+      );
       renderButtons(filtered);
     });
 
@@ -221,4 +189,3 @@
   </script>
 </body>
 </html>
-
