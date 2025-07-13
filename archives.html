@@ -122,11 +122,6 @@
       max-width: 480px;
       flex-shrink: 0;
     }
-    .details img {
-      width: 100%;
-      border-radius: 6px;
-      margin-bottom: 1rem;
-    }
     .details h2 {
       font-size: 1.5rem;
       margin-bottom: 0.5rem;
@@ -151,17 +146,19 @@
   </style>
 </head>
 <body>
-<video autoplay muted loop playsinline id="bgVideo">
-  <source src="videos/targets-background.mp4" type="video/mp4">
-  Your browser does not support the video tag.
-</video>
+  <video autoplay muted loop id="bgVideo">
+    <source src="C:/Users/Lanieka369/OneDrive/Documents/mmories.org/videos/Targest-background.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
 
   <div class="overlay"></div>
 
   <div class="main">
     <div class="explanation-box">
       <strong>Targets</strong> – Here we collect direct links to scammers and hack/sellers. Once a scammer/hack-seller gets <strong>banned</strong>, a giveaway will start after 24 hours since admin notices the target was banned.<br><br>
-      <em>There is no dev team behind mmories.org — the entire website is operated by one person. So it takes time.</em>
+      Each giveaway will have <strong>3 affordable skins</strong> shown on this page. The winning skin is selected manually by the admin using a dice roll 🎲 — this process may be recorded or screenshotted and shared for transparency.<br><br>
+      <em>There is no dev team behind mmories.org — the entire website is operated by one person. So it takes time and we can’t afford expensive skins yet.</em><br><br>
+      <strong>Manual system disclaimer:</strong> This is a humble manual setup for now. The project is still growing and doesn’t use things like Firebase or smart contracts (yet). But everything is handled with love and honesty ♥
       <br><br>
       <a href="index.html">
         <img src="images/back-to-home.webp" alt="Back to Home" class="back-button">
@@ -175,11 +172,8 @@
     </div>
 
     <div class="details" id="targetDetails">
-      <img src="awp-asimov.jpg" alt="AWP Asimov">
-      <h2>awp asimov</h2>
-      <p>awp asimov was created after banning one of biggest scammers on YouTube. Guy that was cosplaying as s1mple and stealing peoples Steam accounts with scam Steam link.</p>
-      <p><strong>Banned 7/15 2025</strong></p>
-      <p>awp asimov renamed – Banximov</p>
+      <h2>Select a Target</h2>
+      <p>Click on a scammer’s name to view their ban log and the skin ideas listed for giveaway.</p>
     </div>
   </div>
 
@@ -190,30 +184,27 @@
         name: "Fake s1mple",
         type: "magenta",
         details: {
-          image: "awp-asimov.jpg",
-          title: "awp asimov",
-          description: "awp asimov was created after banning one of biggest scammers on YouTube. Guy that was cosplaying as s1mple and stealing peoples Steam accounts with scam Steam link.",
-          extra: "<strong>Banned 7/15 2025</strong><br>awp asimov renamed – Banximov"
+          title: "Fake s1mple Banned",
+          description: "This impersonator posed as s1mple and used fake Steam links to steal accounts. Giveaway skin roll coming soon.",
+          extra: "<strong>Banned 7/15 2025</strong><br>Skins: P250 Valence, UMP | Oscillator, Five-SeveN | Flame Test"
         }
       },
       {
         name: "Fake Donk",
         type: "cyan",
         details: {
-          image: "donk.jpg",
-          title: "awp ocean foam",
-          description: "Donk impersonator was DMing people with stolen PayPal invoices to phish data. Many viewers lost access to their accounts.",
-          extra: "<strong>Banned 6/10 2025</strong><br>nickname was Dork"
+          title: "Fake Donk Banned",
+          description: "Donk impersonator used fake PayPal invoices to phish users. Giveaway skin roll will be shared soon.",
+          extra: "<strong>Banned 6/10 2025</strong><br>Skins: MAC-10 | Silver, Nova | Polar Mesh, Tec-9 | Urban DDPAT"
         }
       },
       {
         name: "K. kotyliev",
         type: "cyan",
         details: {
-          image: "kotyliev.jpg",
-          title: "nova scorched",
-          description: "This person was using OpenAI generated names and deepfakes to spread malware disguised as CS2 cheat software.",
-          extra: "<strong>Banned 6/29 2025</strong><br>IP traced to Moscow"
+          title: "K. kotyliev Banned",
+          description: "This person spread malware via fake cheat software using deepfake identity. Manual dice roll for skin giveaway will follow.",
+          extra: "<strong>Banned 6/29 2025</strong><br>Skins: SG 553 | Aerial, MP5-SD | Condition Zero, P90 | Sand Spray"
         }
       }
     ];
@@ -239,7 +230,6 @@
 
     function updateDetails(details) {
       targetDetails.innerHTML = `
-        <img src="${details.image}" alt="${details.title}">
         <h2>${details.title}</h2>
         <p>${details.description}</p>
         <p>${details.extra}</p>
