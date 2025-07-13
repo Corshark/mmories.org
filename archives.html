@@ -146,13 +146,12 @@
   </style>
 </head>
 <body>
-<video autoplay muted loop playsinline id="bgVideo">
-  <source src="videos/targets-background.mp4" type="video/mp4">
-  Your browser does not support the video tag.
-</video>
-  
+  <video autoplay muted loop id="bgVideo">
+    <source src="videos/Targest-background.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
 
-<div class="overlay"></div>
+  <div class="overlay"></div>
 
   <div class="main">
     <div class="explanation-box">
@@ -181,33 +180,9 @@
   <audio id="clickSound" src="click.mp3" preload="auto"></audio>
   <script>
     const targetsData = [
-      {
-        name: "Fake s1mple",
-        type: "magenta",
-        details: {
-          title: "Fake s1mple Banned",
-          description: "This impersonator posed as s1mple and used fake Steam links to steal accounts. Giveaway skin roll coming soon.",
-          extra: "<strong>Banned 7/15 2025</strong><br>Skins: P250 Valence, UMP | Oscillator, Five-SeveN | Flame Test"
-        }
-      },
-      {
-        name: "Fake Donk",
-        type: "cyan",
-        details: {
-          title: "Fake Donk Banned",
-          description: "Donk impersonator used fake PayPal invoices to phish users. Giveaway skin roll will be shared soon.",
-          extra: "<strong>Banned 6/10 2025</strong><br>Skins: MAC-10 | Silver, Nova | Polar Mesh, Tec-9 | Urban DDPAT"
-        }
-      },
-      {
-        name: "K. kotyliev",
-        type: "cyan",
-        details: {
-          title: "K. kotyliev Banned",
-          description: "This person spread malware via fake cheat software using deepfake identity. Manual dice roll for skin giveaway will follow.",
-          extra: "<strong>Banned 6/29 2025</strong><br>Skins: SG 553 | Aerial, MP5-SD | Condition Zero, P90 | Sand Spray"
-        }
-      }
+      { name: "Fake s1mple", type: "magenta" },
+      { name: "Fake Donk", type: "cyan" },
+      { name: "K. kotyliev", type: "cyan" }
     ];
 
     const buttonsContainer = document.getElementById('targetButtons');
@@ -217,23 +192,22 @@
 
     function renderButtons(data) {
       buttonsContainer.innerHTML = '';
-      data.forEach((target, index) => {
+      data.forEach(target => {
         const btn = document.createElement('button');
         btn.className = target.type;
         btn.textContent = `${target.name} (scammer)`;
         btn.addEventListener('click', () => {
           clickSound.play();
-          updateDetails(target.details);
+          updateDetails(target.name);
         });
         buttonsContainer.appendChild(btn);
       });
     }
 
-    function updateDetails(details) {
+    function updateDetails(name) {
       targetDetails.innerHTML = `
-        <h2>${details.title}</h2>
-        <p>${details.description}</p>
-        <p>${details.extra}</p>
+        <h2>${name}</h2>
+        <p>This scammer was logged on mmories.org. Giveaway skin roll coming soon.</p>
       `;
     }
 
