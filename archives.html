@@ -1,86 +1,258 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Targets – Scam Radar</title>
-  <link rel="stylesheet" href="archives-style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Targets | mmories.org</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
   <style>
-    .target-entry {
-      display: block;
-      background-color: rgba(0, 0, 0, 0.65);
-      color: white;
-      text-decoration: none;
-      padding: 16px;
-      font-size: 20px;
-      font-weight: bold;
-      border: 2px solid red;
-      border-radius: 10px;
-      margin-bottom: 16px;
-      transition: background 0.3s ease;
+    * {
+      box-sizing: border-box;
     }
-
-    .target-entry:hover {
-      background-color: rgba(255, 0, 0, 0.2);
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Inter', sans-serif;
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+      background: black;
+    }
+    #bgVideo {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -2;
+    }
+    .overlay {
+      backdrop-filter: blur(4px);
+      background: rgba(0, 0, 0, 0.6);
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      z-index: -1;
+    }
+    .main {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      gap: 2rem;
+      width: 100%;
+      max-width: 1600px;
+      transform: scale(1.25);
+      z-index: 1;
+      padding: 2rem;
+    }
+    .explanation-box {
+      background: rgba(30, 30, 35, 0.9);
+      border-radius: 12px;
+      padding: 1.5rem;
+      width: 280px;
+      font-size: 0.95rem;
+      line-height: 1.5;
+      color: #ccc;
+      text-align: center;
+    }
+    .back-button {
+      display: block;
+      margin: 1rem auto 0;
+      width: 140px;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+    .back-button:hover {
+      transform: scale(1.05);
+    }
+    .targets-list {
+      background: rgba(30, 30, 35, 0.9);
+      border-radius: 12px;
+      padding: 1rem;
+      width: 280px;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+      overflow-y: auto;
+      max-height: 80vh;
+    }
+    .targets-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+      color: #ccc;
+      text-align: center;
+    }
+    .targets-list button {
+      background: #1e1e24;
+      color: #fff;
+      padding: 0.75rem 1rem;
+      border: 2px solid transparent;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      text-align: left;
+    }
+    .targets-list button.magenta {
+      border-color: #ff5fcf;
+      box-shadow: 0 0 6px #ff5fcf;
+    }
+    .targets-list button.cyan {
+      border-color: #5feeff;
+      box-shadow: 0 0 6px #5feeff;
+    }
+    .targets-list input[type="text"] {
+      margin-top: 0.5rem;
+      padding: 0.5rem;
+      background: #1e1e24;
+      border: 1px solid #555;
+      border-radius: 6px;
+      color: #fff;
+      outline: none;
+    }
+    .details {
+      background: rgba(30, 30, 35, 0.9);
+      padding: 1.5rem;
+      border-radius: 12px;
+      max-width: 480px;
+      flex-shrink: 0;
+    }
+    .details img {
+      width: 100%;
+      border-radius: 6px;
+      margin-bottom: 1rem;
+    }
+    .details h2 {
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+    }
+    .details p {
+      font-size: 0.95rem;
+      line-height: 1.5;
+      color: #ccc;
+    }
+    @media (max-width: 1024px) {
+      .main {
+        flex-direction: column;
+        align-items: stretch;
+        transform: scale(1);
+      }
+      .details,
+      .targets-list,
+      .explanation-box {
+        margin: 1rem auto 0;
+      }
     }
   </style>
 </head>
-<body class="archives-background">
+<body>
+  <video autoplay muted loop id="bgVideo">
+    <source src="E:/mmories.com/videos/Targest-background.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
 
-  <!-- UI: Loading -->
-  <div id="loading" style="color:white;text-align:center;padding:20px;">Loading Targets...</div>
+  <div class="overlay"></div>
 
-  <!-- Target List -->
-  <main class="hall-of-fame" id="hall-of-fame">
-    <!-- Targets go here -->
-  </main>
+  <div class="main">
+    <div class="explanation-box">
+      <strong>Targets</strong> – Here we collect direct links to scammers and hack/sellers. Once a scammer/hack-seller gets <strong>banned</strong>, a giveaway will start after 24 hours since admin notices the target was banned.<br><br>
+      <em>There is no dev team behind mmories.org — the entire website is operated by one person. So it takes time.</em>
+      <br><br>
+      <a href="index.html">
+        <img src="images/back-to-home.webp" alt="Back to Home" class="back-button">
+      </a>
+    </div>
 
-  <!-- Return Button -->
-  <a href="index.html" class="back-button">← Return</a>
+    <div class="targets-list">
+      <div class="targets-title">Targets</div>
+      <div id="targetButtons"></div>
+      <input type="text" placeholder="SEARCH" id="searchInput" />
+    </div>
 
-  <!-- Click Sound -->
-  <audio id="clickSound" src="audio/click-sound.mp3" preload="auto"></audio>
+    <div class="details" id="targetDetails">
+      <img src="awp-asimov.jpg" alt="AWP Asimov">
+      <h2>awp asimov</h2>
+      <p>awp asimov was created after banning one of biggest scammers on YouTube. Guy that was cosplaying as s1mple and stealing peoples Steam accounts with scam Steam link.</p>
+      <p><strong>Banned 7/15 2025</strong></p>
+      <p>awp asimov renamed – Banximov</p>
+    </div>
+  </div>
 
+  <audio id="clickSound" src="click.mp3" preload="auto"></audio>
   <script>
-    function loadTargets() {
-      const hall = document.getElementById("hall-of-fame");
-
-      const targets = [
-        {
-          name: "Fake s1mple (scammer)",
-          link: "https://www.youtube.com/watch?v=K296nne-6aM"
-        },
-        {
-          name: "Fake Donk (scammer)",
-          link: "https://www.youtube.com/watch?v=Qd1KXchCZpA"
+    const targetsData = [
+      {
+        name: "Fake s1mple",
+        type: "magenta",
+        details: {
+          image: "awp-asimov.jpg",
+          title: "awp asimov",
+          description: "awp asimov was created after banning one of biggest scammers on YouTube. Guy that was cosplaying as s1mple and stealing peoples Steam accounts with scam Steam link.",
+          extra: "<strong>Banned 7/15 2025</strong><br>awp asimov renamed – Banximov"
         }
-      ];
+      },
+      {
+        name: "Fake Donk",
+        type: "cyan",
+        details: {
+          image: "donk.jpg",
+          title: "awp ocean foam",
+          description: "Donk impersonator was DMing people with stolen PayPal invoices to phish data. Many viewers lost access to their accounts.",
+          extra: "<strong>Banned 6/10 2025</strong><br>nickname was Dork"
+        }
+      },
+      {
+        name: "K. kotyliev",
+        type: "cyan",
+        details: {
+          image: "kotyliev.jpg",
+          title: "nova scorched",
+          description: "This person was using OpenAI generated names and deepfakes to spread malware disguised as CS2 cheat software.",
+          extra: "<strong>Banned 6/29 2025</strong><br>IP traced to Moscow"
+        }
+      }
+    ];
 
-      targets.forEach(target => {
-        const link = document.createElement("a");
-        link.href = target.link;
-        link.target = "_blank";
-        link.className = "target-entry";
-        link.textContent = target.name;
-        hall.appendChild(link);
+    const buttonsContainer = document.getElementById('targetButtons');
+    const targetDetails = document.getElementById('targetDetails');
+    const searchInput = document.getElementById('searchInput');
+    const clickSound = document.getElementById('clickSound');
+
+    function renderButtons(data) {
+      buttonsContainer.innerHTML = '';
+      data.forEach((target, index) => {
+        const btn = document.createElement('button');
+        btn.className = target.type;
+        btn.textContent = `${target.name} (scammer)`;
+        btn.addEventListener('click', () => {
+          clickSound.play();
+          updateDetails(target.details);
+        });
+        buttonsContainer.appendChild(btn);
       });
-
-      document.getElementById("loading").style.display = "none";
     }
 
-    window.onload = loadTargets;
+    function updateDetails(details) {
+      targetDetails.innerHTML = `
+        <img src="${details.image}" alt="${details.title}">
+        <h2>${details.title}</h2>
+        <p>${details.description}</p>
+        <p>${details.extra}</p>
+      `;
+    }
 
-    // Click sound effect
-    const clickSound = document.getElementById('clickSound');
-    const clickableElements = document.querySelectorAll('a, button');
-    clickableElements.forEach(element => {
-      element.addEventListener('click', () => {
-        if (clickSound) {
-          clickSound.currentTime = 0;
-          clickSound.play().catch(() => {});
-        }
-      });
+    searchInput.addEventListener('input', () => {
+      const query = searchInput.value.toLowerCase();
+      const filtered = targetsData.filter(t => t.name.toLowerCase().includes(query));
+      renderButtons(filtered);
     });
+
+    renderButtons(targetsData);
   </script>
 </body>
 </html>
