@@ -123,71 +123,61 @@
   </div>
 
   <audio id="clickSound" src="click.mp3" preload="auto"></audio>
-  <script>
-    // Only your new style targets here:
-    const targetsData = [
-     
-  {
-    name: "FAKE Donk",
-    type: "cyan",
-    externalLink: "https://www.youtube.com/watch?v=trhOOHFrAS0&ab_channel=donk",
-    reportText: `This is not the real Donk. The account linked above is impersonating the CS2 pro player “Donk” and streaming fake giveaways. A scam link appears in the live chat, designed to steal viewer credentials. Please investigate and take it down.`
-  },
-  {
-    name: "FAKE Kyousuke",
-    type: "magenta",
-    externalLink: "https://www.youtube.com/watch?v=Kqs4OcgvcqY&ab_channel=kyousuke",
-    reportText: `This is not the real Kyousuke. The channel linked above is impersonating the CS2 pro player “Kyousuke” and streaming fake giveaways. A scam link appears in the live chat and may be used to steal viewer credentials. Please investigate and remove this fraudulent stream.`
-  },
-  {
-    name: "FAKE ExampleScammer2",
-    type: "cyan",
-    externalLink: "https://example.com/scammer2",
-    reportText: `This account is impersonating a known CS2 player and is involved in phishing attempts. Report immediately.`
-  }
-];
-
-     
-    const buttonsContainer = document.getElementById("targetButtons");
-    const targetDetails = document.getElementById("targetDetails");
-    const searchInput = document.getElementById("searchInput");
-    const clickSound = document.getElementById("clickSound");
-
-    function renderButtons(data) {
-      buttonsContainer.innerHTML = "";
-      data.forEach((target) => {
-        const btn = document.createElement("button");
-        btn.className = target.type;
-        btn.textContent = `${target.name}`;
-
-        btn.addEventListener("click", () => {
-          clickSound.play();
-
-          // Open the scammer's external link in a new tab
-          if (target.externalLink) {
-            window.open(target.externalLink, "_blank");
-          }
-
-          // Show report text for easy copy-paste
-          targetDetails.innerHTML = `
-            <h2>${target.name} - REPORT</h2>
-            <p>${target.reportText}</p>
-          `;
-        });
-
-        buttonsContainer.appendChild(btn);
-      });
+<script>
+  // Only your new style targets here:
+  const targetsData = [
+    {
+      name: "FAKE Donk",
+      type: "cyan",
+      externalLink: "https://www.youtube.com/watch?v=trhOOHFrAS0&ab_channel=donk",
+      reportText: `This is not the real Donk. The account linked above is impersonating the CS2 pro player “Donk” and streaming fake giveaways. A scam link appears in the live chat, designed to steal viewer credentials. Please investigate and take it down.`
+    },
+    {
+      name: "FAKE Kyousuke",
+      type: "magenta",
+      externalLink: "https://www.youtube.com/watch?v=Kqs4OcgvcqY&ab_channel=kyousuke",
+      reportText: `This is not the real Kyousuke. The channel linked above is impersonating the CS2 pro player “Kyousuke” and streaming fake giveaways. A scam link appears in the live chat and may be used to steal viewer credentials. Please investigate and remove this fraudulent stream.`
     }
+  ];
 
-    searchInput.addEventListener("input", () => {
-      const query = searchInput.value.toLowerCase();
-      const filtered = targetsData.filter((t) =>
-        t.name.toLowerCase().includes(query)
-      );
-      renderButtons(filtered);
+  const buttonsContainer = document.getElementById("targetButtons");
+  const targetDetails = document.getElementById("targetDetails");
+  const searchInput = document.getElementById("searchInput");
+  const clickSound = document.getElementById("clickSound");
+
+  function renderButtons(data) {
+    buttonsContainer.innerHTML = "";
+    data.forEach((target) => {
+      const btn = document.createElement("button");
+      btn.className = target.type;
+      btn.textContent = `${target.name}`;
+
+      btn.addEventListener("click", () => {
+        clickSound.play();
+
+        if (target.externalLink) {
+          window.open(target.externalLink, "_blank");
+        }
+
+        targetDetails.innerHTML = `
+          <h2>${target.name} - REPORT</h2>
+          <p>${target.reportText}</p>
+        `;
+      });
+
+      buttonsContainer.appendChild(btn);
     });
+  }
 
-    renderButtons(targetsData);
-  </script>
+  searchInput.addEventListener("input", () => {
+    const query = searchInput.value.toLowerCase();
+    const filtered = targetsData.filter((t) =>
+      t.name.toLowerCase().includes(query)
+    );
+    renderButtons(filtered);
+  });
+
+  renderButtons(targetsData);
+</script>
 </body>
 </html>
