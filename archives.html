@@ -6,7 +6,6 @@
   <title>Targets | mmories.org</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
   <style>
-    /* Your existing CSS here */
     * { box-sizing: border-box; }
     body {
       margin: 0; padding: 0; font-family: 'Inter', sans-serif;
@@ -89,15 +88,13 @@
       .explanation-box {
         margin: 1rem auto 0;
       }
-      <style>
-  #reportButton:hover {
-    content: url('images/report2.webp');
-  }
-  #reportButton.clicked {
-    content: url('images/report3.webp');
-  }
-
-}
+    }
+    #reportButton:hover {
+      content: url('images/report2.webp');
+    }
+    #reportButton.clicked {
+      content: url('images/report3.webp');
+    }
   </style>
 </head>
 <body>
@@ -127,103 +124,90 @@
     <div class="details" id="targetDetails">
       <h2>Select a Target</h2>
       <p>Click on a scammer’s name to open their scam link and get the report text for copying.</p>
+
+      <div id="reportBox" style="display:none; margin-top: 2rem;">
+        <h3>COPY THIS</h3>
+        <p id="reportText" style="cursor: pointer; padding: 10px; background: #111; border: 1px solid #444; border-radius: 8px; color: #ccc;">
+          Click to copy report text...
+        </p>
+        <img id="reportButton" src="images/report1.webp" style="display:none; margin-top: 1rem; cursor: pointer; width: 150px;" />
+      </div>
     </div>
   </div>
 
   <audio id="clickSound" src="click.mp3" preload="auto"></audio>
-<script>
-  // Only your new style targets here:
-  const targetsData = [
-    {
-      name: "FAKE Donk",
-      type: "cyan",
-      externalLink: "https://www.youtube.com/watch?v=trhOOHFrAS0&ab_channel=donk",
-      reportText: `This is not the real Donk. The account linked above is impersonating the CS2 pro player “Donk” and streaming fake giveaways. A scam link appears in the live chat, designed to steal viewer credentials. Please investigate and take it down.`
-    },
-    {
-      name: "FAKE Kyousuke",
-      type: "magenta",
-      externalLink: "https://www.youtube.com/watch?v=Kqs4OcgvcqY&ab_channel=kyousuke",
-      reportText: `This is not the real Kyousuke. The channel linked above is impersonating the CS2 pro player “Kyousuke” and streaming fake giveaways. A scam link appears in the live chat and may be used to steal viewer credentials. Please investigate and remove this fraudulent stream.`
+
+  <script>
+    const targetsData = [
+      {
+        name: "FAKE Donk",
+        type: "cyan",
+        externalLink: "https://www.youtube.com/watch?v=trhOOHFrAS0&ab_channel=donk",
+        reportText: `This is not the real Donk. The account linked above is impersonating the CS2 pro player “Donk” and streaming fake giveaways. A scam link appears in the live chat, designed to steal viewer credentials. Please investigate and take it down.`
+      },
+      {
+        name: "FAKE Kyousuke",
+        type: "magenta",
+        externalLink: "https://www.youtube.com/watch?v=Kqs4OcgvcqY&ab_channel=kyousuke",
+        reportText: `This is not the real Kyousuke. The channel linked above is impersonating the CS2 pro player “Kyousuke” and streaming fake giveaways. A scam link appears in the live chat and may be used to steal viewer credentials. Please investigate and remove this fraudulent stream.`
+      }
+    ];
+
+    const buttonsContainer = document.getElementById("targetButtons");
+    const targetDetails = document.getElementById("targetDetails");
+    const searchInput = document.getElementById("searchInput");
+    const clickSound = document.getElementById("clickSound");
+    const reportBox = document.getElementById("reportBox");
+    const reportText = document.getElementById("reportText");
+    const reportButton = document.getElementById("reportButton");
+
+    function showReportBox(text, externalLink) {
+      reportText.textContent = text;
+      reportBox.style.display = "block";
+      reportButton.style.display = "none";
+      reportButton.classList.remove("clicked");
+
+      reportText.onclick = () => {
+        navigator.clipboard.writeText(text).then(() => {
+          reportText.textContent = "✅ Copied!";
+          reportButton.style.display = "inline-block";
+        });
+      };
+
+      reportButton.onclick = () => {
+        reportButton.classList.add("clicked");
+        window.open(externalLink, "_blank");
+      };
     }
-  ];
-<div id="reportBox" style="display:none; margin-top: 2rem;">
-  <h3>COPY THIS</h3>
-  <p id="reportText" style="cursor: pointer; padding: 10px; background: #111; border: 1px solid #444; border-radius: 8px; color: #ccc;">
-    Click to copy report text...
-  </p>
-  <img id="reportButton" src="images/report1.webp" style="display:none; margin-top: 1rem; cursor: pointer; width: 150px;" />
-</div>
 
-  const buttonsContainer = document.getElementById("targetButtons");
-  const targetDetails = document.getElementById("targetDetails");
-  const searchInput = document.getElementById("searchInput");
-  const clickSound = document.getElementById("clickSound");
+    function renderButtons(data) {
+      buttonsContainer.innerHTML = "";
+      data.forEach((target) => {
+        const btn = document.createElement("button");
+        btn.className = target.type;
+        btn.textContent = target.name;
 
-  function renderButtons(data) {
-    buttonsContainer.innerHTML = "";
-    data.forEach((target) => {
-      const btn = document.createElement("button");
-      btn.className = target.type;
-      btn.textContent = `${target.name}`;
-
-      btn.addEventListener("click", () => {
-        clickSound.play();
-
-        if (target.externalLink) {
+        btn.addEventListener("click", () => {
+          clickSound.play();
           window.open(target.externalLink, "_blank");
-        }
+          targetDetails.querySelector("h2").textContent = `${target.name} - REPORT`;
+          targetDetails.querySelector("p").textContent = target.reportText;
+          showReportBox(target.reportText, target.externalLink);
+        });
 
-        targetDetails.innerHTML = `
-          <h2>${target.name} - REPORT</h2>
-          <p>${target.reportText}</p>
-        `;
+        buttonsContainer.appendChild(btn);
       });
+    }
 
-      buttonsContainer.appendChild(btn);
+    searchInput.addEventListener("input", () => {
+      const query = searchInput.value.toLowerCase();
+      const filtered = targetsData.filter((t) =>
+        t.name.toLowerCase().includes(query)
+      );
+      renderButtons(filtered);
     });
-  }
 
-  searchInput.addEventListener("input", () => {
-    const query = searchInput.value.toLowerCase();
-    const filtered = targetsData.filter((t) =>
-      t.name.toLowerCase().includes(query)
-    );
-    renderButtons(filtered);
-  });
-
-  renderButtons(targetsData);
-<script>
-const reportBox = document.getElementById('reportBox');
-const reportText = document.getElementById('reportText');
-const reportButton = document.getElementById('reportButton');
-
-function showReportBox(targetName, externalLink) {
-  const message = `This is not the real ${targetName}. The account linked above is impersonating the CS2 pro player “${targetName}” and streaming fake giveaways. A scam link appears in the live chat, designed to steal viewer credentials. Please investigate and take it down.`;
-
-  reportText.textContent = message;
-  reportBox.style.display = "block";
-  reportButton.style.display = "none";
-  reportButton.classList.remove("clicked");
-
-  // Copy on click
-  reportText.onclick = () => {
-    navigator.clipboard.writeText(message).then(() => {
-      reportText.textContent = "✅ Copied!";
-      reportButton.style.display = "inline-block";
-    });
-  };
-
-  // Report button click
-  reportButton.onclick = () => {
-    reportButton.classList.add("clicked");
-    window.open(externalLink, "_blank");
-  };
-  btn.addEventListener("click", () => {
-  clickSound.play();
-  showReportBox(target.name.replace("FAKE ", ""), target.externalLink);
-});
-}
-</script>
+    renderButtons(targetsData);
+  </script>
 </body>
 </html>
