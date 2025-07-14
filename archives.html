@@ -146,77 +146,60 @@ const targetsData = [
   }
 ];
 
-  const buttonsContainer = document.getElementById("targetButtons");
-  const targetDetails = document.getElementById("targetDetails");
-  const searchInput = document.getElementById("searchInput");
-  const clickSound = document.getElementById("clickSound");
+const buttonsContainer = document.getElementById("targetButtons");
+const targetDetails = document.getElementById("targetDetails");
+const searchInput = document.getElementById("searchInput");
+const clickSound = document.getElementById("clickSound");
 
-  const reportBox = document.createElement('div');
-  reportBox.id = "reportBox";
-  reportBox.style.display = "none";
-  reportBox.style.marginTop = "2rem";
-  reportBox.innerHTML = `
-    <h3>COPY THIS</h3>
-    <p id="reportText" style="cursor: pointer; padding: 10px; background: #111; border: 1px solid #444; border-radius: 8px; color: #ccc;">
-      Click to copy report text...
-    </p>
-    <img id="reportButton" src="images/report1.webp" style="display:none; margin-top: 1rem; cursor: pointer; width: 150px;" />
-  `;
-  targetDetails.appendChild(reportBox);
+const reportBox = document.getElementById("reportBox");
+const reportText = document.getElementById("reportText");
+const reportButton = document.getElementById("reportButton");
 
-  const reportText = reportBox.querySelector('#reportText');
-  const reportButton = reportBox.querySelector('#reportButton');
+function renderButtons(data) {
+  buttonsContainer.innerHTML = "";
+  data.forEach((target) => {
+    const btn = document.createElement("button");
+    btn.className = target.type;
+    btn.textContent = target.name;
 
-  function renderButtons(data) {
-    buttonsContainer.innerHTML = "";
-    data.forEach((target) => {
-      const btn = document.createElement("button");
-      btn.className = target.type;
-      btn.textContent = target.name;
+    btn.addEventListener("click", () => {
+      clickSound.play();
 
-      btn.addEventListener("click", () => {
-        clickSound.play();
+      targetDetails.querySelector("h2").textContent = `${target.name} - REPORT`;
+      targetDetails.querySelector("p").textContent = target.reportText;
 
-        // Update target details
-        targetDetails.innerHTML = `
-          <h2>${target.name} - REPORT</h2>
-          <p>${target.reportText}</p>
-        `;
-        targetDetails.appendChild(reportBox);
-        reportBox.style.display = "block";
-        reportButton.style.display = "none";
-        reportButton.classList.remove("clicked");
+      reportText.textContent = target.reportText;
+      reportBox.style.display = "block";
+      reportButton.style.display = "none";
+      reportButton.classList.remove("clicked");
 
-        reportText.textContent = target.reportText;
+      reportText.onclick = () => {
+        navigator.clipboard.writeText(target.reportText).then(() => {
+          reportText.textContent = "✅ Copied!";
+          reportButton.style.display = "inline-block";
+        });
+      };
 
-        // Copy report text
-        reportText.onclick = () => {
-          navigator.clipboard.writeText(target.reportText).then(() => {
-            reportText.textContent = "✅ Copied!";
-            reportButton.style.display = "inline-block";
-          });
-        };
-
-        // Report button click opens scam link
-        reportButton.onclick = () => {
-          reportButton.classList.add("clicked");
-          window.open(target.externalLink, "_blank");
-        };
-      });
-
-      buttonsContainer.appendChild(btn);
+      reportButton.onclick = () => {
+        reportButton.classList.add("clicked");
+        window.open(target.externalLink, "_blank");
+      };
     });
-  }
 
-  searchInput.addEventListener("input", () => {
-    const query = searchInput.value.toLowerCase();
-    const filtered = targetsData.filter((t) =>
-      t.name.toLowerCase().includes(query)
-    );
-    renderButtons(filtered);
+    buttonsContainer.appendChild(btn);
   });
+}
 
-  renderButtons(targetsData);
+searchInput.addEventListener("input", () => {
+  const query = searchInput.value.toLowerCase();
+  const filtered = targetsData.filter((t) =>
+    t.name.toLowerCase().includes(query)
+  );
+  renderButtons(filtered);
+});
+
+renderButtons(targetsData);
 </script>
 </body>
 </html>
+
