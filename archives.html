@@ -137,77 +137,93 @@
 
   <audio id="clickSound" src="click.mp3" preload="auto"></audio>
 
-  <script>
-    const targetsData = [
-      {
-        name: "FAKE Donk",
-        type: "cyan",
-        externalLink: "https://www.youtube.com/watch?v=trhOOHFrAS0&ab_channel=donk",
-        reportText: `This is not the real Donk. The account linked above is impersonating the CS2 pro player “Donk” and streaming fake giveaways. A scam link appears in the live chat, designed to steal viewer credentials. Please investigate and take it down.`
-      },
-      {
-        name: "FAKE Kyousuke",
-        type: "magenta",
-        externalLink: "https://www.youtube.com/watch?v=Kqs4OcgvcqY&ab_channel=kyousuke",
-        reportText: `This is not the real Kyousuke. The channel linked above is impersonating the CS2 pro player “Kyousuke” and streaming fake giveaways. A scam link appears in the live chat and may be used to steal viewer credentials. Please investigate and remove this fraudulent stream.`
-      }
-    ];
-
-    const buttonsContainer = document.getElementById("targetButtons");
-    const targetDetails = document.getElementById("targetDetails");
-    const searchInput = document.getElementById("searchInput");
-    const clickSound = document.getElementById("clickSound");
-    const reportBox = document.getElementById("reportBox");
-    const reportText = document.getElementById("reportText");
-    const reportButton = document.getElementById("reportButton");
-
-    function showReportBox(text, externalLink) {
-      reportText.textContent = text;
-      reportBox.style.display = "block";
-      reportButton.style.display = "none";
-      reportButton.classList.remove("clicked");
-
-      reportText.onclick = () => {
-        navigator.clipboard.writeText(text).then(() => {
-          reportText.textContent = "✅ Copied!";
-          reportButton.style.display = "inline-block";
-        });
-      };
-
-      reportButton.onclick = () => {
-        reportButton.classList.add("clicked");
-        window.open(externalLink, "_blank");
-      };
+<script>
+  const targetsData = [
+    {
+      name: "FAKE Donk",
+      type: "cyan",
+      externalLink: "https://www.youtube.com/watch?v=trhOOHFrAS0&ab_channel=donk",
+      reportText: `This is not the real Donk. The account linked above is impersonating the CS2 pro player “Donk” and streaming fake giveaways. A scam link appears in the live chat, designed to steal viewer credentials. Please investigate and take it down.`
+    },
+    {
+      name: "FAKE Kyousuke",
+      type: "magenta",
+      externalLink: "https://www.youtube.com/watch?v=Kqs4OcgvcqY&ab_channel=kyousuke",
+      reportText: `This is not the real Kyousuke. The channel linked above is impersonating the CS2 pro player “Kyousuke” and streaming fake giveaways. A scam link appears in the live chat and may be used to steal viewer credentials. Please investigate and remove this fraudulent stream.`
     }
+  ];
 
-    function renderButtons(data) {
-      buttonsContainer.innerHTML = "";
-      data.forEach((target) => {
-        const btn = document.createElement("button");
-        btn.className = target.type;
-        btn.textContent = target.name;
+  const buttonsContainer = document.getElementById("targetButtons");
+  const targetDetails = document.getElementById("targetDetails");
+  const searchInput = document.getElementById("searchInput");
+  const clickSound = document.getElementById("clickSound");
 
-        btn.addEventListener("click", () => {
-          clickSound.play();
+  const reportBox = document.createElement('div');
+  reportBox.id = "reportBox";
+  reportBox.style.display = "none";
+  reportBox.style.marginTop = "2rem";
+  reportBox.innerHTML = `
+    <h3>COPY THIS</h3>
+    <p id="reportText" style="cursor: pointer; padding: 10px; background: #111; border: 1px solid #444; border-radius: 8px; color: #ccc;">
+      Click to copy report text...
+    </p>
+    <img id="reportButton" src="images/report1.webp" style="display:none; margin-top: 1rem; cursor: pointer; width: 150px;" />
+  `;
+  targetDetails.appendChild(reportBox);
+
+  const reportText = reportBox.querySelector('#reportText');
+  const reportButton = reportBox.querySelector('#reportButton');
+
+  function renderButtons(data) {
+    buttonsContainer.innerHTML = "";
+    data.forEach((target) => {
+      const btn = document.createElement("button");
+      btn.className = target.type;
+      btn.textContent = target.name;
+
+      btn.addEventListener("click", () => {
+        clickSound.play();
+
+        // Update target details
+        targetDetails.innerHTML = `
+          <h2>${target.name} - REPORT</h2>
+          <p>${target.reportText}</p>
+        `;
+        targetDetails.appendChild(reportBox);
+        reportBox.style.display = "block";
+        reportButton.style.display = "none";
+        reportButton.classList.remove("clicked");
+
+        reportText.textContent = target.reportText;
+
+        // Copy report text
+        reportText.onclick = () => {
+          navigator.clipboard.writeText(target.reportText).then(() => {
+            reportText.textContent = "✅ Copied!";
+            reportButton.style.display = "inline-block";
+          });
+        };
+
+        // Report button click opens scam link
+        reportButton.onclick = () => {
+          reportButton.classList.add("clicked");
           window.open(target.externalLink, "_blank");
-          targetDetails.querySelector("h2").textContent = `${target.name} - REPORT`;
-          targetDetails.querySelector("p").textContent = target.reportText;
-          showReportBox(target.reportText, target.externalLink);
-        });
-
-        buttonsContainer.appendChild(btn);
+        };
       });
-    }
 
-    searchInput.addEventListener("input", () => {
-      const query = searchInput.value.toLowerCase();
-      const filtered = targetsData.filter((t) =>
-        t.name.toLowerCase().includes(query)
-      );
-      renderButtons(filtered);
+      buttonsContainer.appendChild(btn);
     });
+  }
 
-    renderButtons(targetsData);
-  </script>
+  searchInput.addEventListener("input", () => {
+    const query = searchInput.value.toLowerCase();
+    const filtered = targetsData.filter((t) =>
+      t.name.toLowerCase().includes(query)
+    );
+    renderButtons(filtered);
+  });
+
+  renderButtons(targetsData);
+</script>
 </body>
 </html>
