@@ -250,7 +250,7 @@ The uploader encourages viewers to download external software that compromises g
 
   function renderButtons(data) {
     buttonsContainer.innerHTML = "";
-    data.forEach(target => {
+    data.forEach((target, index) => {
       const btn = document.createElement("button");
       btn.textContent = target.name;
       btn.classList.add(target.type);
@@ -258,12 +258,17 @@ The uploader encourages viewers to download external software that compromises g
         clickSound.play();
         window.open(target.externalLink, "_blank");
 
-        targetDetails.querySelector("h2").textContent = target.name;
-        targetDetails.querySelector("p").textContent = target.reportText + additionalPrompt;
+        // Update the report text with additional warning
+        const fullText = `${target.reportText}${additionalPrompt}`;
+        reportText.textContent = fullText;
 
-        reportText.textContent = target.reportText + additionalPrompt;
+        // Update the details pane
+        targetDetails.querySelector("h2").textContent = target.name;
+        targetDetails.querySelector("p").textContent =
+          "Click to copy the report text below.";
+
         reportBox.style.display = "block";
-        reportButton.style.display = "inline-block";
+        reportButton.style.display = "block";
         reportButton.classList.remove("clicked");
         reportButton.src = "images/report1.webp";
       });
@@ -271,23 +276,38 @@ The uploader encourages viewers to download external software that compromises g
     });
   }
 
-  // Copy to clipboard and change image on click
-  reportText.addEventListener("click", () => {
-    navigator.clipboard.writeText(reportText.textContent).then(() => {
-      reportButton.classList.add("clicked");
-      reportButton.src = "images/report3.webp";
-    });
-  });
+  // Initial render
+  renderButtons(targetsData);
 
-  // Filter logic
+  // Search functionality
   searchInput.addEventListener("input", () => {
-    const term = searchInput.value.toLowerCase();
-    const filtered = targetsData.filter(t => t.name.toLowerCase().includes(term));
+    const query = searchInput.value.toLowerCase();
+    const filtered = targetsData.filter((target) =>
+      target.name.toLowerCase().includes(query)
+    );
     renderButtons(filtered);
   });
 
-  // Initial render
-  renderButtons(targetsData);
+  // Copy to clipboard on reportText click
+  reportText.addEventListener("click", () => {
+    navigator.clipboard.writeText(reportText.textContent).then(() => {
+      reportText.textContent = "✓ Copied!";
+      setTimeout(() => {
+        reportText.textContent =
+          `${targetsData.find(t => t.name === targetDetails.querySelector("h2").textContent)?.reportText}${additionalPrompt}`;
+      }, 1500);
+    });
+  });
+
+  // Click image animation
+  reportButton.addEventListener("click", () => {
+    reportButton.src = "images/report3.webp";
+    reportButton.classList.add("clicked");
+    setTimeout(() => {
+      reportButton.src = "images/report1.webp";
+      reportButton.classList.remove("clicked");
+    }, 600);
+  });
 </script>
 </body>
 </html>
