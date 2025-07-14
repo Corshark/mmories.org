@@ -238,76 +238,88 @@ The uploader encourages viewers to download external software that compromises g
     }
   ];
 
-  const buttonsContainer = document.getElementById("targetButtons");
-  const targetDetails = document.getElementById("targetDetails");
-  const searchInput = document.getElementById("searchInput");
-  const clickSound = document.getElementById("clickSound");
-  const reportBox = document.getElementById("reportBox");
-  const reportText = document.getElementById("reportText");
-  const reportButton = document.getElementById("reportButton");
+const buttonsContainer = document.getElementById("targetButtons");
+const targetDetails = document.getElementById("targetDetails");
+const searchInput = document.getElementById("searchInput");
+const clickSound = document.getElementById("clickSound");
+const reportBox = document.getElementById("reportBox");
+const reportText = document.getElementById("reportText");
+const reportButton = document.getElementById("reportButton");
 
-  const additionalPrompt = \n\nNote: If this video is promoting hacks, cheats, or unfair gameplay tools in Counter-Strike 2, it may violate YouTube's Community Guidelines or Valve’s Terms of Service. Please take appropriate moderation action.;
+const additionalPrompt = `\n\nNote: If this video is promoting hacks, cheats, or unfair gameplay tools in Counter-Strike 2, it may violate YouTube's Community Guidelines or Valve’s Terms of Service. Please take appropriate moderation action.`;
 
-  function renderButtons(data) {
-    buttonsContainer.innerHTML = "";
-    data.forEach((target, index) => {
-      const btn = document.createElement("button");
-      btn.textContent = target.name;
-      btn.classList.add(target.type);
-      btn.addEventListener("click", () => {
-        clickSound.play();
-        window.open(target.externalLink, "_blank");
+// 🚫 Remove redirect on click — only show text first
+function renderButtons(data) {
+  buttonsContainer.innerHTML = "";
+  data.forEach((target) => {
+    const btn = document.createElement("button");
+    btn.textContent = target.name;
+    btn.className = target.type;
 
-        // Update the report text with additional warning
-        const fullText = ${target.reportText}${additionalPrompt};
-        reportText.textContent = fullText;
+btn.addEventListener("click", () => {
+  clickSound.play();
 
-        // Update the details pane
-        targetDetails.querySelector("h2").textContent = target.name;
-        targetDetails.querySelector("p").textContent =
-          "Click to copy the report text below.";
+  // Set up text and image flow
+  const fullText = `${target.reportText}${additionalPrompt}`;
+  reportText.textContent = fullText;
+  reportText.dataset.link = target.externalLink;
+  reportText.dataset.name = target.name;
 
-        reportBox.style.display = "block";
-        reportButton.style.display = "block";
-        reportButton.classList.remove("clicked");
-        reportButton.src = "images/report1.webp";
-      });
-      buttonsContainer.appendChild(btn);
-    });
-  }
+  targetDetails.querySelector("h2").textContent = target.name;
+  targetDetails.querySelector("p").textContent = "Click to copy the report text below.";
+  reportBox.style.display = "block";
+  reportButton.style.display = "none";
+  reportButton.src = "images/report1.webp";
+});
 
-  // Initial render
-  renderButtons(targetsData);
 
-  // Search functionality
-  searchInput.addEventListener("input", () => {
-    const query = searchInput.value.toLowerCase();
-    const filtered = targetsData.filter((target) =>
-      target.name.toLowerCase().includes(query)
-    );
-    renderButtons(filtered);
+    buttonsContainer.appendChild(btn);
   });
+}
 
-  // Copy to clipboard on reportText click
-  reportText.addEventListener("click", () => {
-    navigator.clipboard.writeText(reportText.textContent).then(() => {
-      reportText.textContent = "✓ Copied!";
-      setTimeout(() => {
-        reportText.textContent =
-          ${targetsData.find(t => t.name === targetDetails.querySelector("h2").textContent)?.reportText}${additionalPrompt};
-      }, 1500);
-    });
-  });
+// 🔍 Search filter
+searchInput.addEventListener("input", () => {
+  const keyword = searchInput.value.toLowerCase();
+  const filtered = targetsData.filter((target) =>
+    target.name.toLowerCase().includes(keyword)
+  );
+  renderButtons(filtered);
+});
 
-  // Click image animation
-  reportButton.addEventListener("click", () => {
-    reportButton.src = "images/report3.webp";
-    reportButton.classList.add("clicked");
+
+// ⚡ Initial render
+renderButtons(targetsData);
+
+
+// 📋 Copy report + reveal Report Button
+reportText.addEventListener("click", () => {
+  navigator.clipboard.writeText(reportText.textContent).then(() => {
+    reportText.textContent = "✅ Copied!";
+    reportButton.style.display = "block";
+
     setTimeout(() => {
-      reportButton.src = "images/report1.webp";
-      reportButton.classList.remove("clicked");
-    }, 600);
+      const fullText = `${targetsData.find(
+        (t) => t.name === reportText.dataset.name
+      )?.reportText}${additionalPrompt}`;
+      reportText.textContent = fullText;
+    }, 1500);
   });
+});
+
+// 📤 Report button opens YouTube
+reportButton.addEventListener("click", () => {
+  const externalLink = reportText.dataset.link;
+  window.open(externalLink, "_blank");
+
+  reportButton.src = "images/report3.webp";
+  reportButton.classList.add("clicked");
+
+  setTimeout(() => {
+    reportButton.src = "images/report1.webp";
+    reportButton.classList.remove("clicked");
+  }, 600);
+});
+
 </script>
 </body>
 </html>
