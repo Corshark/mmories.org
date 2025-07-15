@@ -8,53 +8,45 @@
   <link rel="stylesheet" href="targets.css" />
 </head>
 <body>
-  <!-- Background video -->
   <video autoplay muted loop id="bgVideo">
     <source src="videos/targets-background.mp4" type="video/mp4" />
     Your browser does not support the video tag.
   </video>
+
   <div class="overlay"></div>
 
-  <!-- Top banner -->
-  <header class="page-header">Reporting Page</header>
-
-  <!-- Split layout -->
-  <div class="main-split">
-    <!-- Left: Target List -->
-    <div class="targets-section">
-      <div class="section-title">Targets</div>
-      <input type="text" placeholder="SEARCH" id="searchInput" />
-      <div id="targetButtons"></div>
+  <div class="main">
+    <div class="explanation-box">
+      <strong>Targets</strong> – Click on a scammer’s name below to open their scam link and see the reporting text for easy copy/paste.<br /><br />
+      This helps you report impersonators quickly.<br /><br />
+      <em>Website operated by one person, manual system, thank you for understanding ♥</em><br /><br />
+      <a href="index.html">
+        <img src="images/back-to-home.webp" alt="Back to Home" class="back-button" />
+      </a>
     </div>
 
-    <!-- Right: Report Info -->
-    <div class="report-section">
-      <div class="section-title">Target Selected</div>
-      <p class="report-instructions">
-        Click a scammer to open their link and copy the report text below.
-      </p>
+    <div class="targets-list">
+      <div class="targets-title">Targets</div>
+      <div id="targetButtons"></div>
+      <input type="text" placeholder="SEARCH" id="searchInput" />
+    </div>
 
-      <div id="targetDetails">
-        <p>Select a scammer from the left panel.</p>
+    <div class="details" id="targetDetails">
+      <h2>Select a Target</h2>
+      <p>Click on a scammer’s name to open their scam link and get the report text for copying.</p>
 
-        <div id="reportBox" style="display:none; margin-top: 2rem;">
-          <h3>COPY THIS</h3>
-          <p id="reportText" class="report-text">
-            Click to copy report text...
-          </p>
-          <img id="reportButton" src="images/report1.webp" style="display:none;" class="report-img" />
-        </div>
+      <div id="reportBox" style="display:none; margin-top: 2rem;">
+        <h3>COPY THIS</h3>
+        <p id="reportText" class="report-text">
+          Click to copy report text...
+        </p>
+        <img id="reportButton" src="images/report1.webp" style="display:none;" class="report-img" />
       </div>
     </div>
   </div>
 
-  <!-- Bottom footer -->
-  <footer class="page-footer">
-    Website operated by one person, manual system, thank you for understanding ♥
-  </footer>
-
-  <!-- Audio + JS -->
   <audio id="clickSound" src="click.mp3" preload="auto"></audio>
   <script src="targets.js"></script>
 </body>
 </html>
+
