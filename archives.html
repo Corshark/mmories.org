@@ -15,35 +15,39 @@
 
   <div class="overlay"></div>
 
-  <div class="main">
-    <div class="explanation-box">
-      <strong>Targets</strong> – Click on a scammer’s name below to open their scam link and see the reporting text for easy copy/paste.<br /><br />
-      This helps you report impersonators quickly.<br /><br />
-      <em>Website operated by one person, manual system, thank you for understanding ♥</em><br /><br />
-      <a href="index.html">
-        <img src="images/back-to-home.webp" alt="Back to Home" class="back-button" />
-      </a>
-    </div>
+  <!-- Top Banner -->
+  <header class="page-header">Reporting Page</header>
 
-    <div class="targets-list">
-      <div class="targets-title">Targets</div>
+  <!-- Main 2-Column Layout -->
+  <div class="main-split">
+    <!-- Left: Targets List -->
+    <div class="targets-section">
+      <div class="section-title">Known Targets</div>
+      <input type="text" placeholder="Search targets..." id="searchInput" />
       <div id="targetButtons"></div>
-      <input type="text" placeholder="SEARCH" id="searchInput" />
     </div>
 
-    <div class="details" id="targetDetails">
-      <h2>Select a Target</h2>
-      <p>Click on a scammer’s name to open their scam link and get the report text for copying.</p>
+    <!-- Right: Selected Target Info -->
+    <div class="report-section" id="targetDetails">
+      <div class="section-title">Target Selected</div>
+      <p>Click a name to view their scam link and copy the report text.</p>
 
       <div id="reportBox" style="display:none; margin-top: 2rem;">
         <h3>COPY THIS</h3>
-        <p id="reportText" class="report-text">
-          Click to copy report text...
-        </p>
+        <p id="reportText" class="report-text">Click to copy report text...</p>
         <img id="reportButton" src="images/report1.webp" style="display:none;" class="report-img" />
       </div>
     </div>
   </div>
+
+  <!-- Bottom Banner -->
+  <footer class="page-footer">
+    Website operated by one person, manual system, thank you for understanding ♥
+  </footer>
+
+  <a href="index.html">
+    <img src="images/back-to-home.webp" alt="Back to Home" class="back-button" />
+  </a>
 
   <audio id="clickSound" src="click.mp3" preload="auto"></audio>
   <script src="targets.js"></script>
