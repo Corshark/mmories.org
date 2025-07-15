@@ -1,6 +1,12 @@
 
 const targetsData = [
   {
+  name: "FAKE Falcons Esport",
+  type: "cyan",
+  externalLink: "https://www.youtube.com/watch?v=icwvT0MOIqM",
+  reportText: `This video is part of a **highly coordinated scam campaign** impersonating the professional CS2 team **“Falcons Esport”**, their players, and official partners including **Steam**. The scam is promoted as a paid **YouTube ad**, abusing brand trust to lure users into visiting a fake giveaway website that collects Steam login credentials.\n\nThis operation uses real team logos, edited footage, and deceptive messaging to appear legitimate. Immediate investigation is required due to the scale, brand impersonation, and security threat posed to users and the esports community.`
+  },
+  {
     name: "FAKE Donk",
     type: "cyan",
     externalLink: "https://www.youtube.com/watch?v=07VgJc0qE7s&ab_channel=donk",
