@@ -8,49 +8,53 @@
   <link rel="stylesheet" href="targets.css" />
 </head>
 <body>
+  <!-- Background video -->
   <video autoplay muted loop id="bgVideo">
     <source src="videos/targets-background.mp4" type="video/mp4" />
     Your browser does not support the video tag.
   </video>
-
   <div class="overlay"></div>
 
-  <!-- Top Banner -->
+  <!-- Top banner -->
   <header class="page-header">Reporting Page</header>
 
-  <!-- Main 2-Column Layout -->
+  <!-- Split layout -->
   <div class="main-split">
-    <!-- Left: Targets List -->
+    <!-- Left: Target List -->
     <div class="targets-section">
-      <div class="section-title">Known Targets</div>
-      <input type="text" placeholder="Search targets..." id="searchInput" />
+      <div class="section-title">Targets</div>
+      <input type="text" placeholder="SEARCH" id="searchInput" />
       <div id="targetButtons"></div>
     </div>
 
-    <!-- Right: Selected Target Info -->
-    <div class="report-section" id="targetDetails">
+    <!-- Right: Report Info -->
+    <div class="report-section">
       <div class="section-title">Target Selected</div>
-      <p>Click a name to view their scam link and copy the report text.</p>
+      <p class="report-instructions">
+        Click a scammer to open their link and copy the report text below.
+      </p>
 
-      <div id="reportBox" style="display:none; margin-top: 2rem;">
-        <h3>COPY THIS</h3>
-        <p id="reportText" class="report-text">Click to copy report text...</p>
-        <img id="reportButton" src="images/report1.webp" style="display:none;" class="report-img" />
+      <div id="targetDetails">
+        <p>Select a scammer from the left panel.</p>
+
+        <div id="reportBox" style="display:none; margin-top: 2rem;">
+          <h3>COPY THIS</h3>
+          <p id="reportText" class="report-text">
+            Click to copy report text...
+          </p>
+          <img id="reportButton" src="images/report1.webp" style="display:none;" class="report-img" />
+        </div>
       </div>
     </div>
   </div>
 
-  <!-- Bottom Banner -->
+  <!-- Bottom footer -->
   <footer class="page-footer">
     Website operated by one person, manual system, thank you for understanding ♥
   </footer>
 
-  <a href="index.html">
-    <img src="images/back-to-home.webp" alt="Back to Home" class="back-button" />
-  </a>
-
+  <!-- Audio + JS -->
   <audio id="clickSound" src="click.mp3" preload="auto"></audio>
   <script src="targets.js"></script>
 </body>
 </html>
-
