@@ -1,4 +1,4 @@
-</script>
+
 const targetsData = [
   {
     name: "FAKE Donk",
@@ -82,16 +82,18 @@ const reportText = document.getElementById("reportText");
 const reportButton = document.getElementById("reportButton");
 const clickSound = document.getElementById("clickSound");
 
+let selectedLink = ""; // 🆕 Store selected target's link
+
 // Function to create buttons
 function renderButtons(targets) {
-  buttonsContainer.innerHTML = ""; // Clear existing buttons
+  buttonsContainer.innerHTML = "";
   targets.forEach(target => {
     const btn = document.createElement("button");
     btn.textContent = target.name;
-    btn.classList.add(target.color);
+    btn.classList.add(target.type); // Fix: was `target.color` which may not exist
     btn.addEventListener("click", () => {
       clickSound.play();
-      window.open(target.link, "_blank");
+      selectedLink = target.externalLink; // 🆕 Save the link for REPORT button
       showReport(target.reportText);
     });
     buttonsContainer.appendChild(btn);
@@ -111,9 +113,10 @@ function showReport(text) {
 // Copy to clipboard
 reportText.addEventListener("click", () => {
   navigator.clipboard.writeText(reportText.textContent).then(() => {
+    const oldText = reportText.textContent;
     reportText.textContent = "✓ COPIED!";
     setTimeout(() => {
-      reportText.textContent = targetsData.find(t => t.reportText === reportText.textContent)?.reportText || "Click to copy report text...";
+      reportText.textContent = oldText;
     }, 1200);
   });
 });
@@ -128,6 +131,9 @@ reportButton.addEventListener("mouseout", () => {
 });
 
 reportButton.addEventListener("click", () => {
+  if (selectedLink) {
+    window.open(selectedLink, "_blank"); // ✅ Open link ONLY here
+  }
   reportButton.src = "images/report3.webp";
   reportButton.classList.add("clicked");
   setTimeout(() => {
