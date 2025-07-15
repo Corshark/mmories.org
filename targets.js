@@ -1,4 +1,4 @@
-
+</script>
 const targetsData = [
   {
     name: "FAKE Donk",
