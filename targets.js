@@ -96,7 +96,7 @@ function renderButtons(targets) {
   targets.forEach(target => {
     const btn = document.createElement("button");
     btn.textContent = target.name;
-    btn.classList.add(target.type); // Fix: was `target.color` which may not exist
+    btn.classList.add("target-button");
     btn.addEventListener("click", () => {
       clickSound.play();
       selectedLink = target.externalLink; // 🆕 Save the link for REPORT button

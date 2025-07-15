@@ -250,4 +250,33 @@ body {
   user-select: text;
   cursor: text;
 }
+/* Container styling for layout */
+#targetButtons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px; /* spacing between buttons */
+  justify-content: center;
+  padding: 20px;
+}
+
+/* Button styling */
+.target-button {
+  background-color: #ffffff; /* same color */
+  color: #000000;
+  border: 2px solid #ccc;
+  border-radius: 8px;
+  padding: 10px 16px;
+  font-size: 16px;
+  font-weight: bold;
+  width: 250px;         /* same size */
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+/* Optional hover effect */
+.target-button:hover {
+  background-color: #f0f0f0;
+  transform: scale(1.03);
+}
 
