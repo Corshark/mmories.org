@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <title>Our Mission – Scam Radar</title>
   <link rel="icon" href="/favicon.ico" />
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="/style.css" />
   <style>
     body {
       margin: 0;
@@ -16,6 +16,26 @@
       justify-content: center;
       min-height: 100vh;
       padding: 2rem;
+
+      /* Fade-in animation */
+      opacity: 0;
+      animation: fadeIn 0.8s ease-out forwards;
+    }
+
+    @keyframes fadeIn {
+      to {
+        opacity: 1;
+      }
+    }
+
+    .fade-out {
+      animation: fadeOut 0.5s ease-in forwards;
+    }
+
+    @keyframes fadeOut {
+      to {
+        opacity: 0;
+      }
     }
 
     .content-box {
@@ -33,9 +53,14 @@
       border-radius: 0;
     }
 
+    .text-section {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
     .bottom-text {
-      margin-top: auto;
-      padding-bottom: 100px; /* creates space above the button */
+      padding-bottom: 100px;
     }
 
     .top-text, .bottom-text {
@@ -63,7 +88,7 @@
     }
 
     .top-text p {
-      font-size: 1.3rem; /* bigger text */
+      font-size: 1.3rem;
       line-height: 1.8;
       color: #f0f0f0;
       margin-bottom: 1.6rem;
@@ -79,7 +104,7 @@
     }
 
     .bottom-text p {
-      font-size: 1.25rem; /* bigger text */
+      font-size: 1.25rem;
       line-height: 1.8;
       color: #f0f0f0;
       margin-bottom: 1.6rem;
@@ -145,17 +170,13 @@
     <div class="text-section">
       <div class="top-text">
         <h1>Our mission is to uncover scammers:</h1>
-
         <p>We are gathering direct links to scammer impersonators and cheat vendors across platforms like YouTube — creating a public database where you can report them all.</p>
-
         <p>Together, we’re making the internet a safer space.</p>
       </div>
 
       <div class="bottom-text">
         <h2>Why was mmories.org created?</h2>
-
         <p>VALVE has failed to properly address the plague of cheaters, exploiters, and hack sellers in their games — leaving the community vulnerable.</p>
-
         <p>That’s why we created mmories.org: to fight back <em>outside</em> the game. By exposing these people publicly and giving players tools to report them fast, we take justice into our own hands.</p>
       </div>
     </div>
@@ -164,8 +185,18 @@
       Website operated by one person,<br> manual system,<br> thank you for understanding ♥
     </div>
 
-    <a class="enter-btn" href="/archives">Enter Scam Radar</a>
+    <a class="enter-btn" href="/targets.html">Enter Scam Radar</a>
   </div>
+<script>
+  const btn = document.querySelector('.enter-btn');
+  btn.addEventListener('click', function (e) {
+    e.preventDefault(); // prevent instant jump
+    document.body.classList.add('fade-out');
+    setTimeout(() => {
+      window.location.href = btn.href;
+    }, 400); // delay must match fadeOut duration
+  });
+</script>
 </body>
 </html>
 
