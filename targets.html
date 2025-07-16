@@ -5,45 +5,51 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Scam Command Center</title>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&family=Inter:wght@400&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="targets.css">
 </head>
 <body>
-<video id="bg-video" autoplay muted loop>
-  <source src="Targets-background.mp4" type="video/mp4">
-</video>
+  <video id="bg-video" autoplay muted loop>
+    <source src="Targets-background.mp4" type="video/mp4">
+  </video>
 
-  <div class="corshark-mascot">
+  <!-- Mascot -->
+  <div class="mascot">
     <img src="corshark.png" alt="Corshark Mascot" />
-    <div class="bubble">"Scammers won't know what hit 'em."</div>
+    <div class="speech-bubble">"Scammers won't know what hit 'em."</div>
   </div>
 
+  <!-- Main Layout -->
   <div class="container">
+    <!-- Left Panel -->
     <div class="panel left">
       <h2>Intel Briefing</h2>
       <p>Welcome agent. Your mission: identify and report scammer entities threatening the digital frontier. Stay vigilant. Trust no dupe.</p>
     </div>
 
-<!-- Center Panel -->
- <div class="panel center">
-   <h2>Target List</h2>
-    <input type="text" id="searchInput" placeholder="Search targets..." />
-    <div id="targetButtons" class="target-list">
-     <!-- Buttons will be injected by JS -->
-     </div>
-   </div>
+    <!-- Center Panel -->
+    <div class="panel center">
+      <h2>Target List</h2>
+      <input type="text" id="searchInput" placeholder="Search targets..." />
+      <div id="targetButtons" class="target-list">
+        <!-- Buttons will be injected by JS -->
+      </div>
+    </div>
 
-
-<!-- Right Panel -->
-<div class="panel right" id="targetDetails">
-  <h2>No Target Selected</h2>
-  <p>Select a target to view the report details.</p>
-  <div class="report-terminal" id="reportBox" style="display: none;">
-    <pre id="reportText">Click a target to generate report...</pre>
-    <img id="reportButton" src="images/report1.webp" alt="Report Button" style="display: none; cursor: pointer; width: 100px; margin-top: 10px;" />
+    <!-- Right Panel -->
+    <div class="panel right" id="targetDetails">
+      <h2>No Target Selected</h2>
+      <p>Select a target to view the report details.</p>
+      <div class="report-terminal" id="reportBox" style="display: none;">
+        <pre id="reportText">Click a target to generate report...</pre>
+        <img id="reportButton" src="images/report1.webp" alt="Report Button" style="display: none; cursor: pointer; width: 100px; margin-top: 10px;" />
+      </div>
+    </div>
   </div>
-</div>
 
+  <audio id="clickSound" src="click.mp3" preload="auto"></audio>
 
-  <script src="script.js"></script>
+  <!-- External Script -->
+  <script src="targets.js"></script>
 </body>
 </html>
+

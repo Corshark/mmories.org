@@ -1,4 +1,4 @@
-const targetsData = []; // Empty, ready for new entries
+const targetsData = []; // Empty for now
 
 // DOM references
 const buttonsContainer = document.getElementById("targetButtons");
@@ -11,7 +11,7 @@ const clickSound = document.getElementById("clickSound");
 
 let selectedLink = "";
 
-// Function to create buttons
+// Create buttons
 function renderButtons(targets) {
   buttonsContainer.innerHTML = "";
   targets.forEach(target => {
@@ -27,7 +27,7 @@ function renderButtons(targets) {
   });
 }
 
-// Function to show report box
+// Show report box
 function showReport(text) {
   targetDetails.querySelector("h2").textContent = "Target Selected";
   targetDetails.querySelector("p").textContent = "Copy the report text and paste it when reporting.";
@@ -67,7 +67,7 @@ reportButton.addEventListener("click", () => {
   }, 1000);
 });
 
-// Search filtering
+// Search filter
 searchInput.addEventListener("input", () => {
   const searchTerm = searchInput.value.toLowerCase();
   const filtered = targetsData.filter(t => t.name.toLowerCase().includes(searchTerm));
@@ -76,3 +76,4 @@ searchInput.addEventListener("input", () => {
 
 // Initial render
 renderButtons(targetsData);
+
