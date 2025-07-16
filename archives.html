@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Archives | mmories.org</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="targets.css" />
+  <link rel="stylesheet" href="archives.css" />
 </head>
 <body>
   <video autoplay muted loop id="bgVideo">
@@ -17,7 +17,7 @@
 
   <div class="main">
     <div class="explanation-box">
-      <strong>Archives</strong> – Click on a scammer’s name below to open their scam link and see the reporting text for easy copy/paste.<br /><br />
+      <strong>Archives</strong> – Click on a name below to open their scam link and see the reporting text for easy copy/paste.<br /><br />
       This helps you report impersonators quickly.<br /><br />
       <em>Website operated by one person, manual system, thank you for understanding ♥</em><br /><br />
       <a href="index.html">
@@ -25,29 +25,25 @@
       </a>
     </div>
 
-    <div class="targets-list">
-      <div class="targets-title">Targets</div>
-      <div id="targetButtons"></div>
-      <input type="text" placeholder="SEARCH" id="searchInput" />
+    <div class="targets-box">
+      <div class="targets-title">Archives</div>
+      <input type="text" id="searchInput" placeholder="Search..." />
+      <div id="targetButtons" class="target-buttons"></div>
     </div>
 
-    <div class="details" id="targetDetails">
-      <h2>Select a Target</h2>
-      <p>Click on a scammer’s name to open their scam link and get the report text for copying.</p>
-
-      <div id="reportBox" style="display:none; margin-top: 2rem;">
-        <h3>COPY THIS</h3>
-        <p id="reportText" class="report-text">
-          Click to copy report text...
-        </p>
-        <img id="reportButton" src="images/report1.webp" style="display:none;" class="report-img" />
+    <div id="targetDetails" class="target-details">
+      <h2>Target Selected</h2>
+      <p>Copy the report text and paste it when reporting.</p>
+      <div id="reportBox" class="report-box">
+        <pre id="reportText">(Click a target to show the report text here)</pre>
       </div>
+      <img id="reportButton" src="images/report1.webp" alt="Report Button" class="report-button" style="display: none;" />
     </div>
+
+    <audio id="clickSound" src="sounds/click.mp3" preload="auto"></audio>
   </div>
 
-  <audio id="clickSound" src="click.mp3" preload="auto"></audio>
-  <script src="targets.js" defer></script>
+  <script src="archives.js" defer></script>
 </body>
 </html>
-
 
