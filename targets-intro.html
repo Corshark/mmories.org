@@ -2,79 +2,170 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Scam Radar – Entry</title>
-  <link rel="stylesheet" href="style.css" />
+  <title>Our Mission – Scam Radar</title>
   <link rel="icon" href="/favicon.ico" />
+  <link rel="stylesheet" href="style.css" />
   <style>
     body {
       margin: 0;
-      font-family: 'Georgia', serif;
+      background-color: #1D1C20;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       color: white;
-      background: black;
-    }
-
-    .background-video {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      object-fit: cover;
-      z-index: -1;
-      opacity: 0.4;
-    }
-
-    .intro-box {
-      max-width: 700px;
-      margin: 10vh auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
       padding: 2rem;
-      background: rgba(0, 0, 0, 0.7);
-      border-radius: 18px;
-      text-align: center;
     }
 
-    .intro-box h1 {
-      font-size: 2rem;
-      margin-bottom: 1rem;
+    .content-box {
+      background-color: #65737F;
+      padding: 2rem 3rem;
+      width: 2000px;
+      height: 1100px;
+      max-width: 95vw;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      gap: 2rem;
+      position: relative;
+      border-radius: 0;
     }
 
-    .intro-box p {
-      font-size: 1.1rem;
-      line-height: 1.6;
-      margin-bottom: 1.5rem;
+    .bottom-text {
+      margin-top: auto;
+      padding-bottom: 100px; /* creates space above the button */
     }
 
-    .enter-button {
-      display: inline-block;
-      padding: 12px 24px;
-      background-color: white;
-      color: black;
+    .top-text, .bottom-text {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .note-box {
+      background-color: #1F1E22;
+      padding: 1rem 1.2rem;
+      color: #ccc;
+      font-size: 0.9rem;
+      max-width: 300px;
+      align-self: flex-start;
+      box-shadow: inset 0 0 8px rgba(0,0,0,0.4);
+      border-radius: 0;
+    }
+
+    h1 {
+      font-size: 70px;
+      font-weight: 900;
+      margin-bottom: 1.2rem;
+      color: #ffffff;
+      text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.5);
+    }
+
+    .top-text p {
+      font-size: 1.3rem; /* bigger text */
+      line-height: 1.8;
+      color: #f0f0f0;
+      margin-bottom: 1.6rem;
+    }
+
+    h2 {
+      font-size: 1.7rem;
       font-weight: bold;
-      text-decoration: none;
-      border-radius: 12px;
-      transition: background-color 0.2s ease;
+      margin-top: 1rem;
+      margin-bottom: 0.8rem;
+      color: #ffffff;
+      text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.4);
     }
 
-    .enter-button:hover {
-      background-color: #dddddd;
+    .bottom-text p {
+      font-size: 1.25rem; /* bigger text */
+      line-height: 1.8;
+      color: #f0f0f0;
+      margin-bottom: 1.6rem;
+    }
+
+    .enter-btn {
+      position: absolute;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: inline-block;
+      padding: 12px 28px;
+      background: #ffffff;
+      color: #1a1a1a;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 1rem;
+      transition: all 0.2s ease;
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+    }
+
+    .enter-btn:hover {
+      background: #ddd;
+      transform: translateX(-50%) scale(1.03);
+    }
+
+    @media (max-width: 900px) {
+      .content-box {
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        height: auto;
+      }
+
+      h1 {
+        font-size: 40px;
+      }
+
+      .top-text p, .bottom-text p {
+        font-size: 1rem;
+      }
+
+      h2 {
+        font-size: 1.2rem;
+      }
+
+      .note-box {
+        margin-top: 1rem;
+        max-width: 100%;
+        text-align: center;
+      }
+
+      .enter-btn {
+        position: static;
+        transform: none;
+        margin-top: 1.5rem;
+      }
     }
   </style>
 </head>
 <body>
-  <video autoplay muted loop class="background-video">
-    <source src="your-video.mp4" type="video/mp4" />
-  </video>
+  <div class="content-box">
+    <div class="text-section">
+      <div class="top-text">
+        <h1>Our mission is to uncover scammers:</h1>
 
-  <div class="intro-box">
-    <h1>Scam Radar – Entry</h1>
-    <p>
-      This section helps you report scammer impersonators quickly.<br><br>
-      Click on a scammer’s name on the next page to open their scam link and copy the reporting text for easy pasting.
-    </p>
-    <p>
-      This website is operated by one person and uses a manual system. Thank you for understanding ♥
-    </p>
-    <a class="enter-button" href="/archives">Enter Scam Radar</a>
+        <p>We are gathering direct links to scammer impersonators and cheat vendors across platforms like YouTube — creating a public database where you can report them all.</p>
+
+        <p>Together, we’re making the internet a safer space.</p>
+      </div>
+
+      <div class="bottom-text">
+        <h2>Why was mmories.org created?</h2>
+
+        <p>VALVE has failed to properly address the plague of cheaters, exploiters, and hack sellers in their games — leaving the community vulnerable.</p>
+
+        <p>That’s why we created mmories.org: to fight back <em>outside</em> the game. By exposing these people publicly and giving players tools to report them fast, we take justice into our own hands.</p>
+      </div>
+    </div>
+
+    <div class="note-box">
+      Website operated by one person,<br> manual system,<br> thank you for understanding ♥
+    </div>
+
+    <a class="enter-btn" href="/archives">Enter Scam Radar</a>
   </div>
 </body>
 </html>
+
