@@ -2,47 +2,48 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Scam Radar - Targets</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="targets.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Scam Command Center</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&family=Inter:wght@400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <video autoplay muted loop id="bgVideo">
-    <source src="videos/targets-background.mp4" type="video/mp4" />
-    Your browser does not support the video tag.
+  <video id="bg-video" autoplay muted loop>
+    <source src="glitch-background.mp4" type="video/mp4">
   </video>
 
-  <div class="overlay"></div>
-
-  <div class="main">
-    <div class="explanation-box">
-      <strong>Scam Radar</strong> — Click on a name to preview their scam video and get report text for pasting.<br /><br />
-      This helps flag impersonators and cheat advertisers more easily.<br /><br />
-      <em>Manual curation. Thank you for supporting community safety ♥</em><br /><br />
-      <a href="index.html">
-        <img src="images/back-to-home.webp" alt="Back to Home" class="back-button" />
-      </a>
-    </div>
-
-    <div class="targets-box">
-      <div class="targets-title">Targets</div>
-      <input type="text" id="searchInput" placeholder="Search..." />
-      <div id="targetButtons" class="target-buttons"></div>
-    </div>
-
-    <div id="targetDetails" class="target-details">
-      <h2>Target Selected</h2>
-      <p>Copy the report text and paste it when reporting.</p>
-      <div id="reportBox" class="report-box">
-        <pre id="reportText">(Click a target to show the report text here)</pre>
-      </div>
-      <img id="reportButton" src="images/report1.webp" alt="Report Button" class="report-button" style="display: none;" />
-    </div>
-
-    <audio id="clickSound" src="sounds/click.mp3" preload="auto"></audio>
+  <div class="corshark-mascot">
+    <img src="corshark.png" alt="Corshark Mascot" />
+    <div class="bubble">"Scammers won't know what hit 'em."</div>
   </div>
 
-  <script src="targets.js" defer></script>
+  <div class="layout">
+    <div class="panel left">
+      <h2>Intel Briefing</h2>
+      <p>Welcome agent. Your mission: identify and report scammer entities threatening the digital frontier. Stay vigilant. Trust no dupe.</p>
+    </div>
+
+<!-- Center Panel -->
+ <div class="panel center">
+   <h2>Target List</h2>
+    <input type="text" id="searchInput" placeholder="Search targets..." />
+    <div id="targetButtons" class="target-list">
+     <!-- Buttons will be injected by JS -->
+     </div>
+   </div>
+
+
+<!-- Right Panel -->
+<div class="panel right" id="targetDetails">
+  <h2>No Target Selected</h2>
+  <p>Select a target to view the report details.</p>
+  <div class="report-terminal" id="reportBox" style="display: none;">
+    <pre id="reportText">Click a target to generate report...</pre>
+    <img id="reportButton" src="images/report1.webp" alt="Report Button" style="display: none; cursor: pointer; width: 100px; margin-top: 10px;" />
+  </div>
+</div>
+
+
+  <script src="script.js"></script>
 </body>
 </html>
