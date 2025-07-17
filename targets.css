@@ -29,7 +29,7 @@ body {
 /* Layout Container */
 .container {
   position: fixed;
-  top: 540px; /* changed from 600px */
+  top: 420px; /* moved up for 30% taller */
   bottom: 50px;
   left: 0;
   right: 0;
@@ -39,7 +39,7 @@ body {
   gap: 2rem;
   justify-content: space-between;
 
-  height: auto;
+  /* remove height: auto; because fixed top+bottom defines height */
 }
 
 /* Flex sizes for each panel - 10% thinner */
