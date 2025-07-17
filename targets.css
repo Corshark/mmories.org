@@ -29,7 +29,7 @@ body {
 /* Layout Container */
 .container {
   position: fixed;
-  top: 320px; /* moved up for 30% taller */
+  top: 240px; 
   bottom: 50px;
   left: 0;
   right: 0;
