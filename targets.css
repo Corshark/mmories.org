@@ -33,26 +33,23 @@ body {
   bottom: 50px;
   left: 0;
   right: 0;
-
   display: flex;
-  padding: 2rem;
-  gap: 60px;
-  justify-content: space-between;
 
-  /* remove height: auto; because fixed top+bottom defines height */
+  padding: 2rem;
+  gap: 30px; /* tighter spacing between panels */
+  justify-content: center; /* centers the group, not space-between */
 }
 
-/* Flex sizes for each panel - 10% thinner */
 .left {
-  flex: 0.100;
+  flex: 0.12;
 }
 
 .center {
-  flex: 0.548;
+  flex: 0.58;
 }
 
 .right {
-  flex: 0.150;
+  flex: 0.12;
 }
 
 .panel {
