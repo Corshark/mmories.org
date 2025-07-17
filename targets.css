@@ -28,43 +28,32 @@ body {
 
 /* Layout Container */
 .container {
+  position: fixed;
+  top: 540px; /* changed from 600px */
+  bottom: 50px;
+  left: 0;
+  right: 0;
+
   display: flex;
   padding: 2rem;
   gap: 2rem;
   justify-content: space-between;
 
-  position: fixed;
-  top: 600px;
-  bottom: 50px;
-  left: 0;
-  right: 0;
-
   height: auto;
 }
 
-.panel {
-  height: 100%;
-  padding: 1rem;
-  background: rgba(0, 0, 0, 0.6);
-  border: 1px solid #35f9fb;
-  border-radius: 10px;
-  backdrop-filter: blur(4px);
-  overflow-y: auto;
-}
-
-/* Flex sizes for each panel */
+/* Flex sizes for each panel - 10% thinner */
 .left {
-  flex: 0.5; /* 50% thinner */
+  flex: 0.45; /* was 0.5 */
 }
 
 .center {
-  flex: 1.2; /* dominant */
+  flex: 1.08; /* was 1.2 */
 }
 
 .right {
-  flex: 0.55; /* 45% thinner */
+  flex: 0.495; /* was 0.55 */
 }
-
 .panel {
   padding: 1rem;
   background: rgba(0, 0, 0, 0.6);
