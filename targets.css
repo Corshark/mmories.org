@@ -44,7 +44,7 @@ body {
 
 /* Flex sizes for each panel - 10% thinner */
 .left {
-  flex: 0.333;
+  flex: 0.200;
 }
 
 .center {
@@ -52,7 +52,7 @@ body {
 }
 
 .right {
-  flex: 0.356;
+  flex: 0.250;
 }
 
 .panel {
