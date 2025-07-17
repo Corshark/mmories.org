@@ -54,9 +54,10 @@ body {
 
 .panel {
   padding: 1rem;
-  background: rgba(0, 0, 0, 0.6);
+  background: #000810; /* solid color, no transparency */
   border: 1px solid #35f9fb;
   border-radius: 10px;
+  backdrop-filter: none; /* remove blur */
   overflow-y: auto;
 }
 
