@@ -226,4 +226,57 @@ body {
   max-height: calc(100% - 150px);
   overflow-y: auto;
 }
+/* Center Panel Target Entries */
+.panel.center .target-entry {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.6rem;
+  padding: 0.5rem 1rem;
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 6px;
+  border: 1px solid #2c2c2c;
+  transition: background 0.2s;
+}
+
+.panel.center .target-entry:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.panel.center .target-name {
+  color: #17c9e2;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: color 0.2s;
+}
+
+.panel.center .target-name:hover {
+  text-shadow: 0 0 6px #17c9e2;
+}
+
+.panel.center .target-tag {
+  padding: 0.3rem 0.6rem;
+  font-size: 0.8rem;
+  border-radius: 4px;
+  font-weight: 600;
+  color: white;
+  text-align: center;
+}
+
+.panel.center .target-entry.impersonator .target-tag {
+  background-color: #17c9e2;
+}
+
+.panel.center .target-entry.cheat .target-tag {
+  background-color: #bd51ea;
+}
+
+.panel.center .target-entry.cheat .target-name {
+  color: #bd51ea;
+}
+
+.panel.center .target-entry.cheat .target-name:hover {
+  text-shadow: 0 0 6px #bd51ea;
+}
 
