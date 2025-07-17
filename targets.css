@@ -70,6 +70,7 @@ body {
 .panel p,
 .panel pre {
   font-size: 0.95rem;
+  margin-bottom: 1rem; /* Add margin between paragraphs */
 }
 
 /* Filter Buttons */
@@ -128,7 +129,7 @@ body {
 /* Header */
 .page-header {
   position: fixed;
-  top: 60px; /* moved up from 100px */
+  top: 60px;
   left: 50%;
   transform: translateX(-50%);
   text-align: center;
@@ -214,4 +215,11 @@ body {
   }
 }
 
+/* =============== */
+/* NEW: Left Panel HR Style */
+.panel.left hr {
+  border: none;
+  border-top: 1px solid #35f9fb33;
+  margin: 1rem 0;
+}
 
