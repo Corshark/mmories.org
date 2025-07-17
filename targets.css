@@ -167,7 +167,7 @@ body {
 .page-header {
   position: fixed;
   top: 150px; /* adjust vertical position as needed */
-  left: calc(2rem + 12vw);
+  left: 400px
   max-width: 220px;
   font-family: 'Orbitron', 'Inter', sans-serif;
   user-select: none;
