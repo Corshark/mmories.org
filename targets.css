@@ -223,7 +223,7 @@ body {
   margin: 1rem 0;
 }
 .panel.left {
-  max-height: calc(100% - 250px);
+  max-height: calc(100% - 200px);
   overflow-y: auto;
 }
 
