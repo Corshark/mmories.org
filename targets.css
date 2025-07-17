@@ -36,7 +36,7 @@ body {
 
   display: flex;
   padding: 2rem;
-  gap: 2rem;
+  gap: 1rem;
   justify-content: space-between;
 
   /* remove height: auto; because fixed top+bottom defines height */
