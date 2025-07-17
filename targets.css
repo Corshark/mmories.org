@@ -29,19 +29,36 @@ body {
 /* Layout Container */
 .container {
   display: flex;
-  height: 100vh;
   padding: 2rem;
   gap: 2rem;
   justify-content: space-between;
+
+  position: fixed;
+  top: 600px;
+  bottom: 50px;
+  left: 0;
+  right: 0;
+
+  height: auto;
 }
 
-/* Panels */
+.panel {
+  height: 100%;
+  padding: 1rem;
+  background: rgba(0, 0, 0, 0.6);
+  border: 1px solid #35f9fb;
+  border-radius: 10px;
+  backdrop-filter: blur(4px);
+  overflow-y: auto;
+}
+
+/* Flex sizes for each panel */
 .left {
   flex: 0.5; /* 50% thinner */
 }
 
 .center {
-  flex: 1.2; /* keep it dominant */
+  flex: 1.2; /* dominant */
 }
 
 .right {
