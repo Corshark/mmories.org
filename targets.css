@@ -21,23 +21,21 @@ body {
   width: 100%;
   height: 100%;
   z-index: -1;
-  opacity: 1; /* Full visibility */
+  opacity: 1;
   pointer-events: none;
 }
-
 
 /* Layout Container */
 .container {
   position: fixed;
-  top: 280px; 
+  top: 280px;
   bottom: 50px;
   left: 0;
   right: 0;
   display: flex;
-
   padding: 2rem;
-  gap: 30px; /* tighter spacing between panels */
-  justify-content: center; /* centers the group, not space-between */
+  gap: 30px;
+  justify-content: center;
 }
 
 .left {
@@ -57,9 +55,10 @@ body {
   opacity: 1;
   backdrop-filter: none !important;
   mix-blend-mode: normal;
-  pointer-events: auto; /* in case pointer-events affects it */
+  pointer-events: auto;
+  padding: 1rem;
+  border-radius: 10px;
 }
-
 
 .left h2,
 .center h2,
@@ -125,6 +124,8 @@ body {
   background-color: rgba(53, 249, 251, 0.1);
   box-shadow: 0 0 10px #35f9fb;
 }
+
+/* Header */
 .page-header {
   position: fixed;
   top: 100px;
@@ -141,8 +142,10 @@ body {
 .page-header h1 {
   color: #88edfa;
   font-weight: 700;
-  font-size: 3rem;
+  font-size: 3.5rem;
   margin-bottom: 0.5rem;
+  animation: fadeInUp 1.2s ease-out;
+  text-shadow: 0 0 10px #88edfa, 0 0 20px #235b7d;
 }
 
 .page-header .subtitle {
@@ -154,9 +157,21 @@ body {
 
 .page-header .small-title {
   color: #479ba5;
-  font-size: 1,5rem;
+  font-size: 1.5rem;
   font-weight: 600;
   letter-spacing: 0.05em;
+}
+
+/* Animation */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* Responsive */
@@ -197,6 +212,6 @@ body {
     box-shadow: 0 0 8px #d468e0;
     background-color: rgba(212, 104, 224, 0.2);
   }
-
+}
 
 
