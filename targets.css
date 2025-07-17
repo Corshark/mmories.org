@@ -44,16 +44,17 @@ body {
 
 /* Flex sizes for each panel - 10% thinner */
 .left {
-  flex: 0.45; /* was 0.5 */
+  flex: 0.666;
 }
 
 .center {
-  flex: 1.08; /* was 1.2 */
+  flex: 0.648;
 }
 
 .right {
-  flex: 0.495; /* was 0.55 */
+  flex: 0.711;
 }
+
 .panel {
   padding: 1rem;
   background: rgba(0, 0, 0, 0.6);
