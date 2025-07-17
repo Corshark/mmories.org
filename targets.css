@@ -164,6 +164,38 @@ body {
     box-shadow: 0 0 8px #d468e0;
     background-color: rgba(212, 104, 224, 0.2);
   }
+  .page-header {
+  position: fixed;
+  top: 150px; /* adjust if needed to sit nicely above container */
+  left: 2rem; /* aligns with container padding */
+  max-width: 220px; /* roughly same width as left panel */
+  font-family: 'Orbitron', 'Inter', sans-serif;
+  user-select: none;
+  z-index: 10;
 }
+
+.page-header h1 {
+  color: #88edfa;
+  font-weight: 700;
+  font-size: 2.2rem;
+  margin-bottom: 0.3rem;
+}
+
+.page-header .subtitle {
+  color: #a8b0b4;
+  font-weight: 400;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+}
+
+.page-header .small-title {
+  color: #479ba5;
+  font-weight: 600;
+  font-size: 1rem;
+  letter-spacing: 0.05em;
+  user-select: none;
+  margin-top: 0;
+}
+
 
 
