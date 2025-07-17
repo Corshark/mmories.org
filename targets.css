@@ -128,7 +128,7 @@ body {
 /* Header */
 .page-header {
   position: fixed;
-  top: 100px;
+  top: 60px; /* moved up from 100px */
   left: 50%;
   transform: translateX(-50%);
   text-align: center;
