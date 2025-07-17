@@ -167,13 +167,14 @@ body {
 .page-header {
   position: fixed;
   top: 150px;
-  left: 400px; /* semicolon here */
+  left: 400px; /* <-- THIS WAS MISSING THE SEMICOLON */
   max-width: 220px;
   font-family: 'Orbitron', 'Inter', sans-serif;
   user-select: none;
   z-index: 10;
   text-align: left;
 }
+
 
 .page-header h1 {
   color: #88edfa;
