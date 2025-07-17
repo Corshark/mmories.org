@@ -222,4 +222,8 @@ body {
   border-top: 1px solid #35f9fb33;
   margin: 1rem 0;
 }
+.panel.left {
+  max-height: calc(100% - 250px);
+  overflow-y: auto;
+}
 
