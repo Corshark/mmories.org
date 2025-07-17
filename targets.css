@@ -166,13 +166,14 @@ body {
   }
 .page-header {
   position: fixed;
-  top: 150px;
-  left: 400px;
-  max-width: 220px;
+  top: 100px;
+  left: 50%;
+  transform: translateX(-50%);
+  max-width: 600px;
   font-family: 'Orbitron', 'Inter', sans-serif;
   user-select: none;
   z-index: 10;
-  text-align: left;
+  text-align: center;
 }
 
 .page-header h1 {
