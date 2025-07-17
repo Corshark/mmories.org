@@ -164,10 +164,10 @@ body {
     box-shadow: 0 0 8px #d468e0;
     background-color: rgba(212, 104, 224, 0.2);
   }
-  .page-header {
+.page-header {
   position: fixed;
-  top: 150px; /* adjust if needed to sit nicely above container */
-  left: 2rem; /* aligns with container padding */
+  top: 150px; /* adjust as needed */
+  left: 2rem; /* aligns roughly with container padding */
   max-width: 220px; /* roughly same width as left panel */
   font-family: 'Orbitron', 'Inter', sans-serif;
   user-select: none;
