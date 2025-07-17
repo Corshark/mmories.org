@@ -166,8 +166,8 @@ body {
   }
 .page-header {
   position: fixed;
-  top: 150px; /* adjust vertical position as needed */
-  left: 400px
+  top: 150px;
+  left: 400px; /* semicolon here */
   max-width: 220px;
   font-family: 'Orbitron', 'Inter', sans-serif;
   user-select: none;
