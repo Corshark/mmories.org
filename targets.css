@@ -57,9 +57,9 @@ body {
   background: rgba(0, 0, 0, 0.6);
   border: 1px solid #35f9fb;
   border-radius: 10px;
-  backdrop-filter: blur(4px);
   overflow-y: auto;
 }
+
 
 .left h2,
 .center h2,
