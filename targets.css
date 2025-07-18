@@ -281,8 +281,8 @@ body {
 }
 /* Center Panel: New Target Entry Layout */
 .panel.center #targetButtons {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  display: flex;
+  flex-direction: column;
   gap: 0.8rem;
 }
 
