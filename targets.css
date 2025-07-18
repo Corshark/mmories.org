@@ -267,11 +267,9 @@ body {
   text-align: center;
 }
 .panel.center .target-entry.impersonator .target-tag {
-  background-color: #17c9e2;
   color: #111; /* black text for contrast */
 }
 .panel.center .target-entry.cheat .target-tag {
-  background-color: #bd51ea;
   color: #111; /* black text for contrast */
 }
 
