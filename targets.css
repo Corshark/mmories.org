@@ -332,5 +332,28 @@ body {
   .panel.center #targetButtons {
     grid-template-columns: 1fr;
   }
+ .hidden {
+  display: none;
+}
+
+.report-toggle {
+  margin-top: 1rem;
+}
+
+.reveal-prompt {
+  background: none;
+  border: 1px solid #35f9fb;
+  color: #35f9fb;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: inherit;
+  font-size: 0.9rem;
+}
+
+.reveal-prompt:hover {
+  background-color: rgba(53, 249, 251, 0.1);
+  box-shadow: 0 0 10px #35f9fb;
 }
 

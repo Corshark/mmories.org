@@ -72,13 +72,33 @@
     </div>
   </div>
 
-  <!-- Right Panel -->
-  <div class="panel right" id="targetDetails">
-    <h2>No Target Selected</h2>
-    <p>Select a target to view the report details.</p>
-    <div class="report-terminal" id="reportBox" style="display: none;">
-      <pre id="reportText">Click a target to generate report...</pre>
-      <img id="reportButton" src="images/report1.webp" alt="Report Button" style="display: none; cursor: pointer; width: 100px; margin-top: 10px;" />
+<!-- Right Panel -->
+<div class="panel right" id="targetDetails">
+  <h2>No Target Selected</h2>
+  <p>Select a target to view the report details.</p>
+
+  <!-- Dynamic Report Box -->
+  <div class="report-terminal" id="reportBox" style="display: none;">
+    <pre id="reportText">Click a target to generate report...</pre>
+    <img id="reportButton" src="images/report1.webp" alt="Report Button" style="display: none; cursor: pointer; width: 100px; margin-top: 10px;" />
+  </div>
+
+  <!-- Static Enhanced Report Prompt Block -->
+  <div class="report-toggle">
+    <button class="reveal-prompt">Reveal Full Report</button>
+    <div class="report-content hidden">
+      <div class="report-terminal">
+        <p>This account is impersonating a professional CS2 player to gain trust and credibility within the gaming community. It is actively distributing phishing links that mimic the official Steam login page, designed to steal user credentials.</p>
+        <p>The consequences are severe:</p>
+        <ul>
+          <li>1. Impersonation of a known esports figure to deceive users</li>
+          <li>2. Promotion of fraudulent links leading to fake Steam websites</li>
+          <li>3. Theft of Steam accounts, resulting in loss of digital property</li>
+        </ul>
+        <p>CS2 items hold significant real-world value, with some skins and collectibles reaching prices of €20,000 or more. These scams are not just digital pranks—they result in financial loss, emotional distress, and disruption of legitimate gameplay.</p>
+        <p>This behavior violates platform policies on impersonation, fraud, and user safety. Immediate investigation and takedown are strongly recommended to prevent further harm to users and the integrity of the CS2 community.</p>
+        <button class="report-button">REPORT</button>
+      </div>
     </div>
   </div>
 </div>

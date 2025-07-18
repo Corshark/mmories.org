@@ -148,6 +148,14 @@ reportButton.addEventListener("click", () => {
     reportButton.classList.remove("clicked");
   }, 1000);
 });
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('.reveal-prompt').forEach(button => {
+    button.addEventListener('click', () => {
+      const content = button.nextElementSibling;
+      content.classList.toggle('hidden');
+    });
+  });
+});
 
 // Initial render
 renderButtons(targetsData);
