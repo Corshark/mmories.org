@@ -6,40 +6,6 @@
   <title>Scam Command Center</title>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&family=Inter:wght@400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="targets.css">
-  <style>
-    .target-entry {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background-color: rgba(0, 0, 0, 0.3);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      padding: 12px;
-      border-radius: 8px;
-      margin-bottom: 10px;
-    }
-    .target-name {
-      color: #17c9e2;
-      font-weight: bold;
-      cursor: pointer;
-    }
-    .tag {
-      padding: 4px 10px;
-      border-radius: 6px;
-      font-size: 0.85rem;
-      font-weight: bold;
-    }
-    .impersonator {
-      background-color: #17c9e2;
-      color: #000;
-    }
-    .cheat-promoter {
-      background-color: #bd51ea;
-      color: #000;
-    }
-    #searchInput {
-      display: none;
-    }
-  </style>
 </head>
 <body>
 <video autoplay muted loop playsinline id="bg-video">
@@ -100,9 +66,9 @@
   <!-- Center Panel -->
   <div class="panel center">
     <h2>Target List</h2>
-    <input type="text" id="searchInput" placeholder="Search targets..." />
+    <!-- Search removed -->
     <div id="targetButtons" class="target-list">
-      <!-- Entries will be injected by JS -->
+      <!-- Buttons will be injected by JS -->
     </div>
   </div>
 
