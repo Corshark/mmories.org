@@ -2,160 +2,98 @@ const targetsData = [
   {
     name: "Fake donk",
     tag: "Impersonator",
-    reportText: "This channel is impersonating the CS2 pro player donk.",
-    externalLink: "https://www.youtube.com/watch?v=Hau6gbUcs8Q"
+    reportLink: "https://www.youtube.com/watch?v=K6jC3FM0Fj8"
   },
   {
     name: "LA CRUZ QUE TRANSFORMA",
     tag: "Cheat promoter",
-    reportText: "This channel is distributing or promoting CS2 cheats.",
-    externalLink: "https://www.youtube.com/watch?v=IY_mv1xXCgI"
-  },
-  {
-    name: "Anime Future",
-    tag: "Cheat promoter",
-    reportText: "This channel is distributing or promoting CS2 cheats.",
-    externalLink: "https://www.youtube.com/watch?v=eztH3Yu8E44"
-  },
-  {
-    name: "RuX",
-    tag: "Cheat promoter",
-    reportText: "This channel is distributing or promoting CS2 cheats.",
-    externalLink: "https://www.youtube.com/watch?v=jvy83YtbLgs"
-  },
-  {
-    name: "Pauta Club",
-    tag: "Cheat promoter",
-    reportText: "This channel is distributing or promoting CS2 cheats.",
-    externalLink: "https://www.youtube.com/watch?v=xuUy9F1cDPY"
-  },
-  {
-    name: "LOBEATZ",
-    tag: "Cheat promoter",
-    reportText: "This channel is distributing or promoting CS2 cheats.",
-    externalLink: "https://www.youtube.com/watch?v=2Xh0tDCLrxA"
-  },
-  {
-    name: "MandacaruCT",
-    tag: "Cheat promoter",
-    reportText: "This channel is distributing or promoting CS2 cheats.",
-    externalLink: "https://www.youtube.com/watch?v=qpGTdY2g5kw"
-  },
-  {
-    name: "Animate Animation",
-    tag: "Cheat promoter",
-    reportText: "This channel is distributing or promoting CS2 cheats.",
-    externalLink: "https://www.youtube.com/watch?v=3S_Zbf2nZsg"
-  },
-  {
-    name: "ابو ناجي Abu Naji",
-    tag: "Cheat promoter",
-    reportText: "This channel is distributing or promoting CS2 cheats.",
-    externalLink: "https://www.youtube.com/watch?v=lahRa1dDbfc"
-  },
-  {
-    name: "SETH7 FF",
-    tag: "Cheat promoter",
-    reportText: "This channel is distributing or promoting CS2 cheats.",
-    externalLink: "https://www.youtube.com/watch?v=JcY7F1_7PLk"
+    reportLink: "https://www.youtube.com/watch?v=IY_mv1xXCgI"
   }
+  // Add more entries here...
 ];
 
-// DOM references
+const impersonatorPrompt = `This account is impersonating a known public figure or gaming personality to gain trust and credibility within the community. It is actively distributing phishing links that mimic legitimate platforms (such as Steam) in order to steal user credentials.
+
+The consequences are serious:
+
+1. Impersonation of a trusted identity to deceive users  
+2. Promotion of fraudulent links leading to fake login pages  
+3. Theft of accounts and digital property through credential harvesting  
+
+Digital items and accounts in games like CS2 hold significant real-world value, with some assets reaching prices of €20,000 or more. These scams result in financial loss, emotional distress, and disruption of legitimate gameplay.
+
+This behavior violates platform policies on impersonation, fraud, and user safety. Immediate investigation and takedown are strongly recommended to prevent further harm to users and the integrity of the gaming community.`;
+
+const cheatPrompt = `This channel is actively promoting or distributing cheating software for CS2.
+
+Consequences of this behavior include:
+
+1. Enabling unfair advantages in multiplayer environments  
+2. Encouraging rule-breaking, damaging the integrity of the game  
+3. Creating toxic environments and harming the legitimate player base  
+
+Cheating is a violation of game terms and platform rules. Channels like this contribute to a decline in fair gameplay, user trust, and esports reputation. It should be reported for immediate review and takedown.`;
+
 const buttonsContainer = document.getElementById("targetButtons");
 const targetDetails = document.getElementById("targetDetails");
-const reportBox = document.getElementById("reportBox");
-const reportText = document.getElementById("reportText");
+const promptButton = document.getElementById("promptButton");
+const copiedNotice = document.getElementById("copiedNotice");
 const reportButton = document.getElementById("reportButton");
 const clickSound = document.getElementById("clickSound");
 
-let selectedLink = "";
+let currentLink = "";
+let currentPrompt = "";
 
-// Create badge-like buttons (limit 10 entries)
-function renderButtons(targets) {
+function renderButtons(data) {
   buttonsContainer.innerHTML = "";
-  targets.slice(0, 10).forEach(target => {
+  data.forEach(target => {
     const wrapper = document.createElement("div");
     wrapper.classList.add("target-entry");
 
-    // Add class for tag styling
-    if (target.tag.toLowerCase().includes("impersonator")) {
-      wrapper.classList.add("impersonator");
-    }
-    if (target.tag.toLowerCase().includes("cheat")) {
-      wrapper.classList.add("cheat");
-    }
+    if (target.tag.toLowerCase() === "impersonator") wrapper.classList.add("impersonator");
+    if (target.tag.toLowerCase() === "cheat promoter") wrapper.classList.add("cheat");
 
-    const nameBtn = document.createElement("button");
-    nameBtn.textContent = target.name;
-    nameBtn.classList.add("target-button");
-    nameBtn.addEventListener("click", () => {
-      clickSound.play();
-      selectedLink = target.externalLink;
-      showReport(target.reportText);
-    });
+    const button = document.createElement("button");
+    button.textContent = target.name;
+    button.classList.add("target-button");
 
     const tag = document.createElement("span");
+    tag.className = "target-tag";
     tag.textContent = target.tag;
-    tag.classList.add("target-tag");
 
-    // Optional inline color (can be removed if you're using CSS class colors)
-    if (target.tag.toLowerCase() === "impersonator") tag.style.color = "#17c9e2";
-    if (target.tag.toLowerCase() === "cheat promoter") tag.style.color = "#bd51ea";
+    button.addEventListener("click", () => {
+      clickSound.play();
 
-    wrapper.appendChild(nameBtn);
+      // Assign the long prompt and link based on tag
+      currentPrompt = (target.tag === "Impersonator") ? impersonatorPrompt : cheatPrompt;
+      currentLink = target.reportLink;
+
+      // Reset UI state
+      promptButton.style.display = "inline-block";
+      copiedNotice.style.display = "none";
+      reportButton.style.display = "none";
+    });
+
+    wrapper.appendChild(button);
     wrapper.appendChild(tag);
     buttonsContainer.appendChild(wrapper);
   });
 }
 
-// Show report box
-function showReport(text) {
-  targetDetails.querySelector("h2").textContent = "Target Selected";
-  targetDetails.querySelector("p").textContent = "Copy the report text and paste it when reporting.";
-  reportText.textContent = text;
-  reportBox.style.display = "block";
-  reportButton.style.display = "block";
-  reportButton.classList.remove("clicked");
-}
-
-// Copy to clipboard
-reportText.addEventListener("click", () => {
-  navigator.clipboard.writeText(reportText.textContent).then(() => {
-    const oldText = reportText.textContent;
-    reportText.textContent = "✓ COPIED!";
-    setTimeout(() => {
-      reportText.textContent = oldText;
-    }, 1200);
+// Copy prompt when clicking "Report Prompt"
+promptButton.addEventListener("click", () => {
+  navigator.clipboard.writeText(currentPrompt).then(() => {
+    copiedNotice.style.display = "inline-block";
+    reportButton.style.display = "inline-block";
+    setTimeout(() => copiedNotice.style.display = "none", 1500);
   });
 });
 
-// Report image hover/click effect
-reportButton.addEventListener("mouseover", () => {
-  reportButton.src = "images/report2.webp";
-});
-reportButton.addEventListener("mouseout", () => {
-  reportButton.src = "images/report1.webp";
-});
+// Open external report link
 reportButton.addEventListener("click", () => {
-  if (selectedLink) {
-    window.open(selectedLink, "_blank");
-  }
-  reportButton.src = "images/report3.webp";
-  reportButton.classList.add("clicked");
-  setTimeout(() => {
-    reportButton.src = "images/report1.webp";
-    reportButton.classList.remove("clicked");
-  }, 1000);
-});
-document.addEventListener('DOMContentLoaded', () => {
-  document.querySelectorAll('.reveal-prompt').forEach(button => {
-    button.addEventListener('click', () => {
-      const content = button.nextElementSibling;
-      content.classList.toggle('hidden');
-    });
-  });
+  if (currentLink) window.open(currentLink, "_blank");
 });
 
-// Initial render
+// On load
 renderButtons(targetsData);
+

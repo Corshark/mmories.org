@@ -66,34 +66,25 @@
   <!-- Center Panel -->
   <div class="panel center">
     <h2>Target List</h2>
-    <!-- Search removed -->
     <div id="targetButtons" class="target-list">
-      <!-- Buttons will be injected by JS -->
+      <!-- Buttons injected by JS -->
     </div>
   </div>
 
-<!-- Right Panel -->
-<div class="panel right" id="targetDetails">
-  <h2>No Target Selected</h2>
-  <p>Select a target to view the report details.</p>
+  <!-- Right Panel -->
+  <div class="panel right" id="targetDetails">
+    <h2>Selected Target</h2>
+    <p>Click the prompt below to copy it. Then report via the link:</p>
 
-  <!-- Dynamic Report Box -->
-  <div class="report-terminal" id="reportBox" style="display: none;">
-    <pre id="reportText">Click a target to generate report...</pre>
+    <button id="promptButton" style="display: none;">Report Prompt</button>
+    <span id="copiedNotice" style="display: none; color: #35f9fb; margin-top: 0.5rem;">✓ Successfully copied</span>
     <img id="reportButton" src="images/report1.webp" alt="Report Button" style="display: none; cursor: pointer; width: 100px; margin-top: 10px;" />
-  </div>
-
-  <!-- Hidden Report Prompt Block -->
-  <div class="report-toggle">
-    <button id="reportPromptBtn">Report-Prompt</button>
-    <p id="reportLoadedMsg" style="display: none; color: #35f9fb; margin-top: 0.5rem;">✓ REPORT-PROMPT LOADED</p>
-    <button id="finalReportBtn" style="display: none;" class="report-button">REPORT</button>
   </div>
 </div>
 
 <audio id="clickSound" src="click.mp3" preload="auto"></audio>
 
-<!-- External Script -->
 <script src="targets.js"></script>
 </body>
 </html>
+
