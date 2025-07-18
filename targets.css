@@ -239,7 +239,7 @@ body {
   transition: background 0.2s;
   min-height: 80px;
   font-size: 1.2rem;
-  line-height: 1.4;
+  line-height: 1;
 }
 
 .panel.center .target-entry:hover {
