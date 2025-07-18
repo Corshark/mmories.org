@@ -320,22 +320,14 @@ body {
 
 /* Color-coded tags */
 .panel.center .target-tag {
-  font-size: 0.75rem;
-  padding: 0.3rem 0.5rem;
+  font-size: 0.8rem;
+  padding: 0.3rem 0.6rem;
   border-radius: 4px;
   font-weight: 600;
-  color: white;
-  background: #222;
+  text-align: center;
   margin-left: 1rem;
 }
 
-.panel.center .target-entry .target-tag {
-  background-color: #17c9e2;
-}
-
-.panel.center .target-entry .target-tag.cheat {
-  background-color: #bd51ea;
-}
 
 /* Fix text layout squishing */
 @media screen and (max-width: 600px) {
