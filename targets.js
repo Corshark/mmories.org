@@ -96,4 +96,3 @@ reportButton.addEventListener("click", () => {
 
 // On load
 renderButtons(targetsData);
-
