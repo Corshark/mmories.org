@@ -237,7 +237,7 @@ body {
   border-radius: 6px;
   border: 1px solid #2c2c2c;
   transition: background 0.2s;
-  min-height: 80px;
+  min-height: 60px;
   font-size: 1rem;
   line-height: 1;
 }
