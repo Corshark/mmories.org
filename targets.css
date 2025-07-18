@@ -279,4 +279,65 @@ body {
 .panel.center .target-entry.cheat .target-name:hover {
   text-shadow: 0 0 6px #bd51ea;
 }
+/* Center Panel: New Target Entry Layout */
+.panel.center #targetButtons {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.8rem;
+}
+
+.panel.center .target-entry {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.4rem 0.8rem;
+  border: 1px solid #333;
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.4);
+  transition: background 0.2s;
+}
+
+.panel.center .target-entry:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+/* Button-style name */
+.panel.center .target-button {
+  all: unset;
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: #17c9e2;
+  cursor: pointer;
+  transition: text-shadow 0.2s;
+}
+
+.panel.center .target-button:hover {
+  text-shadow: 0 0 6px #17c9e2;
+}
+
+/* Color-coded tags */
+.panel.center .target-tag {
+  font-size: 0.75rem;
+  padding: 0.3rem 0.5rem;
+  border-radius: 4px;
+  font-weight: 600;
+  color: white;
+  background: #222;
+  margin-left: 1rem;
+}
+
+.panel.center .target-entry .target-tag {
+  background-color: #17c9e2;
+}
+
+.panel.center .target-entry .target-tag.cheat {
+  background-color: #bd51ea;
+}
+
+/* Fix text layout squishing */
+@media screen and (max-width: 600px) {
+  .panel.center #targetButtons {
+    grid-template-columns: 1fr;
+  }
+}
 
