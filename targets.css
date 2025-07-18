@@ -200,7 +200,7 @@ body {
     display: block;
     width: 100%;
     margin: 0.3rem 0;
-    padding: 0.5rem;
+    padding: 1.2rem 1.2rem;
     border: 1px solid #d468e0;
     background: rgba(212, 104, 224, 0.1);
     color: white;
@@ -232,11 +232,14 @@ body {
   justify-content: space-between;
   align-items: center;
   margin-bottom: 0.6rem;
-  padding: 0.5rem 1rem;
+  padding: 1rem 1.2rem;
   background: rgba(0, 0, 0, 0.5);
   border-radius: 6px;
   border: 1px solid #2c2c2c;
   transition: background 0.2s;
+  min-height: 70px;
+  font-size: 1.1rem;
+  line-height: 1.6;
 }
 
 .panel.center .target-entry:hover {
