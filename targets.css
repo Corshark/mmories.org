@@ -232,14 +232,14 @@ body {
   justify-content: space-between;
   align-items: center;
   margin-bottom: 0.6rem;
-  padding: 1rem 1.2rem;
+  padding: 1.2rem 1.6rem;
   background: rgba(0, 0, 0, 0.5);
   border-radius: 6px;
   border: 1px solid #2c2c2c;
   transition: background 0.2s;
-  min-height: 70px;
-  font-size: 1.1rem;
-  line-height: 1.6;
+  min-height: 100px;
+  font-size: 1.2rem;
+  line-height: 1.8;
 }
 
 .panel.center .target-entry:hover {
