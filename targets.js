@@ -1,17 +1,11 @@
 const targetsData = [
   {
-    name: "SuspiciousPlayer123",
-    tag: "Impersonator",
-    reportLink: "https://www.youtube.com/channel/EXAMPLE"
-  },
-  {
-    name: "HackVendorX",
-    tag: "Cheat promoter",
-    reportLink: "https://www.youtube.com/channel/EXAMPLE2"
+    name: "FAKE DONK",
+    url: "https://www.youtube.com/watch?v=Hau6gbUcs8Q",
+    tag: "Impersonator"
   }
 ];
 
-// Texts for each tag
 const reportTexts = {
   "Impersonator": `This account is impersonating a known public figure or gaming personality to gain trust and credibility within the community. It is actively distributing phishing links that mimic legitimate platforms (such as Steam) in order to steal user credentials.
 
@@ -24,7 +18,7 @@ The consequences are serious:
 Digital items and accounts in games like CS2 hold significant real-world value, with some assets reaching prices of €20,000 or more. These scams result in financial loss, emotional distress, and disruption of legitimate gameplay.
 
 This behavior violates platform policies on impersonation, fraud, and user safety. Immediate investigation and takedown are strongly recommended to prevent further harm to users and the integrity of the gaming community.`,
-  
+
   "Cheat promoter": `This account is actively promoting unauthorized third-party software (cheats) for CS2. These tools include aim assists, wallhacks, and triggerbots, which create an unfair competitive advantage and violate the game's terms of service.
 
 Cheating damages the integrity of online matches and undermines trust in ranked systems. It also encourages further spread of malicious software disguised as cheats.
@@ -48,11 +42,9 @@ targetsData.forEach(target => {
   btn.textContent = `${target.name} [${target.tag}]`;
 
   btn.addEventListener("click", () => {
-    // Store report text
     currentReportText = reportTexts[target.tag];
-    currentReportLink = target.reportLink;
+    currentReportLink = target.url;
 
-    // Show the prompt button
     promptButton.style.display = "inline-block";
     copiedNotice.style.display = "none";
     reportButton.style.display = "none";
@@ -79,6 +71,3 @@ reportButton.addEventListener("click", () => {
   }
 });
 
-
-// On load
-renderButtons(targetsData);
