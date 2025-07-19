@@ -72,21 +72,32 @@
   </div>
 
   <!-- Right Panel -->
-  <div class="panel right" id="targetDetails">
-    <h2>Selected Target</h2>
-    <p>Click the prompt below to copy it. Then report via the link:</p>
+<div class="panel right" id="targetDetails">
+  <h2>Selected Target</h2>
+  <p>Click below to copy the report prompt and report:</p>
 
-    <div class="actions">
-      <!-- NEW COPY BUTTON IMAGE -->
-      <img id="promptButton" src="images/report-prompt.webp" alt="Copy Prompt" style="cursor: pointer; width: 160px; height: auto; margin-bottom: 12px;" />
+  <img
+    id="reportPromptImg"
+    src="images/report-prompt.webp"
+    alt="Copy Report Prompt"
+    style="display: none; width: 130px; cursor: pointer;"
+  />
+  
+  <span
+    id="copiedNotice"
+    style="display: none; color: #35f9fb; font-weight: bold; margin-top: 1rem;"
+  >
+    ✓ Successfully copied
+  </span>
 
-      <span id="copiedNotice" style="display: none; color: #35f9fb; margin-top: 0.5rem;">✓ Successfully copied</span>
-
-      <!-- REPORT button image -->
-      <img id="reportButton" src="images/report1.webp" alt="Report Button" style="display: none; cursor: pointer; width: 100px; margin-top: 10px;" />
-    </div>
-  </div>
+  <img
+    id="reportButton"
+    src="images/report1.webp"
+    alt="Report"
+    style="display: none; width: 100px; cursor: pointer; margin-top: 1rem;"
+  />
 </div>
+
 
 <audio id="clickSound" src="click.mp3" preload="auto"></audio>
 <script src="targets.js"></script>
