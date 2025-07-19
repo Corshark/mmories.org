@@ -48,7 +48,7 @@ body {
 
 .right {
   flex: 0.12;
-  max-height: 265px; /* adjust as needed */
+  max-height: 300px; /* adjust as needed */
   margin-top: 2rem;   /* adds some space above to visually push it down */
 }
 
