@@ -385,4 +385,46 @@ body {
   fill: white;
   stroke: white;
 }
+.target-card {
+  background: rgba(15, 15, 15, 0.85);
+  border: 1px solid #0ff;
+  border-radius: 12px;
+  color: #35f9fb;
+  padding: 16px 20px;
+  margin: 10px 0;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1rem;
+  text-align: left;
+  text-shadow: 0 0 4px #00f2ff;
+  width: 100%;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  box-shadow: 0 0 10px rgba(0, 255, 255, 0.2);
+  position: relative;
+  overflow: hidden;
+}
+
+.target-card:hover {
+  background: rgba(10, 10, 10, 0.95);
+  border-color: #ff00cc;
+  color: #ff00cc;
+  box-shadow: 0 0 12px #ff00cc80;
+  transform: scale(1.02);
+}
+
+.target-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -75%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(120deg, transparent, #35f9fb40, transparent);
+  transform: skewX(-20deg);
+  transition: left 0.4s ease-in-out;
+}
+
+.target-card:hover::before {
+  left: 125%;
+}
 

@@ -23,7 +23,7 @@ let currentReportLink = "";
 // Render target buttons
 targetsData.forEach(target => {
   const btn = document.createElement("button");
-  btn.classList.add("target-btn");
+  btn.classList.add("target-card");
   btn.textContent = `${target.name} [${target.tag}]`;
 
   btn.addEventListener("click", () => {
