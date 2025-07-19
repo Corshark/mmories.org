@@ -375,11 +375,15 @@ body {
   transition-duration: .5s;
 }
 
-.text {
+.Btn .text {
   color: rgb(184, 236, 104);
   font-weight: 800;
   letter-spacing: 1.1px;
   z-index: 2;
+}
+.Btn .text, .Btn .svgIcon {
+  display: inline-block;
+  vertical-align: middle;
 }
 
 .svgIcon {
