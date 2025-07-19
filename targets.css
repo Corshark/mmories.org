@@ -40,6 +40,8 @@ body {
 
 .left {
   flex: 0.12;
+  max-height: calc(100% - 150px);
+  overflow-y: auto;
 }
 
 .center {
@@ -50,6 +52,9 @@ body {
   flex: 0.12;
   max-height: 300px; /* adjust as needed */
   margin-top: 2rem;   /* adds some space above to visually push it down */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
 }
 
 .panel {
@@ -62,6 +67,12 @@ body {
   border-radius: 10px;
 }
 
+.left hr {
+  border: none;
+  border-top: 1px solid #35f9fb33;
+  margin: 1rem 0;
+}
+
 .left h2,
 .center h2,
 .right h2 {
@@ -72,7 +83,63 @@ body {
 .panel p,
 .panel pre {
   font-size: 0.95rem;
-  margin-bottom: 1rem; /* Add margin between paragraphs */
+  margin-bottom: 1rem;
+}
+
+/* Center Panel Target Entries */
+.panel.center .target-entry {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.4rem 0.8rem;
+  border: 1px solid #333;
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.4);
+  transition: background 0.2s;
+  margin-bottom: 0.6rem;
+  min-height: 62px;
+  font-size: 1.3rem;
+  line-height: 1;
+}
+
+.panel.center .target-entry:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.panel.center .target-name {
+  all: unset;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: #17c9e2;
+  transition: text-shadow 0.2s;
+}
+
+.panel.center .target-name:hover {
+  text-shadow: 0 0 6px #17c9e2;
+}
+
+.panel.center .target-entry.impersonator .target-tag,
+.panel.center .target-entry.cheat .target-tag {
+  color: #111; /* black text for contrast */
+}
+
+.panel.center .target-entry.cheat .target-name {
+  color: #bd51ea;
+}
+
+.panel.center .target-entry.cheat .target-name:hover {
+  text-shadow: 0 0 6px #bd51ea;
+}
+
+/* Color-coded tags */
+.panel.center .target-tag {
+  font-size: 0.8rem;
+  padding: 0.3rem 0.6rem;
+  border-radius: 4px;
+  font-weight: 600;
+  text-align: center;
+  margin-left: 1rem;
 }
 
 /* Filter Buttons */
@@ -217,219 +284,38 @@ body {
   }
 }
 
-/* =============== */
-/* NEW: Left Panel HR Style */
-.panel.left hr {
-  border: none;
-  border-top: 1px solid #35f9fb33;
-  margin: 1rem 0;
-}
-.panel.left {
-  max-height: calc(100% - 150px);
-  overflow-y: auto;
-}
-/* Center Panel Target Entries */
-.panel.center .target-entry {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 0.6rem;
-  padding: 1.1rem 1.6rem;
-  background: rgba(0, 0, 0, 0.5);
-  border-radius: 6px;
-  border: 1px solid #2c2c2c;
-  transition: background 0.2s;
-  min-height: 62px;
-  font-size: 1.3rem;
-  line-height: 1;
-}
-
-.panel.center .target-entry:hover {
-  background: rgba(255, 255, 255, 0.05);
-}
-
-.panel.center .target-name {
-  color: #17c9e2;
-  text-decoration: none;
-  font-weight: 600;
-  font-size: 1rem;
-  transition: color 0.2s;
-}
-
-.panel.center .target-name:hover {
-  text-shadow: 0 0 6px #17c9e2;
-}
-
-.panel.center .target-tag {
-  padding: 0.3rem 0.6rem;
-  font-size: 0.8rem;
-  border-radius: 4px;
-  font-weight: 600;
-  color: white;
-  text-align: center;
-}
-.panel.center .target-entry.impersonator .target-tag {
-  color: #111; /* black text for contrast */
-}
-.panel.center .target-entry.cheat .target-tag {
-  color: #111; /* black text for contrast */
-}
-
-.panel.center .target-entry.cheat .target-name {
-  color: #bd51ea;
-}
-
-.panel.center .target-entry.cheat .target-name:hover {
-  text-shadow: 0 0 6px #bd51ea;
-}
-/* Center Panel: New Target Entry Layout */
-.panel.center #targetButtons {
-  display: flex;
-  flex-direction: column;
-  gap: 0.8rem;
-}
-
-.panel.center .target-entry {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0.4rem 0.8rem;
-  border: 1px solid #333;
-  border-radius: 8px;
-  background: rgba(0, 0, 0, 0.4);
-  transition: background 0.2s;
-}
-
-.panel.center .target-entry:hover {
-  background: rgba(255, 255, 255, 0.05);
-}
-
-/* Button-style name */
-.panel.center .target-button {
-  all: unset;
-  font-weight: 600;
-  font-size: 0.95rem;
-  color: #17c9e2;
-  cursor: pointer;
-  transition: text-shadow 0.2s;
-}
-
-.panel.center .target-button:hover {
-  text-shadow: 0 0 6px #17c9e2;
-}
-
-/* Color-coded tags */
-.panel.center .target-tag {
-  font-size: 0.8rem;
-  padding: 0.3rem 0.6rem;
-  border-radius: 4px;
-  font-weight: 600;
-  text-align: center;
-  margin-left: 1rem;
-}
-
-
 /* Fix text layout squishing */
 @media screen and (max-width: 600px) {
   .panel.center #targetButtons {
     grid-template-columns: 1fr;
   }
- .hidden {
-  display: none;
+  .hidden {
+    display: none;
+  }
+
+  .report-toggle {
+    margin-top: 1rem;
+  }
+
+  .reveal-prompt {
+    background: none;
+    border: 1px solid #35f9fb;
+    color: #35f9fb;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: inherit;
+    font-size: 0.9rem;
+  }
+
+  .reveal-prompt:hover {
+    background-color: rgba(53, 249, 251, 0.1);
+    box-shadow: 0 0 10px #35f9fb;
+  }
 }
 
-.report-toggle {
-  margin-top: 1rem;
-}
-
-.reveal-prompt {
-  background: none;
-  border: 1px solid #35f9fb;
-  color: #35f9fb;
-  padding: 0.5rem 1rem;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  font-family: inherit;
-  font-size: 0.9rem;
-}
-
-.reveal-prompt:hover {
-  background-color: rgba(53, 249, 251, 0.1);
-  box-shadow: 0 0 10px #35f9fb;
-}
-.Btn {
-  width: 120px;
-  height: 45px;
-  background-color: rgb(65, 64, 64);
-  border: none;
-  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.342);
-  border-radius: 5px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 7px;
-  position: relative;
-  overflow: hidden;
-  transition-duration: .5s;
-}
-
-.Btn .text {
-  color: rgb(184, 236, 104);
-  font-weight: 800;
-  letter-spacing: 1.1px;
-  z-index: 2;
-}
-.Btn .text, .Btn .svgIcon {
-  display: inline-block;
-  vertical-align: middle;
-}
-
-.svgIcon {
-  z-index: 2;
-}
-
-.svgIcon path {
-  fill: rgb(184, 236, 104);
-}
-
-.Btn:hover {
-  color: rgb(230, 255, 193);
-}
-
-.effect {
-  position: absolute;
-  width: 10px;
-  height: 10px;
-  background-color: rgb(184, 236, 104);
-  border-radius: 50%;
-  z-index: 1;
-  opacity: 0;
-  transition-duration: .5s;
-}
-
-.Btn:hover .effect {
-  transform: scale(15);
-  transform-origin: center;
-  opacity: 1;
-  transition-duration: .5s;
-}
-
-.Btn:hover {
-  box-shadow: 0px 0px 5px rgb(184, 236, 104),
-  0px 0px 10px rgb(184, 236, 104),
-  0px 0px 30px rgb(184, 236, 104);
-  transition-duration: .7s;
-}
-
-.Btn:hover .text {
-  color: rgb(65, 64, 64);
-}
-
-.Btn:hover .svgIcon path {
-  fill: rgb(65, 64, 64);
-}
+/* Button Styles */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap');
 
 .Btn {
@@ -446,66 +332,57 @@ body {
   gap: 7px;
   position: relative;
   overflow: hidden;
-  transition: 0.5s;
+  transition-duration: 0.5s;
   font-family: 'Poppins', sans-serif;
-}
-
-.Btn .text {
-  color: rgb(184, 236, 104);
-  font-weight: 800;
-  letter-spacing: 1px;
-  z-index: 2;
-  font-size: 0.9rem;
-}
-
-.svgIcon {
-  z-index: 2;
-}
-
-.svgIcon path {
-  fill: rgb(184, 236, 104);
+  font-size: 0.95rem;
 }
 
 .Btn:hover {
-  box-shadow: 0px 0px 5px rgb(184, 236, 104),
-              0px 0px 10px rgb(184, 236, 104),
-              0px 0px 30px rgb(184, 236, 104);
+  background-color: #d468e0;
+  box-shadow: 5px 5px 15px rgba(212, 104, 224, 0.7);
 }
 
-.Btn:hover .text {
-  color: rgb(65, 64, 64);
+.Btn .text {
+  color: white;
+  font-weight: 600;
+  user-select: none;
 }
 
-.Btn:hover .svgIcon path {
-  fill: rgb(65, 64, 64);
-}
-
-.effect {
+.Btn .effect {
   position: absolute;
-  width: 10px;
-  height: 10px;
-  background-color: rgb(184, 236, 104);
-  border-radius: 50%;
-  z-index: 1;
-  opacity: 0;
-  transition: 0.5s;
+  background: linear-gradient(to right, rgba(255, 255, 255, 0.22) 0%, transparent 60%);
+  width: 40px;
+  height: 100%;
+  top: 0;
+  left: -50px;
+  transform: skewX(-20deg);
+  animation: btn-effect 2.5s infinite;
+  opacity: 0.8;
+  border-radius: 0 2px 2px 0;
 }
 
-.Btn:hover .effect {
-  transform: scale(15);
-  transform-origin: center;
-  opacity: 1;
+@keyframes btn-effect {
+  0% {
+    left: -50px;
+  }
+  100% {
+    left: 120%;
+  }
 }
-.panel.right {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
-  padding: 20px;
-  height: 340px; /* reduced height */
-  gap: 15px;
-  background-color: rgba(10, 10, 10, 0.55); /* optional: adds a semi-transparent overlay */
-  border-radius: 8px;
-  margin-top: 20px;
+
+.Btn .svgIcon {
+  fill: white;
+  stroke: white;
+  width: 20px;
+  height: 20px;
+  user-select: none;
+  pointer-events: none;
+  transition: fill 0.3s, stroke 0.3s;
+}
+
+/* Hover icon color change */
+.Btn:hover .svgIcon {
+  fill: white;
+  stroke: white;
 }
 
