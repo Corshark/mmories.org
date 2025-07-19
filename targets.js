@@ -1,10 +1,56 @@
 const targetsData = [
   {
     name: "FAKE DONK",
-    url: "https://www.youtube.com/watch?v=Hau6gbUcs8Q",
+    url: "https://www.youtube.com/watch?v=3Wtx080GvFs",
     tag: "Impersonator"
+  },
+  {
+    name: "BLAKI DOG",
+    url: "https://www.youtube.com/watch?v=uiDlgwxpZws",
+    tag: "Cheat promoter"
+  },
+  {
+    name: "Aprendi com Elas",
+    url: "https://www.youtube.com/watch?v=heuKRrYgcOY",
+    tag: "Cheat promoter"
+  },
+  {
+    name: "ArchTube.Building Construction",
+    url: "https://www.youtube.com/watch?v=gITCCAM_sa8",
+    tag: "Cheat promoter"
+  },
+  {
+    name: "RuX",
+    url: "https://www.youtube.com/watch?v=i11Cp0g9GPw",
+    tag: "Cheat promoter"
+  },
+  {
+    name: "Gustavo Costa",
+    url: "https://www.youtube.com/watch?v=TMFWVD_Hnns",
+    tag: "Cheat promoter"
+  },
+  {
+    name: "LA CRUZ QUE TRANSFORMA",
+    url: "https://www.youtube.com/watch?v=IY_mv1xXCgI&t=2s",
+    tag: "Cheat promoter"
+  },
+  {
+    name: "@sonar1x1",
+    url: "https://www.youtube.com/@sonar1x1/shorts",
+    tag: "Cheat promoter"
+  },
+  {
+    name: "Krishu Singh",
+    url: "https://www.youtube.com/watch?v=fcgnxu_tBI0",
+    tag: "Cheat promoter"
+  },
+  {
+    name: "Jayden zayn",
+    url: "https://www.youtube.com/watch?v=peiHMctzPF4",
+    tag: "Cheat promoter"
   }
 ];
+
 
 const reportTexts = {
   "Impersonator": `This account is impersonating a known gaming figure and sharing phishing links that mimic platforms like Steam to steal user credentials. It violates policies on impersonation and fraud. Immediate review is needed to protect users and prevent further harm.`,
