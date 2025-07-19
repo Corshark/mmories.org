@@ -12,10 +12,9 @@ const reportTexts = {
   "Cheat promoter": `This account is promoting cheats like aimbots and wallhacks in CS2. These tools give an unfair advantage, ruin competitive integrity, and violate the game's terms of service. Please review and take action.`
 };
 
-
 const targetButtons = document.getElementById("targetButtons");
 const targetDetails = document.getElementById("targetDetails");
-const promptButton = document.getElementById("promptButton");
+const reportPromptImg = document.getElementById("reportPromptImg");
 const copiedNotice = document.getElementById("copiedNotice");
 const reportButton = document.getElementById("reportButton");
 
@@ -32,7 +31,7 @@ targetsData.forEach(target => {
     currentReportText = reportTexts[target.tag];
     currentReportLink = target.url;
 
-    promptButton.style.display = "inline-block";
+    reportPromptImg.style.display = "inline-block";
     copiedNotice.style.display = "none";
     reportButton.style.display = "none";
     targetDetails.querySelector("h2").textContent = target.name;
@@ -41,12 +40,13 @@ targetsData.forEach(target => {
   targetButtons.appendChild(btn);
 });
 
-// Copy on prompt click
-promptButton.addEventListener("click", () => {
+// Copy on image click
+reportPromptImg.addEventListener("click", () => {
   if (!currentReportText) return;
 
   navigator.clipboard.writeText(currentReportText).then(() => {
     copiedNotice.style.display = "block";
+    reportPromptImg.style.display = "none";
     reportButton.style.display = "inline-block";
   });
 });
@@ -57,4 +57,3 @@ reportButton.addEventListener("click", () => {
     window.open(currentReportLink, "_blank");
   }
 });
-
