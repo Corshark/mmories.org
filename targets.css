@@ -48,6 +48,8 @@ body {
 
 .right {
   flex: 0.12;
+  max-height: 250px; /* adjust as needed */
+  margin-top: 2rem;   /* adds some space above to visually push it down */
 }
 
 .panel {
