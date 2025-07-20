@@ -439,6 +439,8 @@ body {
   font-style: italic;
   z-index: 9999;
   opacity: 1;
+  animation: none;
+
 }
 
 @keyframes fadeInCredits {
