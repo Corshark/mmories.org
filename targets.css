@@ -645,18 +645,30 @@ body {
 }
 #credits-footer {
   position: fixed;
-  bottom: 10px;
-  right: 10px;
-  font-size: 0.75rem;
-  color: rgba(255, 255, 255, 0.8);
-  background: rgba(0, 0, 0, 0.6);
-  padding: 6px 10px;
-  border-radius: 10px;
+  bottom: 12px;
+  right: 12px;
+  font-size: 0.72rem;
+  font-family: 'Orbitron', sans-serif; /* Adjust if you're using another font */
+  color: #00ffffc0; /* Neon cyan with transparency */
+  background: rgba(0, 0, 0, 0.55); /* translucent dark */
+  padding: 6px 12px;
+  border: 1px solid #00ffff55;
+  border-radius: 12px;
+  box-shadow: 0 0 8px #00ffff88;
   font-style: italic;
-  z-index: 9999;
+  pointer-events: none;
+  z-index: 999;
   opacity: 0;
-  animation: fadeInCredits 1.5s ease-out 1s forwards;
+  animation: fadeInCredits 1.5s ease-out 2s forwards;
+  backdrop-filter: blur(3px); /* optional: softens background */
 }
+
+@keyframes fadeInCredits {
+  to {
+    opacity: 1;
+  }
+}
+
 .panel.center {
   flex: 1;
   overflow-y: auto;
