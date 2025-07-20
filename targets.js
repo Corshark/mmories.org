@@ -48,9 +48,13 @@ const targetsData = [
     name: "Jayden zayn",
     url: "https://www.youtube.com/watch?v=peiHMctzPF4",
     tag: "Cheat promoter"
+  },
+  {
+    name: "CosmoCheats",
+    url: "https://cosmocheats.com/csgo-cs2-cheats-hacks-undetected",
+    tag: "Cyberparasite"
   }
 ];
-
 
 const reportTexts = {
   "Impersonator": `This account is impersonating a known gaming figure and sharing phishing links that mimic platforms like Steam to steal user credentials. It violates policies on impersonation and fraud. Immediate review is needed to protect users and prevent further harm.`,
@@ -73,8 +77,22 @@ targetsData.forEach(target => {
   btn.textContent = `${target.name} [${target.tag}]`;
 
   btn.addEventListener("click", () => {
-    currentReportText = reportTexts[target.tag];
-    currentReportLink = target.url;
+    if (target.tag === "Cyberparasite") {
+      currentReportText = `I would like to report a website that appears to be actively promoting and selling game cheats and undetected hacks for Counter-Strike: Global Offensive and Counter-Strike 2. This violates the terms of service of the games, encourages unethical gameplay, and potentially breaches cybersecurity laws.
+
+The site offers cheat packages for popular competitive games, including CS2 aimbots, wallhacks, and undetectable tools. These negatively affect online gaming experiences and may compromise account security.
+
+This activity undermines fair play, threatens online integrity, and could be linked to fraudulent or malicious software distribution.
+
+Sincerely,  
+Report submitted with help from Corshark and mmories.org
+
+Reported URL: ${target.url}`;
+      currentReportLink = "https://safebrowsing.google.com/safebrowsing/report_phish/";
+    } else {
+      currentReportText = reportTexts[target.tag];
+      currentReportLink = target.url;
+    }
 
     // Update details
     targetDetails.querySelector("h2").textContent = target.name;
