@@ -657,10 +657,30 @@ body {
   opacity: 0;
   animation: fadeInCredits 1.5s ease-out 1s forwards;
 }
-.target-list {
-  flex-shrink: 1;
+.panel.center {
+  flex: 1;
   overflow-y: auto;
-  padding-right: 8px;
+  overflow-x: hidden;
+  max-height: calc(100vh - 200px); /* adjust based on header/footer */
+  min-width: 0; /* prevents flex overflow */
+}
+
+.target-list {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  overflow-x: hidden;
+  padding-right: 4px; /* room for vertical scrollbar */
+}
+
+.target-list button {
+  width: 100%;
+  box-sizing: border-box;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
 }
 
 @keyframes fadeInCredits {
