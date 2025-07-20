@@ -88,12 +88,13 @@ body {
 }
 
 /* Center Panel Target Entries */
-.panel.center .target-entry {
-  width: 95%;
-  max-width: 800px;
-  transition: transform 0.2s ease;
-  transform-origin: center;
-  margin: 0.5rem auto;
+.panel.center {
+  flex: 1.5; /* Makes center panel a bit wider */
+  padding: 1rem;
+  min-width: 0; /* Prevents overflow due to flexbox issues */
+  max-width: 800px; /* Optional: cap max width */
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .panel.center .target-entry:hover {
@@ -101,6 +102,16 @@ body {
   z-index: 1;
   box-shadow: 0 0 10px 3px var(--glow-color, #0ff);
   background: rgba(0, 0, 0, 0.6);
+}
+.panel.center .target-entry {
+  width: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+.target-entry-wrapper {
+  padding: 0.25rem;
+  overflow: visible;
 }
 
 .panel.center {
