@@ -57,8 +57,8 @@ const targetsData = [
 ];
 
 const reportTexts = {
-  "Impersonator": `This account is impersonating a known gaming figure and sharing phishing links that mimic platforms like Steam to steal user credentials. It violates policies on impersonation and fraud. Immediate review is needed to protect users and prevent further harm.`,
-  "Cheat promoter": `This account is promoting cheats like aimbots and wallhacks in CS2. These tools give an unfair advantage, ruin competitive integrity, and violate the game's terms of service. Please review and take action.`
+  "Impersonator": `This account is impersonating a known gaming figure and sharing phishing links that mimic platforms like Steam to steal user credentials. It violates policies on impersonation and fraud. Immediate review is needed to protect users and prevent further harm.Sincerely, Report submitted with help from Corshark and mmories.org`,
+  "Cheat promoter": `This account is promoting cheats like aimbots and wallhacks in CS2. These tools give an unfair advantage, ruin competitive integrity, and violate the game's terms of service. Please review and take action.Sincerely, Report submitted with help from Corshark and mmories.org`
 };
 
 const targetButtons = document.getElementById("targetButtons");
