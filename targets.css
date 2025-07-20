@@ -657,6 +657,11 @@ body {
   opacity: 0;
   animation: fadeInCredits 1.5s ease-out 1s forwards;
 }
+.target-list {
+  flex-shrink: 1;
+  overflow-y: auto;
+  padding-right: 8px;
+}
 
 @keyframes fadeInCredits {
   to {
