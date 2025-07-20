@@ -427,4 +427,25 @@ body {
 .target-card:hover::before {
   left: 125%;
 }
+#credits-footer {
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.6);
+  background: rgba(0, 0, 0, 0.5);
+  padding: 6px 10px;
+  border-radius: 10px;
+  font-style: italic;
+  z-index: 999;
+  pointer-events: none;
+  opacity: 0;
+  animation: fadeInCredits 1.5s ease-out 2s forwards;
+}
+
+@keyframes fadeInCredits {
+  to {
+    opacity: 1;
+  }
+}
 
