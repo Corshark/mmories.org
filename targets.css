@@ -694,6 +694,35 @@ body {
   text-overflow: ellipsis;
   max-width: 100%;
 }
+/* Scrollbar Track */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+/* Scrollbar Track Background */
+::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+}
+
+/* Scrollbar Thumb (the draggable part) */
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(120deg, #00ffffcc, #0088ffcc);
+  border-radius: 10px;
+  box-shadow: 0 0 6px #00ffff88;
+}
+
+/* On hover */
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(120deg, #00ffff, #0077ff);
+  box-shadow: 0 0 8px #00ffff;
+}
+
+/* Optional: make the corner area styled too (where vertical & horizontal bars meet) */
+::-webkit-scrollbar-corner {
+  background: rgba(0, 0, 0, 0.2);
+}
 
 @keyframes fadeInCredits {
   to {
