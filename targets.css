@@ -96,15 +96,22 @@ body {
   border: 1px solid #333;
   border-radius: 0.5rem;
   background: rgba(0, 0, 0, 0.4);
-  transition: background 0.2s;
+  transition: box-shadow 0.3s ease, background 0.3s ease;
   margin-bottom: 0.6rem;
   min-height: 4rem;
   font-size: clamp(0.9rem, 1.2vw, 1.1rem);
   line-height: 1.2;
   width: 90%;
-  max-width: 500px;
+  max-width: 700px;
   margin-left: auto;
   margin-right: auto;
+  box-shadow: 0 0 0 transparent;
+}
+
+/* Hover glow */
+.panel.center .target-entry:hover {
+  box-shadow: 0 0 10px 3px var(--glow-color, #0ff);
+  background: rgba(0, 0, 0, 0.6);
 }
 
 .panel.center .target-entry:hover {
