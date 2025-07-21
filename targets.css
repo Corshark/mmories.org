@@ -89,12 +89,24 @@ body {
 
 /* Center Panel Target Entries */
 .panel.center {
-  flex: 1.5; /* Makes center panel a bit wider */
+  flex: 1.5;
   padding: 1rem;
-  min-width: 0; /* Prevents overflow due to flexbox issues */
-  max-width: 800px; /* Optional: cap max width */
+  min-width: 0;
+  max-width: 800px;
   overflow-y: auto;
   overflow-x: hidden;
+}
+
+.panel.center .target-entry {
+  width: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.target-entry-wrapper {
+  padding: 0.25rem;
+  overflow: visible;
 }
 
 .panel.center .target-entry:hover {
@@ -102,16 +114,6 @@ body {
   z-index: 1;
   box-shadow: 0 0 10px 3px var(--glow-color, #0ff);
   background: rgba(0, 0, 0, 0.6);
-}
-.panel.center .target-entry {
-  width: 100%;
-  box-sizing: border-box;
-  overflow: hidden;
-  transition: transform 0.2s ease, background 0.2s ease;
-}
-.target-entry-wrapper {
-  padding: 0.25rem;
-  overflow: visible;
 }
 
 .panel.center {
@@ -270,27 +272,27 @@ body {
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap');
 
 .Btn {
-  width: clamp(100px, 8vw, 120px);
-  height: clamp(40px, 3.5vw, 45px);
+  width: clamp(80px, 6vw, 100px);
+  height: clamp(30px, 2.5vw, 35px);
   background-color: rgb(65, 64, 64);
   border: none;
-  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.342);
-  border-radius: 5px;
+  box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.342);
+  border-radius: 4px;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 7px;
+  gap: 5px;
   position: relative;
   overflow: hidden;
   transition-duration: 0.5s;
   font-family: 'Poppins', sans-serif;
-  font-size: clamp(0.85rem, 0.9vw, 0.95rem);
+  font-size: clamp(0.7rem, 0.8vw, 0.8rem);
 }
 
 .Btn:hover {
   background-color: #d468e0;
-  box-shadow: 5px 5px 15px rgba(212, 104, 224, 0.7);
+  box-shadow: 3px 3px 10px rgba(212, 104, 224, 0.7);
 }
 
 .Btn .text {
@@ -302,10 +304,10 @@ body {
 .Btn .effect {
   position: absolute;
   background: linear-gradient(to right, rgba(255, 255, 255, 0.22) 0%, transparent 60%);
-  width: 40px;
+  width: 30px;
   height: 100%;
   top: 0;
-  left: -50px;
+  left: -40px;
   transform: skewX(-20deg);
   animation: btn-effect 2.5s infinite;
   opacity: 0.8;
@@ -314,7 +316,7 @@ body {
 
 @keyframes btn-effect {
   0% {
-    left: -50px;
+    left: -40px;
   }
   100% {
     left: 120%;
@@ -324,8 +326,8 @@ body {
 .Btn .svgIcon {
   fill: white;
   stroke: white;
-  width: clamp(18px, 1.5vw, 20px);
-  height: clamp(18px, 1.5vw, 20px);
+  width: clamp(14px, 1.2vw, 16px);
+  height: clamp(14px, 1.2vw, 16px);
   user-select: none;
   pointer-events: none;
   transition: fill 0.3s, stroke 0.3s;
@@ -476,6 +478,17 @@ body {
   .center {
     flex: 0.72;
   }
+
+  .Btn {
+    width: clamp(75px, 5.5vw, 90px);
+    height: clamp(28px, 2.3vw, 32px);
+    font-size: clamp(0.65rem, 0.75vw, 0.75rem);
+  }
+
+  .Btn .svgIcon {
+    width: clamp(12px, 1vw, 14px);
+    height: clamp(12px, 1vw, 14px);
+  }
 }
 
 @media screen and (max-width: 1440px) {
@@ -502,6 +515,17 @@ body {
 
   .center {
     flex: 0.74;
+  }
+
+  .Btn {
+    width: clamp(70px, 5vw, 85px);
+    height: clamp(26px, 2.2vw, 30px);
+    font-size: clamp(0.6rem, 0.7vw, 0.7rem);
+  }
+
+  .Btn .svgIcon {
+    width: clamp(10px, 0.9vw, 12px);
+    height: clamp(10px, 0.9vw, 12px);
   }
 }
 
@@ -562,6 +586,17 @@ body {
     box-shadow: 0 0 8px #d468e0;
     background-color: rgba(212, 104, 224, 0.2);
   }
+
+  .Btn {
+    width: clamp(80px, 20vw, 100px);
+    height: clamp(30px, 8vw, 35px);
+    font-size: clamp(0.7rem, 2vw, 0.8rem);
+  }
+
+  .Btn .svgIcon {
+    width: clamp(12px, 3vw, 14px);
+    height: clamp(12px, 3vw, 14px);
+  }
 }
 
 @media screen and (max-width: 600px) {
@@ -606,6 +641,17 @@ body {
   .reveal-prompt:hover {
     background-color: rgba(53, 249, 251, 0.1);
     box-shadow: 0 0 10px #35f9fb;
+  }
+
+  .Btn {
+    width: clamp(70px, 18vw, 90px);
+    height: clamp(28px, 7vw, 32px);
+    font-size: clamp(0.65rem, 1.8vw, 0.75rem);
+  }
+
+  .Btn .svgIcon {
+    width: clamp(10px, 2.5vw, 12px);
+    height: clamp(10px, 2.5vw, 12px);
   }
 }
 
