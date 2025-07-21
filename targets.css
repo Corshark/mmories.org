@@ -659,7 +659,7 @@ body {
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap');
 
 .Btn {
-  width: clamp(60px, 15vw, 80px);
+  width: clamp(30px, 15vw, 40px);
   height: clamp(24px, 6vw, 28px);
   background-color: rgb(65, 64, 64);
   border: none;
