@@ -87,6 +87,21 @@ body {
   margin-bottom: 1rem;
 }
 
+/* Back to Home Button */
+.back-to-home {
+  width: clamp(80px, 8vw, 100px);
+  height: auto;
+  margin-bottom: 0.75rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: block;
+}
+
+.back-to-home:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 8px #d468e0;
+}
+
 /* Center Panel Target Entries */
 .panel.center {
   flex: 1.5;
@@ -139,6 +154,10 @@ body {
 
 .panel.center .target-name:hover {
   text-shadow: 0 0 6px #17c9e2;
+}
+
+.panel.center .LEO .target-tag {
+  background: #00cc00;
 }
 
 .panel.center .target-entry.impersonator .target-tag,
@@ -479,6 +498,10 @@ body {
     flex: 0.72;
   }
 
+  .back-to-home {
+    width: clamp(75px, 7.5vw, 95px);
+  }
+
   .Btn {
     width: clamp(75px, 5.5vw, 90px);
     height: clamp(28px, 2.3vw, 32px);
@@ -515,6 +538,10 @@ body {
 
   .center {
     flex: 0.74;
+  }
+
+  .back-to-home {
+    width: clamp(70px, 7vw, 90px);
   }
 
   .Btn {
@@ -587,6 +614,10 @@ body {
     background-color: rgba(212, 104, 224, 0.2);
   }
 
+  .back-to-home {
+    width: clamp(80px, 20vw, 100px);
+  }
+
   .Btn {
     width: clamp(80px, 20vw, 100px);
     height: clamp(30px, 8vw, 35px);
@@ -641,6 +672,10 @@ body {
   .reveal-prompt:hover {
     background-color: rgba(53, 249, 251, 0.1);
     box-shadow: 0 0 10px #35f9fb;
+  }
+
+  .back-to-home {
+    width: clamp(70px, 18vw, 90px);
   }
 
   .Btn {
