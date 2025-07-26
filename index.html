@@ -78,6 +78,10 @@
 
 <!-- SECTION 1 -->
 <section class="snap-section" style="padding-top: 40px;">
+  <!-- Secret Button -->
+  <a href="secret.html" class="secret-button" style="position: absolute; bottom: 40px; right: 40px; z-index: 5;">
+    <span class="secret-icon">🔍</span>
+  </a>
   <!-- Section intentionally left empty to maintain scroll snapping layout -->
 </section>
 
@@ -105,7 +109,6 @@
            <img src="images/targets.webp" alt="Targets" class="button-icon">
            </button>
           </a>
-
         </div>
         <div class="button-box">
           <button class="animated-button card2" onclick="window.location.href='banned-archive.html'">
@@ -186,7 +189,7 @@
     window.addEventListener('click', (e) => {
       if (e.target === donateModal) {
         donateModal.style.display = 'none';
-      }
+      });
     });
 
     if (copyBtn) {
