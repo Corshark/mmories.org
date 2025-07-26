@@ -49,6 +49,18 @@
       z-index: 1;
       pointer-events: none;
     }
+
+    /* Background image */
+    #bgImage {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
+      z-index: 0;
+      pointer-events: none;
+    }
   </style>
 </head>
 <body>
@@ -60,11 +72,14 @@
   </div>
 </header>
 
-<!-- BACKGROUND VIDEO -->
-<video autoplay muted loop id="bgVideo">
-  <source src="videos/your-video.mp4" type="video/mp4" />
-  Your browser does not support the video tag.
-</video>
+<!-- BACKGROUND IMAGE -->
+<img src="images/cat-background.webp" id="bgImage" alt="Cat Background" />
+
+<!-- BACKGROUND AUDIO -->
+<audio id="bgAudio" loop>
+  <source src="audio/static_heartbeat.mp3" type="audio/mpeg" />
+  Your browser does not support the audio tag.
+</audio>
 
 <!-- FLOATING SYMBOLS -->
 <div class="floating-symbol" id="symbol1">⋄</div>
@@ -105,9 +120,10 @@
   </div>
 </div>
 
-<!-- SCRIPT FOR FLOATING SYMBOLS -->
+<!-- SCRIPT FOR FLOATING SYMBOLS AND AUDIO -->
 <script>
   window.addEventListener('DOMContentLoaded', () => {
+    // Floating symbols animation
     const symbols = [
       { id: 'symbol1', radius: 100, speed: 10 },
       { id: 'symbol2', radius: 120, speed: 12 },
@@ -130,6 +146,14 @@
     }
 
     updatePositions();
+
+    // Play background audio on user interaction
+    const audio = document.getElementById('bgAudio');
+    document.body.addEventListener('click', () => {
+      if (audio.paused) {
+        audio.play().catch(err => console.log('Audio play failed:', err));
+      }
+    }, { once: true });
   });
 </script>
 </body>
