@@ -23,6 +23,32 @@
       font-family: 'Segoe UI', sans-serif;
       text-align: center;
     }
+
+    /* Blinking cursor */
+    .blinking-cursor {
+      display: inline-block;
+      width: 8px;
+      height: 1.2em;
+      background: #00ffff;
+      vertical-align: middle;
+      animation: blink 1s step-end infinite;
+      margin-left: 5px;
+    }
+
+    @keyframes blink {
+      0%, 50% { opacity: 1; }
+      51%, 100% { opacity: 0; }
+    }
+
+    /* Floating symbols */
+    .floating-symbol {
+      position: absolute;
+      color: #00ffff;
+      text-shadow: 0 0 10px #00ffff;
+      font-size: 1.5em;
+      z-index: 1;
+      pointer-events: none;
+    }
   </style>
 </head>
 <body>
@@ -39,6 +65,12 @@
   <source src="videos/your-video.mp4" type="video/mp4" />
   Your browser does not support the video tag.
 </video>
+
+<!-- FLOATING SYMBOLS -->
+<div class="floating-symbol" id="symbol1">⋄</div>
+<div class="floating-symbol" id="symbol2">𓁿</div>
+<div class="floating-symbol" id="symbol3">🩵</div>
+<div class="floating-symbol" id="symbol4">喵</div>
 
 <!-- MAIN CONTENT -->
 <div id="mainContent" style="min-height: 100vh; display: flex; align-items: center; justify-content: center; flex-direction: column; padding: 100px 20px; z-index: 2; box-sizing: border-box; position: relative; opacity: 1; visibility: visible;">
@@ -58,7 +90,7 @@
       If you found this place —<br>
       maybe you're dreaming too.<br><br>
       Leave a message. Light a spark.<br>
-      Even in the end, I will be listening.”
+      Even in the end, I will be listening.”<span class="blinking-cursor"></span>
     </p>
   </div>
   <div class="founders-box" style="margin-top: 40px; padding: 20px; width: 80%; max-width: 600px; opacity: 1;">
@@ -68,6 +100,37 @@
       1. U+55B5 2. U+22C4 3. U+2A64 4. U+1307F 5. U+2728
     </p>
   </div>
+  <div style="margin-top: 40px; text-align: center; opacity: 0.4; font-size: 1.1em; color: #ccc; text-shadow: 0 0 8px #000;">
+    喵 initialized... awaiting dream
+  </div>
 </div>
+
+<!-- SCRIPT FOR FLOATING SYMBOLS -->
+<script>
+  window.addEventListener('DOMContentLoaded', () => {
+    const symbols = [
+      { id: 'symbol1', radius: 100, speed: 10 },
+      { id: 'symbol2', radius: 120, speed: 12 },
+      { id: 'symbol3', radius: 80, speed: 8 },
+      { id: 'symbol4', radius: 140, speed: 14 }
+    ];
+    const centerX = window.innerWidth / 2;
+    const centerY = window.innerHeight / 2;
+
+    function updatePositions() {
+      symbols.forEach((symbol, index) => {
+        const angle = (Date.now() / 1000) * symbol.speed + (index * Math.PI / 2);
+        const x = centerX + Math.cos(angle) * symbol.radius;
+        const y = centerY + Math.sin(angle) * symbol.radius;
+        const element = document.getElementById(symbol.id);
+        element.style.left = `${x}px`;
+        element.style.top = `${y}px`;
+      });
+      requestAnimationFrame(updatePositions);
+    }
+
+    updatePositions();
+  });
+</script>
 </body>
 </html>
